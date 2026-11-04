@@ -1,0 +1,4242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>人间六事 · 五世</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --paper:#f4eee2;
+  --ink:#14110d; --ink1:#2b251d; --ink2:#584d3f; --ink3:#8b7c66; --ink4:#c2b39a;
+  --cinnabar:#a5322a; --azurite:#2f5a71; --ochre:#96652f; --jade:#4a6b52; --gold:#a9842f;
+  --song:"Songti SC","SimSun","Noto Serif SC",serif;
+  --kai:"Kaiti SC","KaiTi","STKaiti",serif;
+  --slow:cubic-bezier(.22,.61,.36,1);
+}
+html,body{height:100%}
+body{
+  background:
+    radial-gradient(120% 90% at 16% 2%,#fcf8ee 0%,rgba(252,248,238,0) 58%),
+    radial-gradient(90% 76% at 90% 98%,#e4dac4 0%,rgba(228,218,196,0) 60%),
+    linear-gradient(170deg,#f8f3e8 0%,#f0e8d8 44%,#e5dbc7 100%);
+  color:var(--ink); font-family:var(--song);
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:3;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.55'/></svg>");
+  opacity:.055; mix-blend-mode:multiply;
+}
+body::after{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:4;
+  box-shadow:inset 0 0 200px rgba(58,42,18,.20), inset 0 0 44px rgba(58,42,18,.10);
+}
+.screen{display:none}
+.screen.on{display:block; animation:pageIn .62s var(--slow) both}
+@keyframes pageIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.wrap{max-width:1080px;margin:0 auto;padding:56px 40px 88px;position:relative;z-index:2}
+.kai{font-family:var(--kai)}
+
+/* ── 卷首 ── */
+#sc-cover{height:100vh;min-height:660px;display:none}
+#sc-cover.on{display:flex;align-items:center;justify-content:center}
+.cover-in{position:relative;z-index:2;display:flex;gap:70px;align-items:center}
+.cover-t{writing-mode:vertical-rl;text-orientation:upright;
+  font-size:74px;letter-spacing:.30em;line-height:1.06;color:var(--ink);
+  text-shadow:0 1px 0 rgba(255,255,255,.5);}
+.cover-t{position:relative}
+.cover-t small{position:absolute;left:50%;bottom:-56px;transform:translateX(-50%);
+  writing-mode:horizontal-tb;white-space:nowrap;
+  font-size:12px;letter-spacing:.5em;color:var(--ink3)}
+.cover-l{max-width:330px}
+.cover-l p{font-family:var(--kai);font-size:14.5px;line-height:2.5;color:var(--ink2);letter-spacing:.12em}
+.cover-l p.hd{color:var(--ink);font-size:16px;letter-spacing:.2em;margin-bottom:16px}
+.cover-l .rule{width:44px;height:1px;background:rgba(92,76,51,.4);margin:22px 0}
+.cover-strip{position:absolute;left:0;right:0;bottom:0;height:230px;pointer-events:none;
+  background:url("assets/journey.webp") center 40%/cover no-repeat;
+  opacity:.34;mix-blend-mode:multiply;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 34%,#000 72%,transparent 100%);
+  mask-image:linear-gradient(180deg,transparent 0,#000 34%,#000 72%,transparent 100%);}
+.btn{display:inline-block;cursor:pointer;user-select:none;font-family:var(--kai);
+  font-size:13.5px;letter-spacing:.34em;padding:11px 26px 11px 30px;
+  color:var(--ink1);border:1px solid rgba(92,76,51,.34);background:rgba(255,253,247,.42);
+  transition:.42s var(--slow);position:relative}
+.btn:hover{background:rgba(255,253,247,.85);border-color:rgba(92,76,51,.6);
+  box-shadow:0 12px 28px -18px rgba(64,48,24,.7)}
+.btn.ghost{border-color:transparent;color:var(--ink3)}
+.btn.ghost:hover{color:var(--ink1);background:rgba(255,253,247,.5)}
+.btn.zin{border-color:rgba(165,50,42,.45);color:var(--cinnabar)}
+.btn.zin:hover{background:rgba(165,50,42,.07);box-shadow:none}
+.btn[data-off]{opacity:.34;pointer-events:none}
+
+/* ── 通用标题 ── */
+.hd-row{display:flex;align-items:flex-end;gap:16px;border-bottom:1px solid rgba(92,76,51,.2);
+  padding-bottom:13px;margin-bottom:34px}
+.hd-row h1{font-size:22px;font-weight:400;letter-spacing:.26em}
+.hd-row .sub{font-family:var(--kai);font-size:11.5px;letter-spacing:.3em;color:var(--ink3);
+  padding-bottom:3px}
+.hd-row .sp{flex:1}
+.hd-row .act{font-family:var(--kai);font-size:11.5px;letter-spacing:.26em;color:var(--ink3);
+  cursor:pointer;padding-bottom:3px;transition:.3s}
+.hd-row .act:hover{color:var(--cinnabar)}
+
+/* ── 五局盘 ── */
+.hub-note{font-family:var(--kai);font-size:12.5px;line-height:2.4;color:var(--ink2);
+  letter-spacing:.1em;margin-bottom:34px;max-width:640px}
+.hub-note b{color:var(--ink);font-weight:400;border-bottom:1px solid rgba(165,50,42,.35)}
+.lives{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.life-cell{position:relative;height:250px;border:1px solid rgba(92,76,51,.22);
+  background:linear-gradient(176deg,rgba(255,253,247,.62),rgba(244,236,219,.34));
+  padding:22px 18px;cursor:pointer;transition:.5s var(--slow);overflow:hidden}
+.life-cell:hover{transform:translateY(-3px);border-color:rgba(92,76,51,.48);
+  box-shadow:0 22px 44px -30px rgba(64,48,24,.66)}
+.life-cell .no{font-family:var(--kai);font-size:11px;letter-spacing:.3em;color:var(--ink3)}
+.life-cell .era{writing-mode:vertical-rl;text-orientation:upright;position:absolute;right:18px;
+  top:22px;font-size:26px;letter-spacing:.22em;color:var(--ink2)}
+.life-cell .era.an{color:var(--ink)}
+.life-cell .era.mo{color:var(--azurite)}
+.life-cell .yr{position:absolute;left:18px;bottom:52px;font-family:var(--kai);font-size:11px;
+  letter-spacing:.16em;color:var(--ink3)}
+.life-cell .bd{position:absolute;left:18px;bottom:22px;font-family:var(--kai);font-size:11.5px;
+  letter-spacing:.2em;color:var(--ink2)}
+.life-cell.done{background:linear-gradient(176deg,rgba(248,242,229,.9),rgba(232,222,203,.6))}
+.life-cell.done::after{content:"";position:absolute;inset:7px;border:1px solid rgba(92,76,51,.1)}
+.life-cell.lock{cursor:default;opacity:.5}
+.life-cell.lock:hover{transform:none;box-shadow:none;border-color:rgba(92,76,51,.22)}
+.life-cell .seal{position:absolute;right:16px;bottom:46px;width:30px;height:30px;border:1.5px solid rgba(165,50,42,.6);
+  color:var(--cinnabar);font-family:var(--kai);font-size:13px;display:flex;align-items:center;
+  justify-content:center;letter-spacing:0;transform:rotate(-4deg);opacity:.9}
+.hand-strip{margin-top:34px;padding:22px 26px;border-left:2px solid rgba(165,50,42,.28);
+  background:linear-gradient(90deg,rgba(255,253,247,.5),rgba(255,253,247,0))}
+.hand-strip .ttl{font-family:var(--kai);font-size:11px;letter-spacing:.34em;color:var(--ink3);margin-bottom:12px}
+.hand-strip p{font-family:var(--kai);font-size:13.5px;line-height:2.3;color:var(--ink1);letter-spacing:.1em}
+
+/* ── 掷局 ── */
+.roll-box{text-align:center;padding:72px 0 40px;position:relative;min-height:330px}
+.roll-era{font-size:96px;letter-spacing:.1em;color:var(--ink);font-family:var(--song);
+  line-height:1;transition:.3s}
+.roll-era.flick{opacity:.5;filter:blur(1.2px)}
+.roll-yr{margin-top:26px;font-family:var(--kai);font-size:15px;letter-spacing:.44em;color:var(--ink2)}
+.roll-gan{margin-top:12px;font-family:var(--kai);font-size:12px;letter-spacing:.3em;color:var(--ink3)}
+.roll-note{margin-top:30px;font-family:var(--kai);font-size:12px;line-height:2.2;color:var(--cinnabar);
+  letter-spacing:.12em}
+.origins{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+.origin{border:1px solid rgba(92,76,51,.22);padding:20px 20px 18px;cursor:pointer;
+  background:linear-gradient(176deg,rgba(255,253,247,.55),rgba(244,236,219,.28));
+  transition:.44s var(--slow);position:relative}
+.origin:hover{border-color:rgba(92,76,51,.5);transform:translateY(-3px);
+  box-shadow:0 20px 40px -30px rgba(64,48,24,.7)}
+.origin h4{font-size:15.5px;font-weight:400;letter-spacing:.18em;margin-bottom:10px}
+.origin .d{font-family:var(--kai);font-size:11.5px;line-height:2;color:var(--ink2);letter-spacing:.06em;
+  min-height:46px}
+.origin .six{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px 11px;font-family:var(--kai);
+  font-size:11.5px;color:var(--ink3);letter-spacing:.06em}
+.origin .six i{font-style:normal;color:var(--ink2)}
+.origin-solo{max-width:430px;margin:34px auto 0;padding:26px 28px 24px;cursor:default}
+.origin-solo:hover{transform:none;box-shadow:none;border-color:rgba(92,76,51,.22)}
+.origin-solo h4{font-size:18px;letter-spacing:.24em}
+.origin-solo .d{min-height:0}
+.origin-solo .tag{position:absolute;right:-8px;top:-12px;font-family:var(--kai);font-size:10.5px;
+  letter-spacing:.32em;color:var(--cinnabar);border:1px solid rgba(160,60,48,.55);
+  padding:4px 8px 4px 11px;background:rgba(252,248,238,.92);transform:rotate(5deg)}
+
+/* ── 排命：填自己的生辰 ── */
+.birth{max-width:560px;margin:13vh auto 0}
+.birth-lead{font-family:var(--kai);font-size:13px;line-height:2.5;letter-spacing:.14em;
+  color:var(--ink1);text-align:center;margin-bottom:44px}
+.birth-lead em{font-style:normal;color:var(--ink3);font-size:11.5px;letter-spacing:.1em}
+.bd-row{display:flex;align-items:flex-end;justify-content:center;gap:4px}
+.bd-row label{display:flex;align-items:flex-end;gap:5px}
+.bd-row input{width:74px;border:none;border-bottom:1px solid rgba(92,76,51,.42);
+  background:transparent;font-family:var(--kai);font-size:23px;text-align:center;
+  color:var(--ink);padding:4px 2px 8px;outline:none;transition:border-color .3s}
+.bd-row input#by{width:94px}
+.bd-row input:focus{border-bottom-color:var(--cinnabar)}
+.bd-row input::placeholder{color:rgba(92,76,51,.24)}
+.bd-row label span{font-family:var(--kai);font-size:12px;letter-spacing:.12em;
+  color:var(--ink3);padding-bottom:13px}
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+input[type=number]{-moz-appearance:textfield}
+.bd-prev{margin-top:32px;text-align:center;font-family:var(--kai);font-size:14px;
+  letter-spacing:.18em;color:var(--ink1);min-height:24px}
+.bd-prev.empty{color:rgba(92,76,51,.3);font-size:12px;letter-spacing:.2em}
+.bd-tip{margin-top:18px;text-align:center;font-family:var(--kai);font-size:11.5px;
+  letter-spacing:.1em;color:var(--ink3);line-height:2}
+.bd-tip a{color:var(--ink2);border-bottom:1px dotted rgba(92,76,51,.4);cursor:pointer;
+  text-decoration:none;transition:color .3s}
+.bd-tip a:hover{color:var(--cinnabar);border-bottom-color:var(--cinnabar)}
+.bd-err{margin-top:16px;text-align:center;font-family:var(--kai);font-size:12px;
+  letter-spacing:.14em;color:var(--cinnabar);min-height:18px}
+.bd-outs{display:flex;justify-content:center;gap:30px;margin-top:38px;align-items:baseline}
+.bd-outs .ghost{font-family:var(--kai);font-size:12px;letter-spacing:.18em;color:var(--ink3);
+  cursor:pointer;transition:color .3s}
+.bd-outs .ghost:hover{color:var(--cinnabar)}
+
+/* ── 一局 ── */
+.life-top{display:flex;align-items:baseline;gap:22px;padding-bottom:12px;
+  border-bottom:1px solid rgba(92,76,51,.2);margin-bottom:26px;font-family:var(--kai);
+  font-size:11.5px;letter-spacing:.26em;color:var(--ink3)}
+.life-top .em{color:var(--ink);font-size:13px;letter-spacing:.3em}
+.life-top .sp{flex:1}
+.life-top .shou b{color:var(--cinnabar);font-weight:400}
+.stage{display:grid;grid-template-columns:212px 1fr;gap:44px;align-items:start}
+.sixbar{border-top:1px solid rgba(92,76,51,.2)}
+.row6{display:grid;grid-template-columns:30px 1fr 34px;align-items:center;gap:12px;
+  padding:13px 0;border-bottom:1px solid rgba(92,76,51,.13)}
+.row6 .k{font-family:var(--kai);font-size:13px;letter-spacing:.14em;color:var(--ink1)}
+.row6 .track{height:2px;background:rgba(92,76,51,.14);position:relative;overflow:visible}
+.row6 .fill{position:absolute;left:0;top:-1px;height:4px;transition:width .8s var(--slow);
+  background:var(--ink2)}
+.row6 .n{font-family:var(--kai);font-size:11.5px;text-align:right;color:var(--ink3);
+  transition:color .4s}
+.row6.up .n{color:var(--cinnabar)}
+.row6.dn .n{color:var(--azurite)}
+.row6[data-k="室"] .fill{background:var(--jade)}
+.row6[data-k="财"] .fill{background:var(--ochre)}
+.row6[data-k="子"] .fill{background:var(--azurite)}
+.row6[data-k="禄"] .fill{background:var(--cinnabar)}
+.row6[data-k="寿"] .fill{background:var(--ink2)}
+.row6[data-k="誉"] .fill{background:var(--gold)}
+/* 未明：一格也不给你看。只剩虚线，和一个"·" */
+.row6.veiled .k{color:var(--ink3)}
+.row6.veiled .track{height:2px;background:
+  repeating-linear-gradient(90deg,rgba(92,76,51,.17) 0 2px,transparent 2px 9px)}
+.row6.veiled .n{color:rgba(92,76,51,.42);letter-spacing:.24em}
+.row6.veiled .fill{display:none}
+.row6.shown{animation:rowIn .9s var(--slow) both}
+@keyframes rowIn{0%{opacity:0;transform:translateX(-8px)}100%{opacity:1;transform:none}}
+.inknum{margin-top:26px;font-family:var(--kai);font-size:10.5px;letter-spacing:.2em;
+  color:var(--ink3);line-height:2.1}
+
+.card{position:relative;border:1px solid rgba(92,76,51,.24);
+  background:linear-gradient(178deg,rgba(255,253,247,.92),rgba(246,238,222,.72));
+  box-shadow:0 36px 70px -46px rgba(64,48,24,.6);padding:34px 38px 30px}
+.card::after{content:"";position:absolute;inset:7px;border:1px solid rgba(92,76,51,.09);pointer-events:none}
+.card-h{position:relative;height:96px;margin:-34px -38px 24px;background-size:cover;
+  background-position:center 44%;opacity:.38;mix-blend-mode:multiply;filter:contrast(1.05) sepia(.06);
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 18%,#000 62%,transparent 100%);
+  mask-image:linear-gradient(180deg,transparent 0,#000 18%,#000 62%,transparent 100%)}
+.card .meta{font-family:var(--kai);font-size:10.5px;letter-spacing:.3em;color:var(--ink3);
+  margin-bottom:12px}
+.card h3{font-size:23px;font-weight:400;letter-spacing:.2em;margin-bottom:18px}
+.card .body{font-family:var(--kai);font-size:14px;line-height:2.32;color:var(--ink1);
+  letter-spacing:.06em;max-width:640px}
+.card .echo{margin-top:14px;font-family:var(--kai);font-size:11.5px;color:var(--ink3);
+  letter-spacing:.1em;border-top:1px dashed rgba(92,76,51,.2);padding-top:12px}
+.opts{margin-top:26px;border-top:1px solid rgba(92,76,51,.18)}
+.opt{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;padding:16px 6px;
+  border-bottom:1px solid rgba(92,76,51,.13);cursor:pointer;transition:.38s var(--slow)}
+.opt:hover{background:linear-gradient(90deg,rgba(92,76,51,.05),rgba(92,76,51,0));
+  padding-left:14px;padding-right:2px}
+.opt .t{font-family:var(--kai);font-size:15px;letter-spacing:.16em;color:var(--ink)}
+.opt .t em{font-style:normal;color:var(--ink3);font-size:12px;letter-spacing:.06em;margin-left:14px}
+.opt .c{font-family:var(--kai);font-size:10.5px;letter-spacing:.18em;color:var(--ink4)}
+.opt.dead{opacity:.3;pointer-events:none;text-decoration:line-through}
+.flash{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:9;
+  text-align:center;pointer-events:none}
+.deltas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.deltas span{font-family:var(--kai);font-size:15px;letter-spacing:.1em;padding:6px 12px;
+  background:rgba(255,253,247,.82);border:1px solid rgba(92,76,51,.2);
+  animation:dpop 1.5s var(--slow) both}
+@keyframes dpop{0%{opacity:0;transform:translateY(8px) scale(.96)}
+  18%{opacity:1;transform:none}78%{opacity:1}100%{opacity:0;transform:translateY(-14px)}}
+/* 透：某一格到了头，六事全亮 */
+.flash.reveal{left:0;top:0;width:100%;height:100%;transform:none;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(247,243,235,.8);backdrop-filter:blur(2px)}
+.reveal .rv{padding:26px 34px 24px;background:rgba(255,253,247,.96);
+  border:1px solid rgba(92,76,51,.28);position:relative;
+  min-width:392px;text-align:center;
+  box-shadow:0 14px 44px rgba(70,58,40,.14);
+  animation:dpop 3.3s var(--slow) both}
+.reveal .seal{position:absolute;right:-14px;top:-16px;width:44px;height:44px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--kai);font-size:20px;color:#fff;background:var(--cinnabar);
+  border:none;opacity:1;transform:rotate(7deg);transition:none;
+  box-shadow:0 2px 10px rgba(150,40,30,.28)}
+.reveal .t{font-size:17px;letter-spacing:.34em;margin-bottom:10px}
+.reveal .s{font-family:var(--kai);font-size:11.5px;letter-spacing:.12em;
+  color:var(--ink2);margin-bottom:16px}
+.reveal .nums{display:flex;gap:13px;justify-content:center;flex-wrap:wrap;
+  font-family:var(--kai);font-size:12px;letter-spacing:.1em;color:var(--ink3)}
+.reveal .nums b{font-weight:400;color:var(--ink);margin-left:4px}
+
+/* ── 局末 ── */
+.verdict{text-align:center;padding:18px 0 8px}
+.verdict .big{font-size:30px;letter-spacing:.3em;margin-bottom:18px}
+.verdict .why{font-family:var(--kai);font-size:13.5px;line-height:2.3;color:var(--ink2);letter-spacing:.1em}
+.hand-card{margin:44px auto 0;max-width:640px;border-top:1px solid rgba(92,76,51,.22);
+  border-bottom:1px solid rgba(92,76,51,.22);padding:30px 0}
+.hand-card .ttl{font-family:var(--kai);font-size:10.5px;letter-spacing:.42em;color:var(--ink3);
+  text-align:center;margin-bottom:22px}
+.hand-card p{font-family:var(--kai);font-size:15px;line-height:2.6;color:var(--ink1);
+  letter-spacing:.12em;text-align:center}
+.edits{max-width:640px;margin:30px auto 0;text-align:center}
+.edits .ttl{font-family:var(--kai);font-size:10.5px;letter-spacing:.42em;color:var(--cinnabar);margin-bottom:12px}
+.edits p{font-family:var(--kai);font-size:12.5px;line-height:2.2;color:var(--ink2);letter-spacing:.1em}
+.center{text-align:center;margin-top:46px}
+
+/* ── 命书 ── */
+.book{position:relative;max-width:760px;margin:0 auto;padding:56px 54px 46px;
+  background:linear-gradient(178deg,rgba(255,253,247,.94),rgba(243,234,215,.8));
+  border:1px solid rgba(92,76,51,.24);box-shadow:0 40px 84px -50px rgba(64,48,24,.66)}
+.book::after{content:"";position:absolute;inset:8px;border:1px solid rgba(92,76,51,.1);pointer-events:none}
+.birth-line{text-align:center;font-family:var(--kai);font-size:11.5px;letter-spacing:.26em;
+  color:var(--ink3);margin-bottom:30px}
+.book::before{content:"";position:absolute;left:50%;top:-1px;transform:translateX(-50%);
+  width:64px;height:3px;background:var(--cinnabar);opacity:.46}
+.book .pil{display:flex;flex-direction:row-reverse;gap:34px;justify-content:center}
+.zhu{writing-mode:vertical-rl;text-orientation:upright;font-size:15px;letter-spacing:.34em;
+  color:var(--ink1);line-height:1}
+.zhu.lead{font-size:11.5px;letter-spacing:.5em;color:var(--ink3)}
+.cai-list{margin-top:40px;border-top:1px solid rgba(92,76,51,.2)}
+.cai{display:grid;grid-template-columns:34px 236px 66px 1fr;gap:14px;align-items:center;
+  padding:14px 2px;border-bottom:1px solid rgba(92,76,51,.12)}
+.cai .k{font-family:var(--kai);font-size:14px;letter-spacing:.16em}
+.cai .track{height:2px;background:rgba(92,76,51,.13);position:relative}
+.cai .fill{position:absolute;left:0;top:-1px;height:4px;background:var(--ink1);
+  width:0;transition:width 1.3s var(--slow)}
+.cai .v{font-family:var(--kai);font-size:12px;text-align:center;color:var(--ink2);letter-spacing:.08em}
+.cai .note{font-family:var(--kai);font-size:11.5px;color:var(--ink3);letter-spacing:.1em}
+.cai.top .fill{background:var(--cinnabar)}
+.cai.top .note{color:var(--cinnabar)}
+.gates{margin-top:34px;display:flex;gap:0;justify-content:center;
+  border-top:1px solid rgba(92,76,51,.18);padding-top:22px}
+.gates div{text-align:center;flex:1;font-family:var(--kai);font-size:12px;letter-spacing:.16em;
+  color:var(--ink2);position:relative}
+.gates div+div::before{content:"";position:absolute;left:0;top:4px;bottom:4px;width:1px;
+  background:rgba(92,76,51,.14)}
+.gates b{display:block;font-weight:400;font-size:19px;color:var(--ink);letter-spacing:.1em;margin-bottom:6px}
+.book-foot{margin-top:30px;text-align:center;font-family:var(--kai);font-size:11px;
+  letter-spacing:.24em;color:var(--ink3)}
+.seal{position:absolute;right:64px;bottom:40px;width:52px;height:52px;border:2px solid rgba(165,50,42,.62);
+  color:var(--cinnabar);font-family:var(--kai);font-size:15px;line-height:1.05;
+  display:flex;align-items:center;justify-content:center;transform:rotate(-3.5deg);
+  opacity:0;transition:opacity 1s ease .9s;letter-spacing:0;text-align:center}
+.seal.on{opacity:.92}
+
+/* ── 声音开关 ── */
+.sfx{position:fixed;right:20px;bottom:16px;z-index:24;cursor:pointer;
+  font-family:var(--kai);font-size:11.5px;letter-spacing:.22em;line-height:1;
+  color:var(--ink2);opacity:.78;padding:6px 7px 6px 9px;
+  transition:opacity .35s var(--slow),color .35s var(--slow);user-select:none}
+.sfx:hover{opacity:1;color:var(--cinnabar)}
+.sfx.off{opacity:.3}
+.sfx.off:hover{opacity:.62}
+
+/* ── 天机 ── */
+.ge{max-width:680px;margin:0 auto;text-align:center}
+.ge .name{font-size:44px;letter-spacing:.36em;margin:12px 0 24px}
+.ge .say{font-family:var(--kai);font-size:18px;letter-spacing:.18em;color:var(--ink1);
+  line-height:2.1;padding:26px 0;border-top:1px solid rgba(92,76,51,.2);
+  border-bottom:1px solid rgba(92,76,51,.2)}
+.ge .eff{margin-top:26px;font-family:var(--kai);font-size:12.5px;line-height:2.3;
+  color:var(--ink2);letter-spacing:.1em}
+.tag{display:inline-block;font-family:var(--kai);font-size:10px;letter-spacing:.3em;
+  color:var(--ink3);border:1px solid rgba(92,76,51,.24);padding:4px 10px}
+
+html.static *{animation:none !important;transition:none !important}
+.six-final{display:flex;gap:0;justify-content:center;max-width:560px;margin:26px auto 0;
+  border-top:1px solid rgba(92,76,51,.16);border-bottom:1px solid rgba(92,76,51,.16);padding:14px 0}
+.six-final div{flex:1;text-align:center;font-family:var(--kai);position:relative}
+.six-final div+div::before{content:"";position:absolute;left:0;top:2px;bottom:2px;width:1px;background:rgba(92,76,51,.12)}
+.six-final span{display:block;font-size:10.5px;letter-spacing:.24em;color:var(--ink3);margin-bottom:6px}
+.six-final b{font-weight:400;font-size:16px;color:var(--ink1)}
+#sc-life .wrap{padding-top:13vh}
+#sc-hand .wrap{padding-top:9vh}
+
+@media (max-width:900px){
+  .wrap{padding:34px 22px 64px}
+  .cover-in{flex-direction:column;gap:34px}
+  .cover-t{font-size:52px}
+  .lives{grid-template-columns:repeat(2,1fr)}
+  .stage{grid-template-columns:1fr;gap:26px}
+  .origins{grid-template-columns:1fr}
+  .card-h{margin:-34px -22px 20px}
+  .card{padding:26px 22px}
+  .book{padding:36px 22px 30px}
+  .seal{right:26px;bottom:24px}
+}
+</style>
+</head>
+<body>
+
+<!-- 声音开关：一个字的钮，右下角，不抢戏 -->
+<span class="sfx" id="sfxBtn" title="声音">音</span>
+
+<!-- 卷首 -->
+<section class="screen on" id="sc-cover">
+  <div class="cover-strip"></div>
+  <div class="cover-in">
+    <div class="cover-t">人間六事<small>五世 · 一枚八字</small></div>
+    <div class="cover-l">
+      <p class="hd">室、财、子、禄、寿、誉。</p>
+      <p>六事皆求，终不能全。<br>这不是数值平衡，是设定本身。</p>
+      <div class="rule"></div>
+      <p>五世只给你一个八字。<br>第一世你看不见它，<br>第五世它才开口。</p>
+      <div class="rule"></div>
+      <p style="color:var(--ink3);font-size:12.5px">命不动，人动。</p>
+      <div style="margin-top:34px;display:flex;gap:14px" id="coverBtns"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 五局盘 -->
+<section class="screen" id="sc-hub">
+  <div class="wrap">
+    <div class="hd-row">
+      <h1>五 世</h1>
+      <span class="sub" id="hubSub">一魂五世 · 古或今，不由你挑</span>
+      <span class="sp"></span>
+      <span class="act" id="hubReset">清 卷</span>
+    </div>
+    <div class="hub-note" id="hubNote"></div>
+    <div class="lives" id="lives"></div>
+    <div id="hubHand"></div>
+    <div class="center" id="hubAct"></div>
+  </div>
+</section>
+
+<section class="screen" id="sc-birth">
+  <div class="wrap">
+    <div class="hd-row">
+      <h1>排 命</h1>
+      <span class="sub">这一副八字，锁你五世</span>
+    </div>
+    <div class="birth">
+      <p class="birth-lead">
+        生在哪一天，由父母定；活成什么样，由你定。<br>
+        把出生时刻填进来，这副八字就是你五世的底牌。<br>
+        <em>只存在这台机器的浏览器里，不上传，也不联网。</em>
+      </p>
+      <div class="bd-row">
+        <label><input id="by" type="number" inputmode="numeric" placeholder="1990" maxlength="4"><span>年</span></label>
+        <label><input id="bm" type="number" inputmode="numeric" placeholder="6"><span>月</span></label>
+        <label><input id="bd" type="number" inputmode="numeric" placeholder="15"><span>日</span></label>
+        <label><input id="bh" type="number" inputmode="numeric" placeholder="8"><span>时</span></label>
+      </div>
+      <div class="bd-prev empty" id="bdPreview">填完四样，这里会先排给你看</div>
+      <div class="bd-tip">
+        时辰按 0–23 填。<a id="bdNoon">不知道几点？按午时（12 点）算</a>。
+      </div>
+      <div class="bd-err" id="bdErr"></div>
+      <div class="bd-outs">
+        <span class="btn zin" id="bdGo">定 命</span>
+        <span class="ghost" id="bdRand">不用我的，随便给我一副</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 掷局 -->
+<section class="screen" id="sc-roll">
+  <div class="wrap">
+    <div class="hd-row">
+      <h1 id="rollTitle">掷 局</h1>
+      <span class="sub">古 1494—1594 ｜ 今 2020—2032</span>
+    </div>
+    <div class="roll-box">
+      <div class="roll-era" id="rollEra">　</div>
+      <div class="roll-yr" id="rollYr"></div>
+      <div class="roll-gan" id="rollGan"></div>
+      <div class="roll-note" id="rollNote"></div>
+    </div>
+    <div id="originBox"></div>
+  </div>
+</section>
+
+<!-- 一局 -->
+<section class="screen" id="sc-life">
+  <div class="wrap">
+    <div class="life-top">
+      <span class="em" id="luNo">第 一 局</span>
+      <span id="luEra"></span>
+      <span class="sp"></span>
+      <span id="luAge"></span>
+      <span class="shou" id="luShou"></span>
+    </div>
+    <div class="stage">
+      <div>
+        <div class="sixbar" id="sixBar"></div>
+        <div class="inknum" id="inkHint"></div>
+      </div>
+      <div id="cardBox"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 局末 -->
+<section class="screen" id="sc-hand">
+  <div class="wrap">
+    <div class="hd-row">
+      <h1 id="handTitle">第 一 局 · 卒</h1>
+      <span class="sub" id="handSub"></span>
+    </div>
+    <div id="handBody"></div>
+  </div>
+</section>
+
+<!-- 命书 -->
+<section class="screen" id="sc-book">
+  <div class="wrap">
+    <div class="hd-row">
+      <h1>命 书</h1>
+      <span class="sub">五世已毕 · 此魂之柱</span>
+    </div>
+    <div id="bookBody"></div>
+  </div>
+</section>
+
+<!-- 天机 -->
+<section class="screen" id="sc-tianji">
+  <div class="wrap">
+    <div class="hd-row">
+      <h1>窥 天 机</h1>
+      <span class="sub">八字格局</span>
+    </div>
+    <div id="tianjiBody"></div>
+  </div>
+</section>
+
+<script>
+/* ══════════════ 基础 ══════════════ */
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const R = n => Math.floor(Math.random() * n);
+const pick = a => a[R(a.length)];
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const KEY = 'renjian_liushi_v1';
+
+const GAN = '甲乙丙丁戊己庚辛壬癸';
+const ZHI = '子丑寅卯辰巳午未申酉戌亥';
+const GAN_WX = {甲:'木',乙:'木',丙:'火',丁:'火',戊:'土',己:'土',庚:'金',辛:'金',壬:'水',癸:'水'};
+const ZHI_WX = {子:'水',丑:'土',寅:'木',卯:'木',辰:'土',巳:'火',午:'火',未:'土',申:'金',酉:'金',戌:'土',亥:'水'};
+const WX_CAI = {木:'智',火:'言',土:'忍',金:'体',水:'巧'};
+const SHENG = {木:'火',火:'土',土:'金',金:'水',水:'木'};
+const HE = ['子丑','寅亥','卯戌','辰酉','巳申','午未'];
+const CHONG = ['子午','丑未','寅申','卯酉','辰戌','巳亥'];
+const SIXK = ['室','财','子','禄','寿','誉'];
+const CAIK = ['智','体','言','巧','忍','缘'];
+
+/* ══════════════ 八字 ══════════════ */
+function ganZhiOfYear(y){
+  const a = ((y - 4) % 10 + 10) % 10, b = ((y - 4) % 12 + 12) % 12;
+  return [GAN[a], ZHI[b]];
+}
+// 五虎遁：年干→寅月干
+const TIGER = ['丙','戊','庚','壬','甲'];
+function monthPillar(yearGan, zhiIdx){
+  const yi = GAN.indexOf(TIGER[GAN.indexOf(yearGan) % 5]);
+  const k = ((zhiIdx - 2) + 12) % 12;             // 寅=0
+  return [GAN[(yi + k) % 10], ZHI[zhiIdx]];
+}
+// 五鼠遁：日干→子时干
+const RAT = ['甲','丙','戊','庚','壬'];
+function hourPillar(dayGan, zhiIdx){
+  const zi = GAN.indexOf(RAT[GAN.indexOf(dayGan) % 5]);
+  return [GAN[(zi + zhiIdx) % 10], ZHI[zhiIdx]];
+}
+
+function makeBazi(){
+  const y = 1500 + R(90);
+  const [yg] = ganZhiOfYear(y);
+  const mi = R(12);
+  const m = monthPillar(yg, mi);
+  const di = R(60);
+  const d = [GAN[di % 10], ZHI[di % 12]];
+  const hi = R(12);
+  const h = hourPillar(d[0], hi);
+  return [ganZhiOfYear(y).join(''), m.join(''), d.join(''), h.join('')];
+}
+
+/* ── 真排盘：公历生辰 → 四柱 ──────────────────────────────────
+   年柱以立春分界，月柱以十二「节」分界，日柱按儒略日直推，
+   时柱走五鼠遁。节气用太阳视黄经反解（低精度天文公式），
+   与实际交节时刻可能差十几分钟——出生贴着交节的人，四柱会有出入。 */
+const RAD = Math.PI / 180;
+
+function jdOf(y, m, d){
+  const a = Math.floor((14 - m) / 12);
+  const yy = y + 4800 - a;
+  const mm = m + 12 * a - 3;
+  return d + Math.floor((153 * mm + 2) / 5) + 365 * yy
+    + Math.floor(yy / 4) - Math.floor(yy / 100) + Math.floor(yy / 400) - 32045;
+}
+
+function sunLon(J){
+  const n = J - 2451545.0;
+  const L = 280.460 + 0.9856474 * n;
+  const g = (357.528 + 0.9856003 * n) * RAD;
+  const T = n / 36525;
+  const om = (125.04 - 1934.136 * T) * RAD;
+  const lam = L + 1.915 * Math.sin(g) + 0.020 * Math.sin(2 * g)
+    + 0.00569 - 0.00478 * Math.sin(om);
+  return ((lam % 360) + 360) % 360;
+}
+
+// 十二「节」：0 小寒 1 立春 2 惊蛰 3 清明 4 立夏 5 芒种
+//            6 小暑 7 立秋 8 白露 9 寒露 10 立冬 11 大雪
+const TERM_DEG = [285, 315, 345, 15, 45, 75, 105, 135, 165, 195, 225, 255];
+const TERM_GUESS = [[1,6],[2,4],[3,6],[4,5],[5,6],[6,6],[7,7],[8,8],[9,8],[10,8],[11,7],[12,7]];
+
+function termJD(y, k){
+  const g = TERM_GUESS[k];
+  let J = jdOf(y, g[0], g[1]) - 0.5, target = TERM_DEG[k];
+  for (let i = 0; i < 8; i++){
+    const diff = ((target - sunLon(J) + 540) % 360) - 180;
+    J += diff / 0.9856474;
+    if (Math.abs(diff) < 1e-7) break;
+  }
+  return J;
+}
+
+function pillarsOf(y, m, d, h){
+  const Jut = jdOf(y, m, d) - 0.5 + h / 24 - 8 / 24;      // 北京时 → UT
+  // 年：以立春为界
+  const gy = Jut < termJD(y, 1) ? y - 1 : y;
+  const nz = ganZhiOfYear(gy).join('');
+  // 月：以「节」为界；一月初尚未到小寒，仍属上一年大雪（子月）
+  let k = -1;
+  for (let i = 0; i < 12; i++) if (Jut >= termJD(y, i)) k = i;
+  if (k < 0) k = 11;
+  const ZHI_OF_TERM = [1,2,3,4,5,6,7,8,9,10,11,0];
+  const mz = monthPillar(nz[0], ZHI_OF_TERM[k]).join('');
+  // 日：子时（23 点）换日
+  let Jd = jdOf(y, m, d);
+  if (h >= 23) Jd += 1;
+  const di = ((Jd + 49) % 60 + 60) % 60;
+  const dz = GAN[di % 10] + ZHI[di % 12];
+  // 时：五鼠遁
+  const sz = hourPillar(dz[0], Math.floor(((h + 1) % 24) / 2)).join('');
+  return [nz, mz, dz, sz];
+}
+
+function analyseBazi(pillars){
+  const chars = pillars.join('').split('');
+  const wx = {木:0,火:0,土:0,金:0,水:0};
+  chars.forEach(c => { const w = GAN_WX[c] || ZHI_WX[c]; if (w) wx[w]++; });
+
+  const dg = pillars[2][0], dz = pillars[2][1];
+  const mz = pillars[1][1];
+  const main = WX_CAI[GAN_WX[dg]];
+  const dw = GAN_WX[dg], mw = ZHI_WX[mz];
+  const de = (mw === dw || SHENG[mw] === dw);
+
+  const cap = {};
+  CAIK.forEach(k => { cap[k] = 78; });
+  for (const w in wx){
+    const c = wx[w], k = WX_CAI[w];
+    let v = 78;
+    if (c === 0) v = 58;
+    else if (c === 1) v = 70;
+    else if (c >= 4) v = 88;
+    cap[k] = v;
+  }
+  cap[main] = clamp(cap[main] + (de ? 15 : -15), 5, 95);
+  // 主才封顶 95：旺且得时
+  if (wx[GAN_WX[dg]] >= 4 && de) cap[main] = 95;
+
+  // 缘：合冲
+  const zhis = [pillars[0][1], pillars[1][1], pillars[2][1], pillars[3][1]];
+  let he = 0, ch = 0;
+  for (let i = 0; i < 4; i++) for (let j = i + 1; j < 4; j++){
+    const p = zhis[i] + zhis[j];
+    if (HE.includes(p) || HE.includes(zhis[j] + zhis[i])) he++;
+    if (CHONG.includes(p) || CHONG.includes(zhis[j] + zhis[i])) ch++;
+  }
+  cap['缘'] = clamp(60 + 12 * he - 12 * ch, 5, 90);
+
+  const gates = [
+    25 + (ZHI.indexOf(dz) % 11),
+    40 + (ZHI.indexOf(pillars[0][1]) % 11),
+    55 + (ZHI.indexOf(pillars[3][1]) % 11)
+  ];
+
+  const init = {};
+  CAIK.forEach(k => { init[k] = clamp(25 + wx[Object.keys(WX_CAI).find(w => WX_CAI[w] === k)] * 8, 5, cap[k]); });
+  init['缘'] = clamp(60 + 12 * he - 12 * ch, 5, cap['缘']);
+
+  return { pillars, wuxing: wx, main, de, cap, gates, init, he, ch };
+}
+
+/* ══════════════ 出身 ══════════════ */
+const ORIGINS = [
+  { id:'guan', an:'官宦子弟', mo:'体制内家庭', six:{室:30,财:55,子:0,禄:45,寿:70,誉:55},
+    d:'父亲的政敌。你入仕第一天，就有人在等你的错。',
+    dMo:'父亲的人脉，也是父亲的对手。你上班第一天，就有人在等你的错。' },
+  { id:'fu', an:'富二代', mo:'生意人家', six:{室:25,财:85,子:0,禄:10,寿:62,誉:25},
+    d:'银钱通神。但你家那笔钱，别人一直记着。' },
+  { id:'shu', an:'书香门第', mo:'教师家庭', six:{室:20,财:30,子:0,禄:30,寿:66,誉:70},
+    d:'父亲的功名未竟。你不考，是不孝；你考不上，也是不孝。',
+    dMo:'父亲的学没上完。你考不上，是他的遗憾；你考上了，他也不在了。' },
+  { id:'qiao', an:'家有南洋客', mo:'海外亲戚', six:{室:15,财:60,子:0,禄:15,寿:68,誉:40},
+    d:'退路。你总比别人多一条能走的路，所以你也总比别人更早想走。' },
+  { id:'dan', an:'单亲', mo:'单亲', six:{室:35,财:18,子:0,禄:12,寿:62,誉:42},
+    d:'早熟。你所有升迁的机会，都会撞上家里那一场病。' },
+  { id:'gu', an:'父母双亡', mo:'留守长大', six:{室:0,财:5,子:0,禄:10,寿:58,誉:30},
+    d:'无援，也没人拖累。你要找一个能叫"家"的地方，可能一辈子找不到。' },
+  { id:'jiang', an:'匠户', mo:'技工家庭', six:{室:20,财:35,子:0,禄:5,寿:70,誉:40},
+    d:'手艺。你能把事做成，但籍册上的名字，儿子的名字也在上面。',
+    dMo:'手艺。你能把事做成，但档案上那一栏写着你，儿子的那一栏也写着。' },
+  { id:'nong', an:'农家', mo:'县城长大', six:{室:20,财:15,子:0,禄:5,寿:60,誉:45},
+    d:'能忍。但每年秋后，总有人在秤上做手脚。',
+    dMo:'能忍。但每一笔算下来，总有人在中间抽一道。' },
+  { id:'shi', an:'市井小贩', mo:'开小店的', six:{室:15,财:25,子:0,禄:0,寿:63,誉:25},
+    d:'消息灵。衙役、地痞、行头，三家轮着来。',
+    dMo:'消息灵。城管、地头、上游的供货商，三家轮着来。' },
+  { id:'jun', an:'军户', mo:'退伍军人家庭', six:{室:15,财:20,子:0,禄:20,寿:58,誉:50},
+    d:'一纸调防文书，能把你从家门口调到三千里外。',
+    dMo:'一纸调令，能把你从家门口调到三千公里外。' },
+  { id:'zui', an:'罪臣之后', mo:'父辈出事', six:{室:10,财:25,子:0,禄:0,寿:66,誉:15},
+    d:'原罪。一切审查类的事，你都差一口气。' },
+  { id:'chong', an:'继母当家', mo:'重组家庭', six:{室:15,财:30,子:0,禄:15,寿:67,誉:35},
+    d:'夹缝。家里的东西都要争，你比谁都会看人脸色。' }
+];
+
+/* ══════════════ 职业：三条轴（§4） ══════════════
+   职业是"干什么活"，轨是"被归到哪一类"。两者独立（见 TRACK）。
+   禄 = 组织授予的位置。市井无禄，所以财与誉的上限各 +10 相偿——
+   代价是任何一件官面上的事，你都没有"位"可挡。
+   f = 每折（四年）的六项常态流量，取代从前全局一律的 +5 / +4 / −4。 */
+const JOBS = [
+  /* ── 仕：有"位"的人 ── */
+  { id:'wen', axis:'仕', an:'文官', mo:'公务员', luCap:100,
+    f:{禄:6, 财:1, 誉:1, 寿:-5, 室:0},
+    d:'位子就是你的全部。位子一没，你什么都不是。' },
+  { id:'wu', axis:'仕', an:'军职', mo:'军官', luCap:60,
+    f:{禄:4, 财:2, 誉:1, 寿:-7, 室:-1},
+    d:'命是国家的。一纸调防文书，家就散了。' },
+  { id:'jiao', axis:'仕', an:'教职', mo:'教师', luCap:50,
+    f:{禄:1, 财:0, 誉:1, 寿:-3, 室:1},
+    d:'清而穷。你的学生将来可能做主官。' },
+  { id:'yiguan', axis:'仕', an:'医官', mo:'医生', luCap:50,
+    f:{禄:1, 财:3, 誉:1, 寿:-4, 室:1},
+    d:'治得了别人，治不了自己。' },
+  /* ── 商：禄 = 职级 ── */
+  { id:'shang', axis:'商', an:'商人', mo:'公司职员', luCap:100,
+    f:{禄:3, 财:7, 誉:0, 寿:-5, 室:-1},
+    d:'每上一层，离家的月令就多一格。跳槽可以，跳一次誉 −3。' },
+  /* ── 市：无禄或低禄 ── */
+  { id:'ge', axis:'市', an:'个体户', mo:'个体户', luCap:0,
+    f:{禄:0, 财:5, 誉:0, 寿:-4, 室:1},
+    d:'没有位可挡事，也没有位可丢。一张告示就能让你关门。' },
+  /* 市井十二行：门槛 / 年入（财）/ 寿损 / 升 / 与官场的接口 */
+  { id:'jiaofu', axis:'市', an:'脚夫', mo:'搬运工', luCap:0,
+    f:{禄:0,财:3,誉:0,寿:-4,室:1}, up:'把头 → 脚行行头',
+    link:'官物过境，抽头；也能替人夹带' },
+  { id:'chuan', axis:'市', an:'船工', mo:'货车司机', luCap:0,
+    f:{禄:0,财:4,誉:0,寿:-4,室:1}, up:'船主 → 船行',
+    link:'漕运、关卡：一张"船票"能通天' },
+  { id:'geng', axis:'市', an:'更夫', mo:'夜班保安', luCap:0,
+    f:{禄:0,财:2,誉:0,寿:-5,室:1}, up:'更夫头',
+    link:'巡夜即耳目，是衙门最便宜的线人' },
+  { id:'tu', axis:'市', an:'屠户', mo:'肉铺老板', luCap:0,
+    f:{禄:0,财:6,誉:0,寿:-3,室:1}, up:'肉铺 → 行头',
+    link:'官宴采买；年节"送肉"是规矩' },
+  { id:'doufu', axis:'市', an:'豆腐坊', mo:'早餐铺', luCap:0,
+    f:{禄:0,财:4,誉:0,寿:-4,室:1}, up:'两间铺',
+    link:'无。但它是唯一"每天见到所有人"的行当' },
+  { id:'yaopu', axis:'市', an:'药铺伙计', mo:'药店店员', luCap:0,
+    f:{禄:0,财:5,誉:0,寿:-3,室:1}, up:'坐堂 → 自己开号',
+    link:'医官、狱医；知道谁病了，就知道谁要倒了' },
+  { id:'shushu', axis:'市', an:'私塾先生', mo:'补习班老师', luCap:0,
+    f:{禄:0,财:4,誉:1,寿:-3,室:1}, up:'塾师 → 山长',
+    link:'门生。你的学生将来可能做主官' },
+  { id:'mei', axis:'市', an:'媒婆', mo:'婚介', luCap:0,
+    f:{禄:0,财:5,誉:0,寿:-3,室:1}, up:'官媒',
+    link:'全城的姻亲网在你手里，这是硬通货' },
+  { id:'wenpo', axis:'市', an:'稳婆', mo:'月嫂', luCap:0,
+    f:{禄:0,财:4,誉:0,寿:-4,室:1}, up:'—',
+    link:'知道谁家添丁、谁家打胎。最危险的一门知道' },
+  { id:'zhizha', axis:'市', an:'扎纸匠', mo:'殡葬用品', luCap:0,
+    f:{禄:0,财:3,誉:0,寿:-3,室:1}, up:'纸扎铺',
+    link:'丧仪：谁家死了人、谁家出不起丧钱' },
+  { id:'chaofeng', axis:'市', an:'当铺朝奉', mo:'典当行店员', luCap:0,
+    f:{禄:0,财:7,誉:0,寿:-3,室:1}, up:'二柜 → 掌柜',
+    link:'谁在当东西，谁就快倒了。全城最早的经济情报' },
+  { id:'shuli', axis:'市', an:'衙前书吏', mo:'窗口办事员', luCap:0,
+    f:{禄:0,财:6,誉:0,寿:-4,室:1}, up:'书办 → 典史',
+    link:'半只脚踏在官场里：不是官，可所有公文都过他的手' }
+];
+const JOB = id => JOBS.find(j => j.id === id) || JOBS[0];
+
+/* 出身定初始行当：生在谁家，你第一件事就是接谁的活。
+   ORIGIN_LU 是"位子能到多高"的出身天花板——官宦 80，罪臣之后 30。 */
+const ORIGIN_JOB = {
+  guan:'wen', fu:'shang', shu:'wen', qiao:'shang', dan:'doufu',
+  gu:'jiaofu', jiang:'ge', nong:'jiaofu', shi:'ge', jun:'wu',
+  zui:'wen', chong:'geng'
+};
+const ORIGIN_LU = {
+  guan:80, fu:100, shu:70, qiao:75, dan:50, gu:45,
+  jiang:45, nong:45, shi:40, jun:60, zui:30, chong:50
+};
+/* 行当的起点偏向：军户的孩子从小在营里长大，教书的人一辈子待在原地。
+   这不是"命定"，只是第一步就已经站在某条路上。 */
+const JOB_BIAS = {
+  wen:{清流:1}, wu:{边臣:3}, jiao:{循吏:2}, shushu:{循吏:2},
+  shang:{权臣:1}, shuli:{权臣:1}, chaofeng:{权臣:1}, mei:{权臣:1}, geng:{孤臣:1}
+};
+/* 有几个行当，本身就是一条轨：军职的人不是"选了"边臣，是他一辈子都在边地。
+   这种行当每折自动把分往那一轨推，不必靠事件。 */
+const JOB_FOLD_TRK = { wu:'边臣', jiao:'循吏', shushu:'循吏' };
+
+/* ══════════════ 轨：六条，五显一隐（§5） ══════════════
+   轨不是"转职"，是被归位：选得多了，系统才认出你是谁。
+   每条轨都缺一项——玩家真正在选的不是"想当什么官"，是"愿意缺哪一项"。 */
+const TRACK = [
+  { id:'清流', an:'清流', mo:'笔杆子', lack:'禄', cap:{禄:55}, fold:{},
+    d:'上疏、弹人、辞官。骂得越狠，升得越慢，名越大。',
+    rule:'誉 过 80 之后，升迁只余三成' },
+  { id:'能吏', an:'能吏', mo:'干将', lack:'誉', cap:{誉:60}, fold:{},
+    d:'算账、督工、平账。事办成了，人得罪光了。',
+    rule:'每办成一件大事，清誉 −5（"他的钱哪来的"）' },
+  { id:'权臣', an:'权臣', mo:'实权派', lack:'寿与室', cap:{室:50}, fold:{寿:-2},
+    d:'收人、许官、换手。你替所有人办事，直到没有人替你。',
+    rule:'一朝倒台，禄财誉三项同时归零' },
+  { id:'边臣', an:'边臣', mo:'外派', lack:'寿与室', cap:{室:50}, fold:{寿:-3},
+    d:'调兵、议和、守城。胜则名将，败则罪臣。',
+    rule:'每三折一次战／和，败则寿 −15' },
+  { id:'循吏', an:'循吏', mo:'主事', lack:'禄', cap:{禄:45}, fold:{誉:1},
+    d:'修渠、办学、不断案。一县给你立祠，朝廷不知道你的名字。',
+    rule:'在地方上，誉可以破 85' },
+  { id:'孤臣', an:'孤臣', mo:'独行', lack:'室', cap:{室:0}, fold:{禄:2,财:2}, hidden:true,
+    d:'独奏、独行、得罪所有人。你没有软肋，所以谁都不敢用你。',
+    rule:'五项上限 +5；每年多两格' }
+];
+const TRK = id => TRACK.find(t => t.id === id) || null;
+/* 轨的"名字"是史书给的分法。今世没有传，只有单位里给人贴的那张标签：
+   写材料的那一路、能办事的那一路、有实权的那一路——说法换了，走法一样 */
+const trkName = (t, L) => {
+  const o = TRK(t);
+  if (!o) return t;
+  const era = L ? L.era : (S && S.life ? S.life.era : 'an');
+  return era === 'an' ? o.an : (o.mo || o.an);
+};
+/* 每条轨"撞见机会"的频率不一样：替人办事的事到处都是，独奏独行的机会很少。
+   所以比的是归一化之后的分数——把机会的多寡折算掉，剩下的才是你的取向。 */
+const TRACK_RATE = { 清流:1.0, 能吏:0.8, 权臣:1.5, 边臣:1.15, 循吏:0.95, 孤臣:1.0 };
+/* 但有件事是硬的：史书只给"有位置的人"归类。
+   市井的人不入传——不是评价低，是压根没有人替你写。
+   商人可以入能吏、权臣、清流（他把事办成了，别人骂他，他站过队）；
+   边臣、循吏这两本是给守土与牧民的人留的，他沾不上。 */
+const AXIS_TRK = {
+  '仕': ['清流','能吏','权臣','边臣','循吏','孤臣'],
+  '商': ['清流','能吏','权臣','孤臣'],
+  '市': ['孤臣']
+};
+
+// 位子的顶：出身先压一道，行当再压一道，情关再压一道
+function capOf(L, k){
+  if (!L.capSix) return 100;
+  let c = L.capSix[k] === undefined ? 100 : L.capSix[k];
+  // 学能改命：读过的书把"顶"往上抬一点。抬得动，但抬不到极处——
+  // 天才是天生的，学出来的只是"够用"
+  if (k === '禄' || k === '誉'){
+    c = Math.min(90, c + Math.min(12, Math.floor((L.study || 0) / 2)));
+  }
+  const lk = L.lockSix && L.lockSix[k];
+  if (lk !== undefined && lk < c) c = lk;
+  return c;
+}
+function recalcCaps(L){
+  const j = JOB(L.job);
+  const c = {室:100, 财:100, 子:100, 禄:100, 寿:100, 誉:100};
+  const oCap = ORIGIN_LU[L.origin];
+  c['禄'] = Math.min(j.luCap, oCap === undefined ? 60 : oCap);
+  // 无禄路线的补偿：禄 = 0 的人，财与誉的上限各 +10
+  if (c['禄'] === 0){ c['财'] = 110; c['誉'] = 110; }
+  const t = L.track ? TRK(L.track) : null;
+  if (t){
+    for (const k in (t.cap || {})) c[k] = Math.min(c[k], t.cap[k]);
+    if (t.id === '孤臣'){ ['财','子','寿','誉'].forEach(k => { c[k] += 5; }); c['室'] = 0; }
+  }
+  L.capSix = c;
+  if (t && t.id === '孤臣') L.lone = true;   // 孤臣没有室，不是选的，是这一轨的定义
+  SIXK.forEach(k => { if (L.six[k] > c[k]) L.six[k] = c[k]; });
+}
+// 有上限的加减：从前一律 clamp(0,100)，现在要认"这个位子能到多高"
+function bump(L, k, v){
+  L.six[k] = clamp(L.six[k] + v, 0, capOf(L, k));
+}
+
+/* ══════════════ 事件 ══════════════ */
+const EV = [
+ /* ── 早段：十六到三十岁。这几折原本只有三五条可用，补的是这一段 ── */
+ { id:'name', minAge:16, maxAge:22, head:'study', an:'改 名', mo:'改 名',
+   bodyAn:'族里修谱，先生说你这一辈该用"继"字。你爹给你起的那个字，要划掉。',
+   bodyMo:'上户口那年写错了一个字。派出所说能改，得跑三个地方，还得你本人去。',
+   opts:[
+    { t:'按族里的改', tMo:'改回来', sub:'名字是给族里用的', subMo:'跑三个地方也认',
+      eff:{誉:5,室:3}, cai:{忍:2},
+      line:'我改了。新名字用了三十年，写起来还是别扭。',
+      lineMo:'我改了。新身份证发下来那天，我娘念了一遍，念得很慢。' },
+    { t:'就用爹起的', sub:'这一回不让', subMo:'错着叫，也认',
+      eff:{誉:-4,室:-2}, cai:{忍:1},
+      line:'我没改。族谱上那一格空着，空到我这一辈结束。',
+      lineMo:'我没改。这个名字跟我到老，别人叫错的，我也应。' },
+    { t:'两个都用', sub:'官面一个，家里一个', subMo:'证件一个，熟人一个',
+      eff:{禄:2,誉:2,寿:-2}, cai:{巧:2},
+      line:'官面上用一个，家里用一个。后来连自己都得想一下。',
+      lineMo:'证件上一个，朋友叫另一个。后来自己都得想一下。' }
+   ]},
+
+ { id:'alley', minAge:16, maxAge:30, head:'ruin', an:'巷 口', mo:'路 口',
+   bodyAn:'巷口有人打老婆，打得很难看。围了一圈人，没人动。你路过。',
+   bodyMo:'深夜路口，一个老人倒在地上。手机举起来的有三四个，扶的没有。',
+   opts:[
+    { t:'上前', sub:'事后麻烦归事后', eff:{誉:8,寿:-4,室:2}, cai:{体:2},
+      line:'我上前了。后来被叫去问了三回话。' },
+    { t:'走开', sub:'不关我的事', eff:{誉:-5,寿:1}, cai:{忍:1},
+      line:'我走开了。走出十步，听见后面声音更大了。' },
+    { t:'去叫人', sub:'别自己沾手', eff:{誉:4,寿:-1}, cai:{巧:2},
+      line:'我去叫了人。等我带着人回来，已经散了。' }
+   ]},
+
+ { id:'pawn', minAge:16, maxAge:32, head:'home', an:'当 铺', mo:'周 转',
+   bodyAn:'家里断炊第三天。你娘把陪嫁的镯子拿出来，让你去当。她没看你。',
+   bodyMo:'信用卡还不上。你在几个借款 App 之间算了一晚上利息。',
+   opts:[
+    { t:'当 了', sub:'先过这个月', eff:{财:8,室:-5,誉:-3}, cai:{忍:2},
+      line:'我当了。赎回是四年以后，镯子已经不是原来那只。' },
+    { t:'借 高 利', sub:'翻得比我还快', eff:{财:5,寿:-5,誉:-5}, ink:8, cai:{巧:1},
+      line:'我借了。那笔钱滚得比我快。' },
+    { t:'咬着牙不', sub:'饿着，但不欠', eff:{寿:-6,室:3,誉:5}, cai:{忍:3},
+      line:'我咬着牙没当。那半个月吃的什么，我一直没跟人说过。' }
+   ]},
+
+ { id:'night', minAge:16, maxAge:30, head:'study', an:'夜 读', mo:'熬 夜',
+   bodyAn:'油灯要钱。你算过，一晚上三分。你爹说，灯别省。',
+   bodyMo:'项目上线前一周。工位旁边的咖啡罐子，已经堆到第三个。',
+   opts:[
+    { t:'熬', sub:'年轻就是本钱', eff:{禄:6,寿:-8}, cai:{智:2},
+      line:'我熬了。二十几岁熬的夜，四十岁开始还。' },
+    { t:'睡', sub:'命比事要紧', eff:{寿:5,禄:-4}, cai:{忍:2},
+      line:'我睡了。第二天那件事，别人做完了。' },
+    { t:'换个法子', sub:'省下时间也没睡', eff:{禄:3,寿:-2,誉:2}, cai:{巧:2},
+      line:'我换了个法子。省下来的时间，也没用来睡。' }
+   ]},
+
+ { id:'letter', minAge:18, maxAge:34, head:'journey', an:'家 书', mo:'家 里 来 电',
+   bodyAn:'家书说，你娘咳了两个月，不碍事，别回来。字是你妹妹写的，写得歪。',
+   bodyMo:'你妈打电话来，先说天气，说了三分钟，才说住院了。',
+   opts:[
+    { t:'回 去', sub:'事可以等，人不能', eff:{室:8,禄:-6,寿:-2}, cai:{缘:2},
+      line:'我回去了。回去那天她已经能下地，还是骂我耽误事。' },
+    { t:'寄 钱', sub:'钱到了，人也出院了', eff:{财:-8,室:3,誉:2}, cai:{忍:2},
+      line:'我寄了钱。钱到了，人也出院了。' },
+    { t:'不 回', sub:'这一趟太远', eff:{禄:4,室:-9,誉:-3}, cai:{忍:1},
+      line:'我没回。那年冬天我做了很多事，一件也想不起来。' }
+   ]},
+
+ { id:'blind', minAge:18, maxAge:30, noChild:true, head:'wedding', an:'相 看', mo:'相 亲',
+   bodyAn:'媒人领你去茶馆。女方隔着一张桌子看你，看得很快，看了三眼。',
+   bodyMo:'介绍人拉了个群。对方发来一张照片，你回了一张，然后两边都不说话了。',
+   opts:[
+    { t:'应 下', sub:'见了三面就定', eff:{室:12,财:-4}, cai:{忍:1},
+      line:'我应下了。见面到定亲，一共十七天。' },
+    { t:'再 等 等', sub:'总觉得还有别的', eff:{室:-3,寿:2,誉:-2}, cai:{忍:2},
+      line:'我说再等等。这一等，媒人后来就不来了。' },
+    { t:'把底说了', sub:'穷就穷，不装', eff:{室:5,誉:3,财:-2}, cai:{言:2},
+      line:'我把家里的底说了。她愣了一下，说"你这人实在"。' }
+   ]},
+
+ { id:'firstpay', minAge:18, maxAge:30, minLu:5, head:'yamen', an:'头 一 月 俸', mo:'第 一 个 月 工 资',
+   bodyAn:'头一个月俸米领回来了，一斗二升。你娘说留着，你爹说该给先生送一份。',
+   bodyMo:'第一个月工资到账，四千二。房租两千一，剩下的你盯着手机看了很久。',
+   opts:[
+    { t:'全交家里', sub:'一分不留', eff:{室:8,财:-2,誉:3}, cai:{忍:2},
+      line:'我一分没留。我娘把钱压在箱底，压了三年。' },
+    { t:'先给自己', sub:'鞋底已经透了', eff:{财:5,室:-5}, cai:{巧:1},
+      line:'我先给自己买了双鞋。旧的那双，鞋底已经透了。' },
+    { t:'请人吃饭', sub:'这桌人里有一个记了我十年', eff:{誉:5,财:-4,禄:3}, cai:{缘:2},
+      line:'我请了一桌。那桌人后来有一个，记了我十年。' }
+   ]},
+
+ { id:'copy', minAge:20, maxAge:34, head:'study', an:'代 笔', mo:'代 写',
+   bodyAn:'同窗出五两，请你替他写一篇策论。他的字你学了半年，学得很像。',
+   bodyMo:'有人出两千，让你替他写一份材料。他说"没人看得出来"。',
+   opts:[
+    { t:'接', sub:'五两够吃两个月', eff:{财:7,誉:-4}, ink:5, cai:{巧:2},
+      line:'我接了。写完那篇，我自己的笔也脏了一点。' },
+    { t:'不接', sub:'这活儿不该我干', eff:{财:-2,誉:4}, cai:{忍:2},
+      line:'我没接。他说"装什么"，然后找了别人。' },
+    { t:'接了，写得差', sub:'收钱不办漂亮事', eff:{财:5,誉:-2}, cai:{巧:3},
+      line:'我接了，写得很敷衍。他居然也中了。' }
+   ]},
+
+ { id:'tally', minAge:20, maxAge:40, minLu:15, head:'yamen', an:'库 房', mo:'对 账',
+   bodyAn:'你管库房。月底盘出来，短了七两。管事的说"先记你名下"。',
+   bodyMo:'交接的时候账对不上，差了三千六。前任已经走了，签字的是你。',
+   opts:[
+    { t:'认下，补上', sub:'七两是我娘攒了两年的', eff:{财:-9,禄:4,誉:4}, cai:{忍:3},
+      line:'我补上了。那七两，是我娘攒了两年的。' },
+    { t:'查 到 底', sub:'查到第三个人就查不动了', eff:{禄:-4,誉:8,寿:-3}, cai:{智:2},
+      line:'我查了。查到第三个人，就查不动了。' },
+    { t:'记别人名下', sub:'反正他调走了', eff:{禄:6,誉:-8}, ink:12, cai:{巧:2},
+      line:'我记在了别人名下。他调走那天，我没敢去送。' }
+   ]},
+
+ { id:'gift', minAge:20, maxAge:42, minLu:8, head:'court', an:'投 刺', mo:'送 礼',
+   bodyAn:'你想调去户房。师爷点了一句"天冷了"。你算了算，家里还有两匹缎子。',
+   bodyMo:'想调个岗。老同事说"该走动走动"。你查了查余额，又看了看购物卡的面额。',
+   opts:[
+    { t:'送', sub:'放下就走，别多话', eff:{禄:10,财:-8}, ink:9, cai:{巧:2},
+      line:'我把东西放下就走了。他送到门口，说了句"客气"。' },
+    { t:'不送', sub:'这个位子我不要了', eff:{禄:-5,誉:4}, cai:{忍:2},
+      line:'我没送。第二年那个位子给了别人，第三年还是。' },
+    { t:'送，但留一手', sub:'他收的东西我记着', eff:{禄:6,财:-6}, ink:12, cai:{巧:2},
+      line:'我送了，也留了一样东西。那东西后来救了我，也害了我。' }
+   ]},
+
+ { id:'kin', minAge:18, maxAge:45, head:'home', an:'族 亲', mo:'亲 戚',
+   bodyAn:'三房的堂兄来了，说孩子要进学，差二十两。他坐了两个时辰，茶换了三遍。',
+   bodyMo:'表姐打电话来，说首付差八万。她说"就周转一下"，语气很稳。',
+   opts:[
+    { t:'借', sub:'亲戚就是这时候用的', eff:{财:-12,室:5,誉:4}, cai:{缘:2},
+      line:'我借了。三年后他送来一筐鸡蛋，钱的事谁都没提。' },
+    { t:'不借', sub:'我也有我的难处', eff:{财:2,室:-6,誉:-4}, cai:{忍:2},
+      line:'我说没有。他走的时候，把带来的那包点心又拎走了。' },
+    { t:'借一半', sub:'给个数，彼此都好过', eff:{财:-6,室:2}, cai:{巧:1},
+      line:'我借了一半。他收下的时候，笑了一下，很轻。' }
+   ]},
+
+ { id:'drink', minAge:22, maxAge:50, minLu:12, head:'court', an:'酒 席', mo:'酒 局',
+   bodyAn:'上司做寿，席上要有人替他挡。你酒量一般，全桌都知道。',
+   bodyMo:'领导组的局。你坐在下手，杯子已经满过三次。',
+   opts:[
+    { t:'替他挡', sub:'吐完出来接着笑', eff:{禄:8,寿:-6,誉:2}, cai:{忍:2},
+      line:'我替他挡了。吐在洗手间，出来接着笑。' },
+    { t:'装 醉', sub:'装得像，后来没人信', eff:{禄:-3,寿:2}, cai:{巧:2},
+      line:'我装醉。装得挺像，后来真喝不动了也没人信。' },
+    { t:'说我不喝', sub:'桌上安静了两秒', eff:{禄:-8,誉:5}, cai:{忍:3},
+      line:'我说我不喝。桌上安静了两秒，然后有人说"爽快"。' }
+   ]},
+
+ { id:'clan', minAge:22, maxAge:48, minLu:10, head:'yamen', an:'同 乡', mo:'老 乡',
+   bodyAn:'同乡在吏部当差，来问你愿不愿意"一起走"。他说这话时，眼睛看着别处。',
+   bodyMo:'老乡群里有人牵头，说要"抱团"。拉你进了一个没有名字的群。',
+   opts:[
+    { t:'入', sub:'一个人走不快', eff:{禄:8,誉:-3}, ink:6, cai:{缘:2},
+      line:'我入了。后来他们的事，我也得算一份。' },
+    { t:'不入', sub:'公文从此慢两天', eff:{禄:-4,誉:5}, cai:{忍:2},
+      line:'我没入。那年冬天，我的公文总比别人慢两天。' },
+    { t:'看着', sub:'不入，也不推', eff:{禄:3,寿:-2}, cai:{智:2},
+      line:'我不入，也不推。两年后群散了，我还在。' }
+   ]},
+
+ { id:'quit', minAge:20, maxAge:40, minLu:6, head:'journey', an:'辞 馆', mo:'想 辞 职',
+   bodyAn:'你在县学教书，束脩一年十二两。有个盐商请你去做西席，一年四十两。',
+   bodyMo:'干得没意思。有个机会，钱多一半，但要离开这个城市。',
+   opts:[
+    { t:'走', sub:'头也没回', eff:{财:10,禄:-6,室:-4}, cai:{巧:2},
+      line:'我走了。走那天，学生们送到门口，我头也没回。' },
+    { t:'留', sub:'留下的人后来都成了老人', eff:{禄:5,誉:4,财:-3}, cai:{忍:2},
+      line:'我留下了。留下的人，后来都成了"老人"。' },
+    { t:'两头接', sub:'两头都不算好', eff:{财:8,寿:-6,誉:-3}, cai:{巧:2},
+      line:'我两头都接了。两头都做得不坏，也都不算好。' }
+   ]},
+
+ { id:'oath', minAge:20, maxAge:36, head:'war', an:'结 拜', mo:'一 起 干',
+   bodyAn:'三个人在关帝庙前烧了纸。你排第二。排第一的那个人，眼里有火。',
+   bodyMo:'大学室友拉你合伙。他说得很快，你只听清"稳赚"两个字。',
+   opts:[
+    { t:'结', sub:'这炷香烧完就不好推了', eff:{财:6,誉:5,禄:3,寿:-3}, ink:4, cai:{缘:3},
+      line:'我结了。那炷香烧完，有些事就不好推了。' },
+    { t:'只出钱', sub:'出力的事我不沾', eff:{财:-6,誉:2}, cai:{巧:1},
+      line:'我只出了钱。后来他们散了，钱也没了。' },
+    { t:'不结', sub:'他们后来都发了，也可能没有', eff:{誉:-4,寿:2}, cai:{忍:2},
+      line:'我没结。他们三个后来都发了，也可能没有。' }
+   ]},
+
+ { id:'house', minAge:24, maxAge:48, head:'home', an:'老 宅', mo:'老 房 子',
+   bodyAn:'族里要修祠堂，按房头摊钱。你家这一房，摊得最重。',
+   bodyMo:'老房子要拆。补偿两个方案：要钱，或者要房。签字截止到月底。',
+   opts:[
+    { t:'出钱 / 要房', sub:'根在这里', eff:{财:-10,室:8,誉:5}, cai:{忍:2},
+      line:'我出了钱。后来那地方是什么样，我一直没敢回去看。' },
+    { t:'不出 / 要钱', sub:'换一笔现的', eff:{财:8,室:-6,誉:-6}, cai:{巧:1},
+      line:'我没出。族里那边，从此少了一个位置。',
+      lineMo:'我拿了钱。从此那条巷子里，没有我家的门牌了。' },
+    { t:'拖着', sub:'到最后是别人替我定的', eff:{寿:-2,誉:-2}, cai:{忍:2},
+      line:'我拖着。拖到最后，是别人替我定的。' }
+   ]},
+ { id:'will', minLu:30, minAge:22, head:'field', an:'改稻为桑', mo:'管网改造',
+   bodyAn:'上面要在三年内把稻田改成桑田，丝价好，税能补上。可县里三万人的口粮，是从这些田里长出来的。期限三个月，要你签。',
+   bodyMo:'市里下了指标，三年内把老城区管网全换。预算缺口一千二百万。你签了字，今年冬天动工；不签，明年汛期还是这个水。',
+   opts:[
+    { t:'强推', sub:'先把数交上去', eff:{禄:10,誉:-10,室:-5,寿:-3}, cai:{忍:2},
+      line:'我把字签了，签得很快，快得自己都听见了。' },
+    { t:'缓推', sub:'拖，是最像办事的不办事', eff:{禄:-4,寿:-3,誉:2}, cai:{忍:1},
+      line:'我拖了三个月。什么都没发生，什么也没解决。' },
+    { t:'借商', tMo:'包出去', sub:'把官府的难处卖给有钱人', subMo:'把政府的难处转给有钱人',
+      eff:{财:12,禄:4,誉:-6}, ink:12, cai:{巧:2},
+      line:'那笔钱是从生意人手里过的。过的时候就已经脏了。',
+      lineMo:'那笔钱是从生意人手里过的。过的时候就已经脏了。' },
+    { t:'上告', tMo:'报上去', sub:'你不做官，也要做个人', subMo:'这位子可以不要，人得做',
+      eff:{誉:10,禄:-14,寿:-6}, cai:{言:2},
+      line:'我把话说到上面去了。说完就知道回不去了。',
+      lineMo:'我把话说到上面去了。说完就知道回不去了。' }
+   ]},
+
+ { id:'money', minAge:20, head:'ruin', an:'河工银', mo:'预算缺口',
+   bodyAn:'河工银拨下来十一万两，账上只剩七万。堤是要修的，缺的那四万，得有个说法。',
+   bodyMo:'专项债下来了，但只能用于主体工程。征地、迁改、临时安置，这些钱没有出处。',
+   opts:[
+    { t:'补上亏空', sub:'自己想办法填', eff:{财:-12,禄:8,誉:-3}, cai:{巧:2},
+      line:'那笔窟窿是我自己填的。填完我就明白了，填得了一次，填不了十年。' },
+    { t:'以工代赈', sub:'让人来干活，不要钱', eff:{誉:8,财:-8,子:2,寿:-4}, cai:{忍:2},
+      line:'堤修成了。三年后没垮，也没人提我的名字。' },
+    { t:'摊派', sub:'按田亩往下压', eff:{财:10,誉:-12,禄:4}, ink:8, cai:{巧:1},
+      line:'我把手伸进了别人的口袋，伸得很熟练。' }
+   ]},
+
+ { id:'who', minAge:22, head:'yamen', an:'座师请托', mo:'领导打招呼',
+   bodyAn:'座师遣人来，说有个门生要补一个缺，问你"能不能周旋"。这个缺已经定了人。',
+   bodyMo:'领导在走廊上拍你肩膀，说有个同志想动一动，问你"方不方便"。这个位置已经定了人。',
+   opts:[
+    { t:'办', sub:'人情是这行的通货', eff:{禄:8,誉:-6}, ink:8, cai:{缘:2},
+      line:'我替人办了一件事。办完就知道，这人情迟早要还。' },
+    { t:'拖', sub:'不回话，也不办', eff:{禄:-4,寿:-2}, cai:{忍:1},
+      line:'我没回话。有些事不回话，就是回话。' },
+    { t:'顶回去', sub:'把原定的人保下来', eff:{誉:8,禄:-10}, cai:{言:3},
+      line:'我把话说直了。话说直的人，路走得短。' }
+   ]},
+
+ { id:'home', minAge:22, head:'winter', an:'丁忧', mo:'母亲住院',
+   bodyAn:'家书至，母亲病重。按制当丁忧二十七个月，这一任的考满就废了。',
+   bodyMo:'母亲住院，需要人陪护。项目正在验收，你走一天，签字就要换人。',
+   opts:[
+    { t:'回', sub:'人只有一个母亲', eff:{室:12,禄:-12,寿:2}, cai:{缘:2},
+      line:'我回去了。回去的时候她已经不太认人了。' },
+    { t:'不回', sub:'先把这一任做完', eff:{室:-14,禄:6}, ink:6, cai:{忍:2},
+      line:'我没有回去。那一年的事我全办成了，一件也想不起来了。' },
+    { t:'两头跑', sub:'两头都想顾', eff:{寿:-8,室:4,禄:-2}, cai:{忍:1},
+      line:'我两头跑了一年。两头都没顾好。' }
+   ]},
+
+ { id:'love', minAge:16, maxAge:30, head:'wedding', an:'议亲', mo:'她家里要房',
+   bodyAn:'门第差着两档。她父亲说：你要是中了，这门亲事还有得谈；中不了，就别再来了。',
+   bodyMo:'她家里要一套房，写她名字。你算了一下，首付要掏空你父母。',
+   opts:[
+    { t:'争', sub:'把这个人争下来', eff:{室:16,财:-10,誉:-4}, cai:{缘:3},
+      line:'我把她争下来了。代价是我父亲那年没添过一件衣裳。' },
+    { t:'放', sub:'不耽误她', eff:{室:-6,寿:-4}, cai:{缘:1},
+      line:'我放手了。后来每次升迁，我都会想起她一次。' },
+    { t:'不谈了', sub:'一个人也能过', eff:{誉:-2,寿:2}, cai:{忍:2}, lone:true,
+      line:'我说我不谈了。说完心里空了一块，也轻了一块。' }
+   ]},
+
+ { id:'impeach', minLu:30, minAge:26, head:'censor', an:'被参一本', mo:'实名举报',
+   bodyAn:'有人参你"催科太急，致民流徙"。折子已经进了通政司。你有三日自辩。',
+   bodyMo:'一封实名举报信到了纪委，说你工程招标有问题。你有三天时间写说明。',
+   opts:[
+    { t:'反参', sub:'把他的底也翻出来', eff:{誉:6,禄:-8,寿:-6}, cai:{言:3},
+      line:'我反参了他。两个人一起掉下来，我落得比他慢一点。' },
+    { t:'认', sub:'认一半，保住位子', eff:{禄:-10,誉:-8,寿:2}, cai:{忍:2},
+      line:'我认了一半。认下来的那一半，跟了我一辈子。' },
+    { t:'打点', sub:'花钱把事压下去', eff:{财:-14,禄:4,誉:-2}, ink:12, cai:{巧:1},
+      line:'我花钱把事压下去了。压下去的东西，都会在别处长出来。' }
+   ]},
+
+ { id:'exile', minLu:20, minAge:26, head:'dispatch', an:'贬按察司照磨', mo:'调去档案科',
+   bodyAn:'一纸调令，从繁华地放到边远卫所，品级不变，实权全无。去，还是求人留下？',
+   bodyMo:'一纸调令，从业务科室调去档案科。级别不动，签字权没了。',
+   opts:[
+    { t:'去', sub:'去就去', eff:{禄:-8,寿:-4,誉:2}, cai:{忍:3},
+      line:'我去了。去了以后才发现，那地方反而没人管我。' },
+    { t:'求人', sub:'低头，把位子保住', eff:{财:-10,禄:-2,誉:-4}, cai:{缘:2},
+      line:'我低了头。低头这件事，做第一次最难。' },
+    { t:'辞', sub:'不干了', eff:{禄:-20,室:6,寿:4}, cai:{忍:1},
+      line:'我不干了。不干的那天，我睡了一整夜。' }
+   ]},
+
+ { id:'heir', minAge:30, maxAge:42, noChild:true, noMonk:true, head:'home',
+   an:'无 出', mo:'还 没 有',
+   bodyAn:'成家七年了，屋里还是没有孩子。你娘不再提这件事，可她每天清早都在院里站一会儿。城东有个郎中，说她有方子。',
+   bodyMo:'结婚第七年，还是没有。检查做了两回，两个人都没说话。医院走廊上，你听见别人家的孩子在哭。',
+   opts:[
+    { t:'求 医', sub:'花钱，也花脸面', eff:{财:-8,寿:-4}, cai:{忍:2}, child:.62,
+      line:'我请了郎中。药很苦，她一声没吭。第二年开春，她吐了。',
+      lineMo:'我们一趟趟去医院。那两年她瘦得我不敢看。' },
+    { t:'纳 妾', sub:'添丁是正事，脸面是小事', eff:{财:-12,誉:-8,室:-10}, cai:{巧:2}, child:.9, concubine:true,
+      line:'我纳了。她进门那天一直低着头，我也没有抬头。',
+      lineMo:'我在外面有了人。这件事，她后来知道了，只是没说。' },
+    { t:'认 命', sub:'没有就没有，往后不提', eff:{誉:6,寿:2,室:2}, cai:{忍:3}, noHeir:true,
+      line:'我说，就这样吧。她点了点头，那晚谁也没有再提。',
+      lineMo:'我说，就这样吧。她点了点头，那晚谁也没有再提。' }
+   ]},
+
+ { id:'child', head:'study', needChild:true, beforeJob:true, an:'教子', mo:'学区与晚自习',
+   bodyAn:'儿子开蒙了。先生说他记性好，就是坐不住。你今年只有十二格，教他，就得少办一件事。',
+   bodyMo:'孩子要上小学。学区、补习、接送，每一样都要人。你今年只有十二格。',
+   opts:[
+    { t:'亲自教', sub:'省下钱，花掉命', eff:{禄:-4,寿:-4}, raised:2, cai:{智:2},
+      line:'我教了他三年。他记住的不是书，是我坐在旁边那盏灯。' },
+    { t:'请名师', sub:'花钱买时间', eff:{财:-12}, raised:1, cai:{巧:1},
+      line:'我请了最好的先生。儿子跟他亲，跟我不亲。' },
+    { t:'不管', sub:'先办自己的事', eff:{禄:4}, raised:0, cai:{忍:1},
+      line:'我不管他。后来他什么也不跟我说。' }
+   ]},
+
+ { id:'sick', minAge:20, head:'home', an:'风寒三月', mo:'体检报告',
+   bodyAn:'一场风寒拖了三个月。郎中说是积劳，让你歇。可这一任的考成就在年底。',
+   bodyMo:'体检报告上有三项标红。医生说要复查，你说最近忙。',
+   opts:[
+    { t:'养', sub:'把命当回事', eff:{寿:8,禄:-6,财:-4},
+      line:'我歇了三个月。那三个月是我一生里最安静的日子。' },
+    { t:'硬撑', sub:'考成不等人', eff:{寿:-10,禄:6}, cai:{忍:1},
+      line:'我硬撑过去了。撑过去的那一年，我老得特别快。' },
+    { t:'问药', sub:'花钱换个安心', eff:{财:-10,寿:4}, cai:{巧:1},
+      line:'我买了一堆药。吃完也没好，也没坏。' }
+   ]},
+
+ { id:'yi', minAge:18, head:'court', an:'流民过境', mo:'楼下求助',
+   bodyAn:'北边来的流民三百口，堵在城门外。开城，要担干系；不开，明天早上门口会有死人。',
+   bodyMo:'楼下有个人跪了一整天，孩子病了，钱不够。物业让你别管。',
+   opts:[
+    { t:'开门', sub:'担这个干系', eff:{誉:8,财:-8,室:-2}, cai:{言:2},
+      line:'我开了城门。上峰骂了我三个月，那三百口人活过了冬天。',
+      lineMo:'我把人送了医院。物业找过我两次，那孩子活过了那个冬天。' },
+    { t:'报官', tMo:'报警', sub:'按规矩来', subMo:'走流程，别沾手',
+      eff:{禄:4,誉:-4}, cai:{忍:1},
+      line:'我报了官。规矩没有错，我也没有错，人还是死了。',
+      lineMo:'我报了警。流程没有错，我也没有错，人还是没了。' },
+    { t:'闭门', sub:'多一事不如少一事', eff:{誉:-8,财:2,寿:2}, ink:6,
+      line:'我没有开门。第二天早上门口是干净的。' }
+   ]},
+
+ { id:'hist', head:'war', force:true, onlyAn:true, minLu:40, an:'庚戌之变',
+   bodyAn:'虏骑已至通州。朝上议守议和，各执一词。你手里有一份能定调的东西——上疏，还是按住？',
+   bodyMo:'',
+   opts:[
+    { t:'上疏主战', sub:'把话说死，堵住和议', eff:{誉:12,禄:-6,寿:-4}, cai:{言:3},
+      edit:{ grade:'中', text:'俺答未至' },
+      line:'我把折子递上去了。那一夜京城没睡，我也没睡。' },
+    { t:'随众', sub:'跟着大多数人走', eff:{禄:2,誉:-2}, cai:{忍:1},
+      line:'我跟着大多数人走。大多数人走得对，也走得快。' },
+    { t:'通款', sub:'先给自己留一条路', eff:{财:12,誉:-12}, ink:16, cai:{巧:2},
+      edit:{ grade:'大', text:'城下之盟早成' },
+      line:'我给城外递了一句话。那句话后来变成了一笔钱。' }
+   ]},
+
+ /* ───── 禄：考成、职守 ───── */
+ { id:'ke', minLu:30, minAge:24, head:'examine', an:'京察', mo:'年度考核',
+   bodyAn:'六年一京察。吏部把天下官员分三等，你的考语里有一句"浮躁"。要人去说一句话，这句话得花钱。',
+   bodyMo:'年度考核，你的评级是"基本合格"。这个结果会跟你三年。有人说能改，改要找人。',
+   opts:[
+    { t:'花钱改', sub:'把"浮躁"抹掉', eff:{禄:10,财:-10,誉:-4}, ink:8, cai:{巧:1},
+      line:'我花了钱。那一格抹干净了，抹的人也被我记住了。' },
+    { t:'认下', sub:'六年后再来', eff:{禄:-8,誉:4,寿:-2}, cai:{忍:2},
+      line:'我认了。后来六年我每天早到一个时辰，没有人看见。' },
+    { t:'闹', sub:'把不公说出来', eff:{誉:8,禄:-12}, cai:{言:2},
+      line:'我把话说到部院门口。话说清楚了，路也走完了。' }
+   ]},
+
+ { id:'huohao', minLu:25, minAge:20, head:'ruin', an:'火耗', mo:'账外那笔钱',
+   bodyAn:'碎银熔铸有损耗，收税时多收一成，叫火耗。这一成不进国库，进的是衙门。你不收，衙役就散了。',
+   bodyMo:'项目上有一笔"协调费"，不在预算里，也不在账上。不收，下面的人就不动。',
+   opts:[
+    { t:'照收', sub:'衙门的规矩', subMo:'这一行的规矩', eff:{财:12,誉:-8,禄:4}, ink:10, cai:{巧:2},
+      line:'我照收。收的时候把手放在袖子里，不让别人看见它在抖。',
+      lineMo:'我照收。签字的时候手在抖，我把它压在桌面上。' },
+    { t:'不收', sub:'自己贴钱养人', eff:{誉:10,禄:-8,财:-4}, cai:{忍:2},
+      line:'我不收。衙役散了三个，剩下的替我把活干完了。',
+      lineMo:'我不收。走了三个人，剩下的替我把活干完了。' },
+    { t:'收一半', sub:'给自己一个说法', eff:{财:5,誉:-2,禄:2}, ink:4, cai:{忍:1},
+      line:'我收一半。这一半，是我给自己的说法。' }
+   ]},
+
+ { id:'yao', minAge:20, head:'field', an:'均徭', mo:'摊派',
+   bodyAn:'里甲来报，今年要出夫三十名，修城墙。三十个人走了，秋收就少三十双手。上头期限不改。',
+   bodyMo:'街道来要人，创城迎检，一个月。名单在你这儿，报谁不报谁，都是你的事。',
+   opts:[
+    { t:'按册点', tMo:'照名单点', sub:'照规矩往下压', subMo:'照规矩往下压', eff:{誉:-6,禄:6,室:-4}, cai:{忍:2},
+      line:'我按册点。点到第七户的时候，那家的男人给我跪下了。',
+      lineMo:'我照名单点。点到第七户，那家的男人给我跪下了。' },
+    { t:'花钱雇', sub:'拿自己的钱买别人的手', eff:{财:-10,誉:8}, cai:{巧:1},
+      line:'我出钱雇了人。秋收那天，我家的场院也是空的。',
+      lineMo:'我出钱雇了人。那个月，我自己家的账也是空的。' },
+    { t:'拖着', sub:'拖到上头忘了', subMo:'拖到上面忘了', eff:{禄:-6,誉:2,寿:-2}, cai:{忍:1},
+      line:'我拖了两个月。城墙上少了三十丈，没有人问。',
+      lineMo:'我拖了一个月。检查那天少了一个点，没有人问。' }
+   ]},
+
+ { id:'ci', minLu:45, minAge:30, head:'court', an:'立生祠', mo:'树典型',
+   bodyAn:'士绅联名，要为你立生祠，说你活了多少人。祠一立，名字就刻在石头上；祠一倒，也刻在石头上。',
+   bodyMo:'上面要树一个典型，材料报的是你。宣传片拍了三天，你只在镜头里笑了一下。',
+   opts:[
+    { t:'受', sub:'受下来', eff:{誉:12,财:-6,室:-2}, cai:{缘:2},
+      line:'我受了。祠成那天我站在门口看自己的名字，像看别人的。' },
+    { t:'辞', sub:'当面辞掉', eff:{誉:4,禄:-6}, cai:{忍:2},
+      line:'我辞了。石匠把刻好的字磨平，磨了三天。' },
+    { t:'半推', sub:'推两次就够了', eff:{誉:8,禄:4,财:4}, ink:6, cai:{巧:2},
+      line:'我推了两次就受了。第三次的时候，我自己都觉得假。' }
+   ]},
+
+ /* ───── 子：嗣、嫁、殇 ───── */
+ { id:'adopt', head:'home', noChild:true, noMonk:true, minAge:32, an:'过继', mo:'领养',
+   bodyAn:'你四十无子。族中议定，把三房的幼子过继到你名下。孩子来了，管你叫爹，你却不认得他眼里的怕。',
+   bodyMo:'你们决定领养。手续办完那天，孩子坐在沙发上，一整晚没有说话。',
+   opts:[
+    { t:'当亲生', sub:'认下来', eff:{室:6,财:-4}, adopt:1, cai:{缘:3},
+      line:'我当他亲生的。他十岁那年第一次叫我，叫得很轻。' },
+    { t:'先养着', sub:'名义上先过', subMo:'手续先办，心慢慢来', eff:{室:2,寿:-2}, adopt:1, cai:{忍:1},
+      line:'我先养着。养到第五年，我们才在一张桌上吃饭。' },
+    { t:'不认', sub:'族里划掉就划掉', subMo:'就当没有这回事', eff:{室:-8,誉:-4}, adopt:0, cai:{忍:2},
+      line:'我没有认。族里把名字划掉了，划得很干净。',
+      lineMo:'我没有认。手续退回去了，退得很干净。' }
+   ]},
+
+ { id:'marry', head:'wedding', needChild:true, an:'嫁女', mo:'女儿出嫁',
+   bodyAn:'女儿出嫁。妆奁要体面，体面要钱。亲家那边已经看过一次单子了。',
+   bodyMo:'女儿要结婚。男方出了房，彩礼要不要、要多少，饭桌上一句话的事，说完记一辈子。',
+   opts:[
+    { t:'厚嫁', sub:'不能让她矮人一头', eff:{财:-14,誉:6,室:4}, cai:{缘:2},
+      line:'我厚嫁了她。嫁完那个冬天，家里顿顿吃粥。' },
+    { t:'简办', sub:'按家里的底子来', eff:{财:4,誉:-6,室:-2}, cai:{忍:2},
+      line:'我简办了。亲家没说什么，女儿也没说什么，两个人都没说什么。' },
+    { t:'不办', sub:'钱留着过冬', eff:{财:8,室:-10,誉:-6}, ink:6, cai:{忍:1},
+      line:'我没有办。她后来再没提过这件事，一次也没有。' }
+   ]},
+
+ { id:'shang', head:'winter', needChild:true, an:'小儿惊风', mo:'孩子病危',
+   bodyAn:'小儿子夜里惊风，抽了半宿。城外有个郎中说能治，要价三十两；城里的大夫说，准备后事。',
+   bodyMo:'孩子高烧四十度，住院要交押金。你翻遍手机，能借的都借了。',
+   opts:[
+    { t:'卖地求医', sub:'地是死的，人是活的', eff:{财:-16,寿:-4}, cai:{缘:1},
+      line:'我卖了地。孩子活下来了，那块地再没赎回来。' },
+    { t:'听天', sub:'不折腾他了', eff:{寿:-2,室:-6}, loseChild:1, cai:{忍:3},
+      line:'我没有去。天亮的时候，屋里静得听得见灶火。' },
+    { t:'借遍', sub:'先借钱再说', eff:{财:-8,誉:-4}, ink:4, cai:{巧:1},
+      line:'我借遍了。钱凑够了，人没等到。' }
+   ]},
+
+ /* 子这一条线不长，得让它从得子一直走到抱孙、走到谁管我。
+    否则"妻财子禄寿"里，子只在结局那一页出现，中间一次也不露面 */
+ { id:'fenjia', minAge:50, maxAge:68, needChild:true, head:'home',
+   an:'分 家', mo:'分 家',
+   bodyAn:'儿子要分出去过了。族里说，早分早清静。可这院子一分，饭就不在一张桌上吃了。',
+   bodyMo:'儿子要买房搬出去，首付差一截，来问你借。你知道这一借，往后就各过各的了。',
+   opts:[
+    { t:'分 清', sub:'各过各的，账目清楚', eff:{室:-10,财:3,誉:2}, cai:{忍:2},
+      line:'我分了。分完那天，屋里空得听得见自己的脚步。',
+      lineMo:'我分了。钱给清了，话也说清了。' },
+    { t:'不 分', sub:'一大家子，人挤人也热', eff:{室:8,财:-6,寿:-2}, cai:{缘:2},
+      line:'我不分。一大家子挤在一处，吵是吵，锅一直是热的。',
+      lineMo:'我没让分。房子挤，饭桌上一直是热闹的。' },
+    { t:'给 钱 不 分 家', sub:'钱给了，人还是走', eff:{财:-10,室:-4,誉:4}, cai:{巧:2},
+      line:'钱我给了，人还是走了。这大概就是分家。',
+      lineMo:'钱我给了，人还是搬走了。' }
+   ]},
+
+ { id:'sun', minAge:54, maxAge:72, needChild:true, head:'home',
+   an:'抱 孙', mo:'带 孙 子',
+   bodyAn:'添了孙子。你娘留下的那只银锁，从箱底翻出来，擦了半天。',
+   bodyMo:'儿子来电话，说孩子生了，问你能不能过去带。你还没退。',
+   opts:[
+    { t:'自 己 带', sub:'把最后几年交出去', eff:{室:10,寿:-5,禄:-4}, cai:{缘:3}, grand:true,
+      line:'我带了。那孩子会走路那年，我已经抱不动他了。',
+      lineMo:'我去了。带了三年，比上班累，也比上班踏实。' },
+    { t:'出 钱 不 出 力', sub:'钱到位，人不去', eff:{财:-8,室:4,誉:2}, cai:{巧:2}, grand:true,
+      line:'我给了钱，人没去。孩子认生，见我就躲。',
+      lineMo:'我给了钱，没去。孩子见了我不太叫得出口。' },
+    { t:'不 管', sub:'这辈子也该过自己的了', eff:{寿:4,室:-6,誉:-3}, cai:{忍:2},
+      line:'我说我不管。后来他们很少回来。',
+      lineMo:'我说我不管。后来他们过年也很少回来。' }
+   ]},
+
+ { id:'zhaogu', minAge:66, maxAge:82, needChild:true, head:'winter',
+   an:'谁 管 我', mo:'谁 来 管',
+   bodyAn:'你走不动了。儿子在外头做官，一年回来一次。屋里的炭，是隔壁替你买的。',
+   bodyMo:'你住院了。儿子在外地，请了护工。护工很好，只是夜里叫不应。',
+   opts:[
+    { t:'叫 他 回 来', sub:'他回来，他的路就断了', eff:{室:8,禄:-6,誉:-2}, cai:{缘:2},
+      line:'我叫他回来了。他回来那年，正赶上他要升。',
+      lineMo:'我让他回来了。他回来的那半年，错过了提拔。' },
+    { t:'不 叫', sub:'自己的晚年自己受', eff:{寿:-6,誉:4,室:-4}, cai:{忍:3},
+      line:'我没有叫他。疼的时候，我就数房梁。',
+      lineMo:'我没有叫他。疼的时候，我就看天花板。' },
+    { t:'去 他 那 里', sub:'老了，就得跟着人走', eff:{室:10,寿:2,财:-6}, cai:{巧:2},
+      line:'我搬去了他那里。什么都好，就是没有一个认得我的人。',
+      lineMo:'我搬去了他的城市。什么都好，就是没有一个人认得我。' }
+   ]},
+
+ /* ───── 寿与灾 ───── */
+ { id:'plague', minAge:16, head:'home', an:'城南起疫', mo:'小区封了',
+   bodyAn:'城南起疫，日死七人。城门关不关：关了就断商路，不关就断人命。你是那个签字的人。',
+   bodyMo:'小区封了。你有通行证，也有一个要化疗的邻居。',
+   opts:[
+    { t:'封', sub:'死人比穷更难看', eff:{寿:8,誉:-6,财:-6}, cai:{忍:2},
+      line:'我封了城。三个月后开城门，街上没有人骂我。' },
+    { t:'不封', sub:'断商路也是杀人', eff:{誉:8,寿:-8,财:4}, cai:{言:2},
+      line:'我没有封。后来死的人里，有两个是我认识的。' },
+    { t:'半封', sub:'两头都想顾', eff:{寿:2,誉:-2,禄:-4}, cai:{巧:1},
+      line:'我封了一半。这一半让两边都恨我。' }
+   ]},
+
+ { id:'debt', minAge:18, head:'ruin', an:'印子钱', mo:'网贷',
+   bodyAn:'家里出了事，借了印子钱。三分利，一月一滚。你算过，按你的俸禄，要还七年。',
+   bodyMo:'账上多了个窟窿，你借了网贷。利息按天算。',
+   opts:[
+    { t:'卖祖屋', tMo:'卖老家的房', sub:'把根卖掉', subMo:'把根卖掉', eff:{财:-8,室:-6,誉:4}, cai:{忍:2},
+      line:'我卖了祖屋。签契的时候，我爹的牌位还在堂上。',
+      lineMo:'我把老家的房子卖了。过户那天，我爹的遗像还挂在墙上。' },
+    { t:'拖', sub:'再拖一个月', eff:{财:-4,誉:-8,寿:-6}, ink:6, cai:{忍:1},
+      line:'我拖着。要债的人在我家门口坐了七天，第八天走了。',
+      lineMo:'我拖着。催收的电话一天十几个，第八天我换了号。' },
+    { t:'再借', sub:'新账盖旧账', eff:{财:4,寿:-8,誉:-4}, ink:10, cai:{巧:2},
+      line:'我又借了一笔。这笔钱把上一笔盖住了，也把我盖住了。' }
+   ]},
+
+ { id:'widow', minAge:30, head:'winter', an:'她走了', mo:'她走了',
+   bodyAn:'她走在你前头。丧事办完第七天，你才发现灶上的盐罐还是满的——是她上个月添的。',
+   bodyMo:'她走了。手机里还有她最后一条消息，问你晚上回不回来吃饭。',
+   opts:[
+    { t:'守', sub:'一个人过下去', eff:{室:-10,誉:4,寿:-4}, cai:{忍:3},
+      line:'我一个人过。灶上的盐罐我一直添，添了二十年。' },
+    { t:'续弦', sub:'日子总要有人过', eff:{室:12,子:-4,财:-6}, cai:{缘:2},
+      line:'我续了弦。新人很好，只是我总记得盐罐放在哪。' },
+    { t:'搬走', sub:'离开这间屋子', eff:{室:-4,财:-6,寿:2}, cai:{巧:1},
+      line:'我搬走了。搬走那天才发现，她的针线筐还在床底下。' }
+   ]},
+
+ /* ───── 誉：人言 ───── */
+ { id:'talk', minAge:24, head:'censor', an:'乡评', mo:'一条视频',
+   bodyAn:'你的事被编成话本，在茶馆里说。说的人加两句，听的人又加两句。',
+   bodyMo:'一条视频火了，主角是你。评论第一天三千，第二天三万。',
+   opts:[
+    { t:'辩', sub:'把话说清楚', eff:{誉:4,禄:-8,寿:-6}, cai:{言:3},
+      line:'我辩了。辩赢那天，话本已经卖到了第三个县。',
+      lineMo:'我发了长文。发完那天，那条视频已经转到了第四个群。' },
+    { t:'不理', sub:'等它自己冷', eff:{誉:-8,寿:2,室:-4}, cai:{忍:2},
+      line:'我没有理。三年后还有人在街上指我。' },
+    { t:'压', sub:'花钱让它消失', eff:{财:-12,誉:-4,禄:4}, ink:10, cai:{巧:2},
+      line:'我压了。压下去之后，说的人更多了。' }
+   ]},
+
+ { id:'mentor', minAge:26, head:'yamen', an:'座师致仕', mo:'老领导退了',
+   bodyAn:'座师致仕了。临走前把你叫去，说有一句话，还有一个人，托给你。',
+   bodyMo:'老领导退了。走之前把你叫到办公室，说有个事，还有个人，托给你。',
+   opts:[
+    { t:'应下', sub:'人情总得有人接', eff:{禄:8,财:-6,誉:2}, cai:{缘:3},
+      line:'我应下了。那个人后来替我挡了一刀。' },
+    { t:'推了', sub:'不想欠也不想被欠', eff:{禄:-4,誉:4}, cai:{忍:2},
+      line:'我推了。座师点点头，把话咽回去了。' },
+    { t:'应一半', sub:'留个余地', eff:{禄:4,誉:-2,室:-2}, cai:{巧:2},
+      line:'我应了一半。剩下那一半，他自己办了。' }
+   ]},
+
+ /* ───── 财：货与路 ───── */
+ { id:'salt', minAge:22, head:'journey', an:'盐引', mo:'一张牌照',
+   bodyAn:'盐引的批文在你手里过一道。过一道，就是三成的利。规矩是规矩，批文是批文。',
+   bodyMo:'一张资质牌照卡在你这一环。放不放、什么时候放，都有人来问。',
+   opts:[
+    { t:'抽成', sub:'过一道收一道', eff:{财:14,誉:-8}, ink:12, cai:{巧:2},
+      line:'我抽了三成。三成够我在老家买一处宅子。' },
+    { t:'照章', sub:'一分不拿', eff:{誉:6,财:-6,禄:2}, cai:{忍:1},
+      line:'我照章办了。那年冬天我缺一笔钱，谁也没借我。' },
+    { t:'给一家', sub:'只放一个人进来', eff:{财:10,禄:4,誉:-4}, ink:6, cai:{缘:2},
+      line:'我给了一家。他家后来成了这个地方最大的商。' }
+   ]},
+
+ /* ───── 早年与晚境 ───── */
+ { id:'exam', minAge:16, maxAge:24, head:'study', an:'秋闱', mo:'高考出分',
+   bodyAn:'秋闱在即。你读了九年，家里卖了两亩地。榜贴在贡院外头，围了三层人。',
+   bodyMo:'还有三个月。你妈不再问你成绩，你爸开始在阳台上抽烟。',
+   opts:[
+    { t:'搏一场', sub:'把自己关起来', eff:{禄:12,寿:-6,室:-4}, cai:{智:3},
+      line:'我把自己关了九个月。出来那天，看什么都觉得小。' },
+    { t:'求稳', sub:'按能考上的走', eff:{禄:4,寿:2}, cai:{忍:2},
+      line:'我求了稳。稳当的人走得慢，走得远。' },
+    { t:'不考了', sub:'换一条路', eff:{禄:-10,财:2,室:4}, cai:{巧:2},
+      line:'我不考了。我爹把书箱搬到柴房，再没提过。' }
+   ]},
+
+ { id:'wall', minLu:30, minAge:22, head:'field', an:'修城', mo:'修路',
+   bodyAn:'要修一段城墙。银子拨了八万，实到五万。修薄一点，十年内不会塌；十年后，你已不在任上。',
+   bodyMo:'要修一段路。预算砍了三成，验收能过，只是五年后要重修。',
+   opts:[
+    { t:'照足修', sub:'自己贴那三万', eff:{财:-8,誉:8,禄:-4}, cai:{忍:2},
+      line:'我照足修。修完账上空了，城墙到万历年间还在。' },
+    { t:'按预算', sub:'能过就行', eff:{禄:6,誉:-6}, ink:8, cai:{巧:1},
+      line:'我按预算修。第十一年，那段墙塌了一角。' },
+    { t:'不修', sub:'等下一任', eff:{禄:-6,誉:-4,寿:2}, cai:{忍:1},
+      line:'我没有修。那年冬天雪大，墙根下冻死了人。' }
+   ]},
+
+ { id:'retire', minLu:25, minAge:52, head:'journey', an:'致仕', mo:'退休',
+   bodyAn:'六十了。上头准你致仕，给半俸。走的那天，衙门里出来送的只有三个人。',
+   bodyMo:'手续办完。工作群里你的名字被移出去的时候，没有人说话。',
+   opts:[
+    { t:'回乡', tMo:'回老家', sub:'回去种地', subMo:'回去种点东西', eff:{室:8,寿:6,誉:4,禄:-10}, cai:{忍:2},
+      line:'我回了乡。回乡那天，只有三个衙役送到城外。',
+      lineMo:'我回了老家。走的那天，只有三个人送到楼下。' },
+    { t:'留京', tMo:'留在这座城', sub:'人还在局里', subMo:'人还在这个圈子里', eff:{禄:2,财:4,室:-6}, cai:{缘:1},
+      line:'我留在京里。京里的房租贵，人情更贵。',
+      lineMo:'我留下了。这里的房租贵，人情更贵。' },
+    { t:'再谋一任', tMo:'再干四年', sub:'多出来的四年', subMo:'多出来的四年', eff:{禄:8,寿:-8,誉:-4}, ink:4, cai:{巧:2},
+      line:'我又谋了一任。多出来的那四年，是我拿命换的。',
+      lineMo:'我又干了四年。那四年，是我拿命换的。' }
+   ]},
+
+ /* ───── 律：这条线古今都有，且一直没断过 ───── */
+ { id:'sue', head:'censor', minAge:28, an:'首告', mo:'实名举报',
+   bodyAn:'你手里有一份东西，能要人的命。递上去，你是清流；压下来，你是同党；拿去换，你是有钱人。',
+   bodyMo:'你手里有一份材料，够立案。递上去，你是吹哨人；压下来，你是共犯。',
+   opts:[
+    { t:'递', sub:'按律办他', eff:{誉:12,禄:-6,寿:-4}, cai:{言:2},
+      line:'我把东西递上去了。递的时候手不抖，回去的路上抖了。' },
+    { t:'压', sub:'留着比用了值钱', eff:{禄:6,誉:-6}, ink:8, cai:{忍:2},
+      line:'我没有递。那份东西在我柜子里放了十年。' },
+    { t:'换', sub:'卖给要用它的人', eff:{财:14,誉:-10}, ink:14, law:12, cai:{巧:2},
+      line:'我把它卖了。价钱很好，好到我后来不敢问买主是谁。' }
+   ]},
+
+ { id:'case', head:'yamen', force:true, an:'问拟', mo:'立案',
+   bodyAn:'都察院具题，说你"贪墨有迹"，赃证已齐。三法司会问。你可以认，可以咬，也可以赎。',
+   bodyMo:'纪委立案。谈话通知送到办公室，你签收的时候手很稳。',
+   opts:[
+    { t:'认', sub:'都认下来', eff:{禄:-28,誉:-12,财:-14,寿:-4},
+      line:'我都认了。认下来那晚，我反而睡得着。' },
+    { t:'咬', sub:'把别人也拖下水', eff:{誉:-20,禄:-10,寿:-6}, ink:12,
+      line:'我咬了三个人。三个人都比我脏，可我比他们先开口。' },
+    { t:'赎', sub:'花钱把罪买成罚', eff:{财:-32,禄:-8,誉:-8}, ink:8,
+      line:'那笔钱是我这辈子最大的一笔。交出去的时候，人轻了，心没轻。' }
+   ]},
+
+ /* ───── 方外：不争了，反倒是大名 ───── */
+ { id:'tonsure', head:'journey', minAge:40, noMonk:true, an:'落发', mo:'剃度',
+   bodyAn:'报恩寺的方式说你"眉目有出尘气"。也有人说，你是被那一桩事逼到这一步的。佛门与道门，都开着。',
+   bodyMo:'山上的寺院、城外的道观，都收人。你把手机放下那天，天很好。',
+   opts:[
+    { t:'入佛门', sub:'从此不闻窗外事', eff:{禄:-25,财:-15,室:-12,寿:6}, monk:'佛',
+      line:'我把头剃了。剃刀凉，头皮也凉。' },
+    { t:'入道门', sub:'山上的日子长', eff:{禄:-25,财:-12,室:-12,寿:4}, monk:'道',
+      line:'我上了山。山上的日子长，长得像没有尽头。' },
+    { t:'不出', sub:'站了站，还是下来了', eff:{寿:-2,室:2},
+      line:'我在山门外站了很久，还是下来了。' }
+   ]},
+
+ /* ───── 职业与轨：你在事上选边，系统才认出你是谁 ───── */
+ { id:'trade', minAge:18, maxAge:30, head:'journey', an:'改 行', mo:'换 行',
+   bodyAn:'你这一行的路，走到这里就看得出尽头了。有人劝你去码头那边，说那边来钱快；也有人说，不如自己支个摊子。',
+   bodyMo:'干了两年，你算了一下：再干十年，还是这个数。招聘软件上那些岗位，你都够不上；够得上的，又不想去。',
+   opts:[
+    { t:'守着本行', sub:'手熟了，别折腾', eff:{禄:3,寿:-2}, tr:{循吏:2},
+      line:'我没走。这一行我熟了，熟了就是本钱。' },
+    { t:'换个行当', sub:'哪儿给钱去哪儿', eff:{财:6,誉:-2}, tr:{权臣:1}, jobAxis:'商',
+      line:'我换了。新地方没人认识我，这倒是件好事。' },
+    { t:'自己开张', sub:'宁做鸡头', eff:{财:9,寿:-5,禄:-4}, job:'ge', tr:{孤臣:1},
+      line:'我自己支了个摊。头一年赔的，是我娘的棺材本。' }
+   ]},
+
+ { id:'sanguan', axis:'仕', minAge:19, maxAge:25, head:'study', an:'散 馆', mo:'定 岗',
+   bodyAn:'庶吉士三年期满，要散了。留馆是清贵，一辈子在翰林院里修书讲学；外放是实务，一个知县，什么都得自己扛。也有人说，再等一科。',
+   bodyMo:'轮岗结束，三个去处摆在桌上：总部写材料的岗，下去带项目，或者再等一年看看。',
+   opts:[
+    { t:'留 馆', tMo:'留总部', sub:'清贵，也清苦', subMo:'体面，也清苦', eff:{誉:6,禄:-4,财:-3}, tr:{清流:3},
+      line:'我留馆了。同年的名字一个个上了地方志，我的名字在书尾。',
+      lineMo:'我留在总部。同批的人一个个上了新闻，我的名字在文件末尾。' },
+    { t:'外 放', tMo:'下去带项目', sub:'一个县，什么都自己扛', subMo:'一摊子事，什么都自己扛',
+      eff:{禄:9,寿:-4,室:-3}, tr:{能吏:3},
+      line:'我外放了。到任第七天，库房的账就对不上。',
+      lineMo:'我下去了。到岗第七天，项目的账就对不上。' },
+    { t:'再 等 一 科', tMo:'再等一年', sub:'不甘心', subMo:'不甘心', eff:{寿:-3,誉:3,禄:-2}, tr:{循吏:2},
+      line:'我又等了一科。这一科，我爹没等到。',
+      lineMo:'我又等了一年。这一年，我爹没等到。' }
+   ]},
+
+ { id:'sign', minLu:15, minAge:22, maxAge:30, head:'yamen', an:'第 一 次 签 字', mo:'第 一 次 签 字',
+   bodyAn:'公文递到你这儿，要你署一个名。数目对不上，差的不多，也不小。上头催得紧，旁边的人都在等你的笔。',
+   bodyMo:'一份验收单要你签。数字有问题，不大，但也不小。领导在群里问了三次"什么时候能好"。',
+   opts:[
+    { t:'签', sub:'事总得有人担', eff:{禄:9,寿:-3}, ink:7, tr:{能吏:3},
+      line:'我签了。那支笔比我想的重。' },
+    { t:'拖', sub:'不落笔，也不算拒', eff:{誉:-4,禄:-3,寿:2}, tr:{循吏:2},
+      line:'我拖了。拖到最后，别人签了，事情也就过去了。' },
+    { t:'往 上 递', sub:'把这本账摊开', eff:{誉:9,禄:-7}, law:5, tr:{清流:4},
+      line:'我往上递了。递上去的第三天，我被叫去谈了四个钟头。' }
+   ]},
+
+ { id:'dafu', minLu:45, minAge:32, maxAge:44, head:'dispatch', an:'一 方 大 员', mo:'一 个 大 摊 子',
+   bodyAn:'你的名字进了那份名单。往北是封疆，兵马钱粮都归你；往南是入京，离那把椅子只差几级。也有人劝你，就在这一省待下去。',
+   bodyMo:'区域总、集团总部、或者留在这个城市。三条路，都有人走过，都有人死在上面。',
+   opts:[
+    { t:'去 封 疆', tMo:'去区域', sub:'兵马钱粮都归你', subMo:'人、钱、事，都归你',
+      eff:{禄:7,寿:-7,室:-5,誉:4}, tr:{边臣:4},
+      line:'我去了。那里冬天的风，能把人的话吹回嘴里。',
+      lineMo:'我去了。那边冬天的风，能把人的话吹回嘴里。' },
+    { t:'入 京', tMo:'进总部', sub:'离那把椅子只差几级', subMo:'离那间办公室只差几级',
+      eff:{禄:12,寿:-4,誉:-5}, ink:6, tr:{权臣:4},
+      line:'我入京了。京城的好处是，什么事都能找到人。',
+      lineMo:'我进了总部。总部的好处是，什么事都能找到人。' },
+    { t:'留 在 这 一 省', tMo:'留在这座城', sub:'这里的人认得我', subMo:'这里的人认得我', eff:{誉:8,禄:-5}, tr:{循吏:4},
+      line:'我没走。修的那条渠，现在还在用。',
+      lineMo:'我没走。当年推的那个项目，现在还在跑。' }
+   ]},
+
+ { id:'duandang', minLu:30, minAge:26, head:'censor', an:'断 党', mo:'退 群',
+   bodyAn:'你身边的人，一个个都在这张网里。有人替你挡过事，也有人在你的名字上添过一笔。现在，你被要求选一次：认，还是不认。',
+   bodyMo:'那个群你还在。里面有人替你说话，也有人把你的名字往上报过。现在有人问你：你到底站哪边。',
+   opts:[
+    { t:'断', sub:'弃尽人情，此后无人替你说话', eff:{誉:7,禄:-9,室:-7}, cutParty:true, tr:{孤臣:5},
+      line:'我把那些帖子都烧了。烧完那天，我一个人吃了顿饭。',
+      lineMo:'我把那些聊天记录都删了。删完那天，我一个人吃了顿饭。' },
+    { t:'不 断', sub:'网还在，就还有路', eff:{禄:6,誉:-4}, tr:{权臣:3},
+      line:'我没断。这张网托着我，也勒着我。' },
+    { t:'先 辞 官', tMo:'辞了', sub:'不认，也不斗', subMo:'不认，也不斗', eff:{禄:-18,誉:10,寿:3}, cutParty:true, tr:{孤臣:3},
+      line:'我辞了。走出衙门那天，门房没抬头。',
+      lineMo:'我辞了。走出大楼那天，保安没抬头。' }
+   ]},
+
+ { id:'pupil', minAge:30, head:'study', an:'提 携 后 进', mo:'带 个 新 人',
+   bodyAn:'有个年轻人拿着文章来拜。字写得不好，可有一句问到根上。带他，要费你的时间、你的钱、你的人情。',
+   bodyMo:'部门来了个新人，问你愿不愿意带。带好了，是他的；带不好，是你的。',
+   opts:[
+    { t:'认 真 带', sub:'费时间，也费钱', eff:{誉:6,财:-5,寿:-3}, pupil:2, tr:{循吏:2},
+      line:'我认真带了。他后来做的事，比我大。' },
+    { t:'挂 个 名', sub:'不费事，也不担责', eff:{禄:4,誉:-2}, pupil:1,
+      line:'我挂了个名。他逢年过节还来，我记不住他的字。' },
+    { t:'不 收', sub:'省下这点力气', eff:{禄:3,誉:-5,寿:2},
+      line:'我没收。我那时候忙，忙的都是些现在想不起来的事。' }
+   ]},
+
+ /* ───── 情关：一生只有一两回，可它管着你后来的很多年 ───── */
+ { id:'meet', minAge:18, maxAge:26, noChild:true, noMonk:true, noLove:true, head:'wedding',
+   an:'说 亲', mo:'认 识 一 个 人',
+   bodyAn:'媒人领她来家里坐了一回。她坐在门口那张凳子上，手一直放在膝上，没怎么抬头。临走时她看了你一眼，很快。',
+   bodyMo:'朋友拉了个饭局。她坐在你斜对面，中途你们同时伸手去拿盘子里最后一块东西，都缩了回去。',
+   opts:[
+    { t:'追', sub:'把话递过去', eff:{寿:-2,财:-3}, love:'chase',
+      line:'我开始跑了。那几年我跑的路，比前二十年加起来都多。' },
+    { t:'应 下', sub:'两家都满意', eff:{室:4}, love:'accept',
+      line:'我应下了。一切都办得很顺，顺得像没有我这个人。' },
+    { t:'不 议 亲', sub:'这一辈子一个人过', eff:{誉:3,寿:3}, love:'none',
+      line:'我说不议亲。我娘哭了一夜，第二天照常做饭。' }
+   ]},
+
+ /* ───── 学：读书能改命，但改不到极处 ───── */
+ { id:'read', minAge:16, maxAge:45, head:'study', an:'读 书', mo:'进 修',
+   bodyAn:'县学的门房认得你的鞋。举业这件事，读死书不算，可不读连门都进不去。灯油一晚三分，你算过很多回。',
+   bodyMo:'有个证、有个学历，简历上就能多一行。夜里两点的课，你也上过；上到第三个月，你开始怀疑自己图什么。',
+   opts:[
+    { t:'苦 读', sub:'把能用的时间都押上', eff:{寿:-5,禄:3}, study:3, cai:{智:1},
+      line:'我读了。那几年手指上有墨，洗不掉。' },
+    { t:'拜 师', sub:'花钱买一条门路', eff:{财:-8,誉:2}, study:2, cai:{言:1},
+      line:'我拜了师。先生教我的第一件事，是怎么递帖子。' },
+    { t:'不 读', sub:'书救不了我这样的人', eff:{寿:2,财:2},
+      line:'我没读。后来我算账比谁都快，字还是写不好。' }
+   ]},
+
+ /* ───── 气运：顺的时候遇人，背的时候撞事 ───── */
+ { id:'guiren', minAge:22, maxAge:52, minYun:70, head:'court', an:'贵 人', mo:'遇 上 一 个 人',
+   bodyAn:'席上有个人多看了你一眼，问了你一句话。这一句话，后来值一个缺。你连他的官称都没记全。',
+   bodyMo:'一个饭局上，有人把你的名字记下了。三个月后，一个机会自己找了过来。',
+   opts:[
+    { t:'接 住', sub:'这时候不推辞', eff:{禄:9,财:4}, yun:5, deed:true,
+      line:'我接住了。那一年我什么也没做错。' },
+    { t:'推 掉', sub:'不是我的路', eff:{誉:5,禄:-4}, yun:-3,
+      line:'我推了。后来听说那个位子坐了个人，坐了十年。' },
+    { t:'问清楚', sub:'先看他图什么', eff:{誉:3,禄:4}, cai:{巧:1},
+      line:'我先问了他图什么。他笑了，说"你这人谨慎"。' }
+   ]},
+
+ { id:'wuwang', minAge:20, maxAge:50, maxYun:30, head:'ruin', an:'无 妄 之 灾', mo:'一 次 意 外',
+   bodyAn:'一桩跟你毫不相干的事，偏偏查到了你门口。有人说是运气，有人说是命。你翻来覆去想：凭什么是我。',
+   bodyMo:'一件跟你没关系的事，最后落到了你头上。你去问，人家说"流程就是这样"。',
+   opts:[
+    { t:'认', sub:'该我倒霉', eff:{财:-6,寿:-3}, yun:-10, law:5,
+      line:'我认了。认了之后，事情反而小了。' },
+    { t:'托 人', sub:'花钱把事推出去', eff:{财:-12,誉:-2}, yun:8,
+      line:'我托了人。事情转了个弯，落到别人头上。' },
+    { t:'硬 顶', sub:'不认这个理', eff:{寿:-5,誉:6}, yun:-4, ink:3,
+      line:'我硬顶了。顶赢了，也顶出了一身病。' }
+   ]},
+
+ { id:'late', minAge:30, maxAge:46, softLone:true, head:'wedding',
+   an:'媒 人 又 来 了', mo:'又 有 人 介 绍',
+   bodyAn:'当年你说不议亲，说得干脆。这些年过去，媒人又来了两回，来的都是些"条件差一层"的。她说这一回这个，人很实在。',
+   bodyMo:'当年那句"不着急"，一放就是十几年。现在介绍来的，多半也是被挑剩下的。你看着对方，忽然想不起自己当年在等什么。',
+   opts:[
+    { t:'将 就', sub:'一个人过太久了', eff:{室:14,誉:-4}, unlone:true,
+      line:'我应了。婚礼办得很小，我们都没请什么人。' },
+    { t:'一 个 人 过', sub:'这条路我认了', eff:{誉:4,寿:2},
+      line:'我摇了摇头。回去的路上买了半斤酒，一个人喝完。' }
+   ]},
+
+ { id:'qie', minAge:28, minShi:30, head:'home', an:'纳 妾', mo:'另 一 个 人',
+   bodyAn:'家里一直没有儿子，族里的话越来越难听。有人说，纳一房就是了——添丁，也算对得起祖先。',
+   bodyMo:'家里催得紧。有人说，换个人生就是了。你听着，没有反驳。',
+   opts:[
+    { t:'纳', sub:'花钱买子，最脏的一笔', eff:{财:-12}, concubine:true, ink:4,
+      line:'我纳了。她进门那天一直低着头，我也没抬头。' },
+    { t:'不 纳', sub:'没有就没有', eff:{室:4,誉:3},
+      line:'我没纳。这话我说得很轻，可我说了。' }
+   ]},
+ /* ───── 旧人：第二段关系从哪里来 ───── */
+ { id:'again', minAge:30, maxAge:46, head:'journey', hasLove:true, noLove2:true,
+   an:'旧 人', mo:'旧 人',
+   bodyAn:'你去赴一场宴，席上坐着一个很多年前见过的人。她如今是别人家的。散席时她走到廊下，看了你一眼，没有走。',
+   bodyMo:'同学会上你遇到很多年前的那个人。她过得不算好，也不算坏。散场时她问了一句：还联系吗。',
+   opts:[
+    { t:'留一个地址', sub:'只是留一个地址', eff:{寿:-2,室:-2}, cai:{缘:2}, love2:true,
+      line:'我留了地址。后来那个地址上，来过三封信。',
+      lineMo:'我把号码给了她。后来那个号，夜里响过很多次。' },
+    { t:'当没看见', sub:'有些门不推就不会开', eff:{誉:2,寿:1}, cai:{忍:2},
+      line:'我当没看见。散席时我先走的。' },
+    { t:'送她回去', tMo:'送她到楼下', sub:'只送到门口', subMo:'只送到楼下', eff:{寿:-3,誉:-2,室:-1}, cai:{缘:3}, love2:true,
+      line:'我送她到门口。站了一会儿，谁都没有再说话。',
+      lineMo:'我送她到楼下。站了一会儿，谁都没有再说话。' }
+   ]}
+
+];
+
+/* ══════════════ 今世的选项文案 ══════════════
+   正文早就是现代的了，按钮却还留着古世的说法——「当 了」「借 高 利」「考成不等人」。
+   一个人在今天还房贷，不该看见"两"和"衙门"。
+   判据只有一条：制度的名字必须换，人的处境不必换。
+   衙门→单位、外放→调走、考成→考核、两→块；而"她答得很轻，我听见了"古今一样。
+   表里没写的事件（只有古世的那一条），不补。 */
+const MO_OPT = {
+  name: [
+    ['', '', ''],
+    ['不改', '户口本上就这个', '我没改。这个名字后来出现在所有表格上，我每次都要顿一下。'],
+    ['两个都用', '一个对外，一个对内', '上班用身份证上的，回家用家里叫的。后来自己也得想一下。']
+  ],
+  alley: [
+    ['过去', '麻烦是后面的', '我过去了。后来被叫去做过三次笔录。'],
+    ['走开', '不关我的事', '我走开了。走出十几步，后面的声音更大了。'],
+    ['喊人', '别自己上手', '我去喊了人。等我带着人回来，人已经散了。']
+  ],
+  pawn: [
+    ['押了', '先过这个月', '我把镯子押了。等赎回来，已经不是原来那只。'],
+    ['借网贷', '翻得比我还快', '我借了。那笔钱滚得比我快。'],
+    ['咬牙不借', '饿着，但不欠', '我没借。那半个月吃的什么，我一直没跟人说过。']
+  ],
+  night: [
+    ['熬', '年轻就是本钱', '我熬了。二十几岁熬的夜，四十岁开始还。'],
+    ['睡', '命比事要紧', '我睡了。第二天那件事，别人做完了。'],
+    ['换个法子', '省下时间也没睡', '我换了个法子。省下来的时间，也没用来睡。']
+  ],
+  letter: [
+    ['回去', '事能等，人不能', '我回去了。回去那天她已经能下床，还是骂我耽误事。'],
+    ['打钱', '钱到了，人也出院了', '我打了钱。钱到了，人也出院了。'],
+    ['没回', '这一趟太远', '我没回。那年冬天我做了很多事，一件也想不起来。']
+  ],
+  blind: [
+    ['答应', '见了三面就定', '我答应了。见面到订婚，一共十七天。'],
+    ['再等等', '总觉得还有别的', '我说再等等。这一等，介绍人后来就不来了。'],
+    ['说实话', '穷就穷，不装', '我把家里的底说了。她愣了一下，说你这人实在。']
+  ],
+  firstpay: [
+    ['全交家里', '一分不留', '我一分没留。我妈把钱压在箱底，压了三年。'],
+    ['先给自己', '鞋底已经透了', '我先给自己买了双鞋。旧的那双，鞋底已经透了。'],
+    ['请人吃饭', '这桌人里有一个记了我十年', '我请了一桌。那桌人里后来有一个，记了我十年。']
+  ],
+  copy: [
+    ['接', '这单够吃两个月', '我接了。写完那篇，我自己的字也脏了一点。'],
+    ['不接', '这活儿不该我干', '我没接。他说装什么，然后找了别人。'],
+    ['接了，糊弄', '收钱不办漂亮事', '我接了，写得很敷衍。他居然也过了。']
+  ],
+  tally: [
+    ['认下，补上', '这笔钱是我妈攒了两年的', '我补上了。那笔钱，是我妈攒了两年的。'],
+    ['查到底', '查到第三个人就查不动了', '我查了。查到第三个人，就查不动了。'],
+    ['记别人账上', '反正他调走了', '我记在了别人名下。他调走那天，我没去送。']
+  ],
+  gift: [
+    ['送', '放下就走，别多话', '我把东西放下就走了。他送到门口，说了句客气。'],
+    ['不送', '这个位子我不要了', '我没送。第二年那个位子给了别人，第三年还是。'],
+    ['送，留一手', '他收的东西我记着', '我送了，也留了一样东西。那东西后来救过我，也害过我。']
+  ],
+  kin: [
+    ['借', '亲戚就是这时候用的', '我借了。三年后他送来一筐鸡蛋，钱的事谁都没提。'],
+    ['不借', '我也有我的难处', '我说没有。他走的时候，把带来的那袋水果又拎走了。'],
+    ['借一半', '给个数，彼此都好过', '我借了一半。他收下的时候，笑了一下，很轻。']
+  ],
+  drink: [
+    ['替他挡', '吐完出来接着笑', '我替他挡了。吐在洗手间，出来接着笑。'],
+    ['装醉', '装得像，后来没人信', '我装醉。装得挺像，后来真喝不动了也没人信。'],
+    ['说我不喝', '桌上安静了两秒', '我说我不喝。桌上安静了两秒，然后有人说爽快。']
+  ],
+  clan: [
+    ['入', '一个人走不快', '我入了。后来他们的事，我也得算一份。'],
+    ['不入', '文件从此慢两天', '我没入。那年冬天，我的文件总比别人慢两天。'],
+    ['看着', '不入，也不推', '我不入，也不推。两年后群散了，我还在。']
+  ],
+  quit: [
+    ['走', '头也没回', '我走了。走那天，几个学生送到楼下，我头也没回。'],
+    ['留', '留下的人后来都成了老人', '我留下了。留下的人，后来都成了老人。'],
+    ['两头接', '两头都不算好', '我两头都接了。两头都做得不坏，也都不算好。']
+  ],
+  oath: [
+    ['入伙', '这杯酒喝完就不好推了', '我入了。那杯酒喝完，有些事就不好推了。'],
+    ['只出钱', '出力的事我不沾', '我只出了钱。后来他们散了，钱也没了。'],
+    ['不入伙', '他们后来都发了，也可能没有', '我没入。他们三个后来都发了，也可能没有。']
+  ],
+  house: [
+    ['出钱', '根在这里', '我出了钱。后来那房子什么样，我一直没敢回去看。'],
+    ['不出', '换一笔现的', '我没出。家里那边，从此少了一个位置。'],
+    ['拖着', '到最后是别人替我定的', '我拖着。拖到最后，是别人替我定的。']
+  ],
+  will: [
+    ['硬推', '先把数交上去', '我把字签了，签得很快，快得自己都听见了。'],
+    ['拖着', '拖，是最像办事的不办事', '我拖了三个月。什么都没发生，什么也没解决。']
+  ],
+  money: [
+    ['自己补', '想办法填上', '那个窟窿是我自己填的。填完我就明白了，填得了一次，填不了十年。'],
+    ['以工代赈', '让人来干活，不给钱', '工程修成了。三年后没垮，也没人提我的名字。'],
+    ['往下摊', '按人头压下去', '我把手伸进了别人的口袋，伸得很熟练。']
+  ],
+  who: [
+    ['办', '人情是这行的通货', '我替人办了一件事。办完就知道，这人情迟早要还。'],
+    ['拖', '不回话，也不办', '我没回话。有些事不回话，就是回话。'],
+    ['顶回去', '把原定的人保下来', '我把话说直了。话说直的人，路走得短。']
+  ],
+  home: [
+    ['回去', '人只有一个母亲', '我回去了。回去的时候她已经不太认人了。'],
+    ['不回', '先把这一任做完', '我没有回去。那一年的事我全办成了，一件也想不起来了。'],
+    ['两头跑', '两头都想顾', '我两头跑了一年。两头都没顾好。']
+  ],
+  love: [
+    ['争', '把这个人争下来', '我把她争下来了。代价是我爸那年没添过一件衣裳。'],
+    ['放', '不耽误她', '我放手了。后来每次升职，我都会想起她一次。'],
+    ['不谈了', '一个人也能过', '我说我不谈了。说完心里空了一块，也轻了一块。']
+  ],
+  impeach: [
+    ['反手举报', '把他的底也翻出来', '我反手举报了他。两个人一起掉下来，我落得比他慢一点。'],
+    ['认一半', '保住位子', '我认了一半。认下来的那一半，跟了我一辈子。'],
+    ['打点', '花钱把事压下去', '我花钱把事压下去了。压下去的东西，都会在别处长出来。']
+  ],
+  exile: [
+    ['去', '去就去', '我去了。去了以后才发现，那地方反而没人管我。'],
+    ['求人', '低头，把位子保住', '我低了头。低头这件事，做第一次最难。'],
+    ['辞', '不干了', '我不干了。那天晚上我睡了一整夜。']
+  ],
+  fenjia: [
+    ['分清', '各过各的，账目清楚', ''],
+    ['不分', '一大家子，人挤人也热', ''],
+    ['给钱不分家', '钱给了，人还是走', '']
+  ],
+  sun: [
+    ['自己带', '把最后几年交出去', ''],
+    ['出钱不出力', '钱到位，人不去', ''],
+    ['不管', '这辈子也该过自己的了', '']
+  ],
+  zhaogu: [
+    ['叫他回来', '他回来，他的路就断了', ''],
+    ['不叫', '自己的晚年自己受', ''],
+    ['去他那里', '老了，就得跟着人走', '']
+  ],
+  heir: [
+    ['求医', '花钱，也花脸面', ''],
+    ['另找一个人', '添丁是正事，脸面是小事', ''],
+    ['认命', '没有就没有，往后不提', '']
+  ],
+  child: [
+    ['自己教', '省下钱，花掉命', '我教了他三年。他记住的不是书，是我坐在旁边那盏灯。'],
+    ['请老师', '花钱买时间', '我请了最好的老师。儿子跟他亲，跟我不亲。'],
+    ['不管', '先办自己的事', '我不管他。后来他什么也不跟我说。']
+  ],
+  sick: [
+    ['养', '把命当回事', '我歇了三个月。那三个月是我一生里最安静的日子。'],
+    ['硬撑', '考核不等人', '我硬撑过去了。撑过去的那一年，我老得特别快。'],
+    ['买药', '花钱换个安心', '我买了一堆药。吃完也没好，也没坏。']
+  ],
+  yi: [
+    ['开门', '担这个责任', '我把门开了。领导骂了我三个月，那三百个人活过了那个冬天。'],
+    ['', '', ''],
+    ['闭门', '多一事不如少一事', '我没有开门。第二天早上门口是干净的。']
+  ],
+  ke: [
+    ['花钱改', '把浮躁那一栏抹掉', '我花了钱。那一格抹干净了，抹的人也被我记住了。'],
+    ['认下', '明年再来', '我认了。后来那几年我每天早到一个钟头，没有人看见。'],
+    ['闹', '把不公说出来', '我把话说到办公楼门口。话说清楚了，路也走完了。']
+  ],
+  huohao: [
+    ['照收', '这里的规矩', '我照收。收的时候把手放在袖子里，不让别人看见它在抖。'],
+    ['不收', '自己贴钱养人', '我不收。人走了三个，剩下的替我把活干完了。'],
+    ['收一半', '给自己一个说法', '我收一半。这一半，是我给自己的说法。']
+  ],
+  yao: [
+    ['', '', ''],
+    ['花钱雇', '拿自己的钱买别人的手', '我出钱雇了人。秋收那天，我家的场院也是空的。'],
+    ['拖着', '拖到上面忘了', '我拖了两个月。那一段路缺着，没有人问。']
+  ],
+  ci: [
+    ['受', '受下来', '我受了。牌子挂上那天我站在门口看自己的名字，像看别人的。'],
+    ['辞', '当面辞掉', '我辞了。牌子上刻好的字磨平，磨了三天。'],
+    ['半推', '推两次就够了', '我推了两次就受了。第三次的时候，我自己都觉得假。']
+  ],
+  adopt: [
+    ['当亲生', '认下来', '我当他亲生的。他十岁那年第一次叫我，叫得很轻。'],
+    ['先养着', '手续先办着', '我先养着。养到第五年，我们才在一张桌上吃饭。'],
+    ['不认', '户口本上不添', '我没有认。家里把名字划掉了，划得很干净。']
+  ],
+  marry: [
+    ['厚嫁', '不能让她矮人一头', '我厚嫁了她。嫁完那个冬天，家里顿顿吃粥。'],
+    ['简办', '按家里的底子来', '我简办了。亲家没说什么，女儿也没说什么，两个人都没说什么。'],
+    ['不办', '钱留着过冬', '我没有办。她后来再没提过这件事，一次也没有。']
+  ],
+  shang: [
+    ['卖房求医', '房是死的，人是活的', '我把房子卖了。孩子活下来了，那房子再没买回来。'],
+    ['听天', '不折腾他了', '我没有再去。天亮的时候，屋里静得听得见钟走。'],
+    ['借遍', '先借钱再说', '我借遍了。钱凑够了，人没等到。']
+  ],
+  plague: [
+    ['封', '死的人比穷更难看', '我把小区封了。三个月后开门，街上没有人骂我。'],
+    ['不封', '断了生意也是杀人', '我没有封。后来死的人里，有两个是我认识的。'],
+    ['半封', '两头都想顾', '我封了一半。这一半让两边都恨我。']
+  ],
+  debt: [
+    ['', '', ''],
+    ['拖', '再拖一个月', '我拖着。要债的人在我家门口坐了七天，第八天走了。'],
+    ['再借', '新账盖旧账', '我又借了一笔。这笔钱把上一笔盖住了，也把我盖住了。']
+  ],
+  widow: [
+    ['守', '一个人过下去', '我一个人过。灶上的盐罐我一直添，添了二十年。'],
+    ['再婚', '日子总要有人过', '我再婚了。新人很好，只是我总记得盐罐放在哪。'],
+    ['搬走', '离开这间屋子', '我搬走了。搬走那天才发现，她的针线筐还在床底下。']
+  ],
+  talk: [
+    ['辩', '把话说清楚', '我辩了。辩赢那天，那条视频已经转到了第三个群。'],
+    ['不理', '等它自己冷', '我没有理。三年后还有人在背后指我。'],
+    ['压', '花钱让它消失', '我压了。压下去之后，说的人更多了。']
+  ],
+  mentor: [
+    ['应下', '人情总得有人接', '我应下了。那个人后来替我挡了一刀。'],
+    ['推了', '不想欠也不想被欠', '我推了。他点点头，把话咽回去了。'],
+    ['应一半', '留个余地', '我应了一半。剩下那一半，他自己办了。']
+  ],
+  salt: [
+    ['抽成', '过一道收一道', '我抽了三成。三成够我在老家买一套房。'],
+    ['照章', '一分不拿', '我照章办了。那年冬天我缺一笔钱，谁也没借我。'],
+    ['给一家', '只放一个人进来', '我给了一家。他家后来成了这个地方最大的商。']
+  ],
+  exam: [
+    ['搏一场', '把自己关起来', '我把自己关了九个月。出来那天，看什么都觉得小。'],
+    ['求稳', '按能考上的走', '我求了稳。稳当的人走得慢，走得远。'],
+    ['不考了', '换一条路', '我不考了。我爸把书箱搬到储藏室，再没提过。']
+  ],
+  wall: [
+    ['照足修', '自己贴那三万', '我照足修。修完账上空了，那条路到现在还在。'],
+    ['按预算', '能过就行', '我按预算修。第十一年，那段路面陷下去一块。'],
+    ['不修', '等下一任', '我没有修。那年冬天结冰，路口摔了人。']
+  ],
+  sue: [
+    ['递', '按规矩办他', '我把材料递上去了。递的时候手不抖，回去的路上抖了。'],
+    ['压', '留着比用了值钱', '我没有递。那份东西在我柜子里放了十年。'],
+    ['换', '卖给要用它的人', '我把它卖了。价钱很好，好到我后来不敢问买主是谁。']
+  ],
+  case: [
+    ['认', '都认下来', '我都认了。认下来那晚，我反而睡得着。'],
+    ['咬', '把别人也拖下水', '我咬了三个人。三个人都比我脏，可我比他们先开口。'],
+    ['花钱了事', '把罪买成罚', '那笔钱是我这辈子最大的一笔。交出去的时候，人轻了，心没轻。']
+  ],
+  tonsure: [
+    ['出家', '从此不闻窗外事', '我把头剃了。剃刀凉，头皮也凉。'],
+    ['上山', '山上的日子长', '我上了山。山上的日子长，长得像没有尽头。'],
+    ['不出', '站了站，还是下来了', '我在山门外站了很久，还是下来了。']
+  ],
+  trade: [
+    ['守着本行', '手熟了，别折腾', '我没走。这一行我熟了，熟了就是本钱。'],
+    ['换个行当', '哪儿给钱去哪儿', '我换了。新地方没人认识我，这倒是件好事。'],
+    ['自己干', '宁做鸡头', '我自己开了个小店。头一年赔的，是我妈的养老钱。']
+  ],
+  sign: [
+    ['签', '事总得有人担', '我签了。那支笔比我想的重。'],
+    ['拖', '不落笔，也不算拒', '我拖了。拖到最后，别人签了，事情也就过去了。'],
+    ['往上递', '把这本账摊开', '我往上递了。递上去的第三天，我被叫去谈了四个钟头。']
+  ],
+  duandang: [
+    ['退群', '此后没人替你说话', '我把那些群都退了。退完那天，我一个人吃了顿饭。'],
+    ['不断', '网还在，就还有路', '我没断。这张网托着我，也勒着我。'],
+    ['', '', '']
+  ],
+  pupil: [
+    ['认真带', '费时间，也费钱', '我认真带了。他后来做的事，比我大。'],
+    ['挂个名', '不费事，也不担责', '我挂了个名。他逢年过节还来，我记不住他的名字。'],
+    ['不收', '省下这点力气', '我没收。我那时候忙，忙的都是些现在想不起来的事。']
+  ],
+  meet: [
+    ['追', '把话递过去', '我开始跑了。那几年我跑的路，比前二十年加起来都多。'],
+    ['应下', '两家都满意', '我应下了。一切都办得很顺，顺得像没有我这个人。'],
+    ['不谈', '这一辈子一个人过', '我说不结婚。我妈哭了一夜，第二天照常做饭。']
+  ],
+  read: [
+    ['苦读', '把能用的时间都押上', '我读了。那几年手指上有墨，洗不掉。'],
+    ['找门路', '花钱买一条门路', '我托了人。他教我的第一件事，是怎么把话说圆。'],
+    ['不读', '书救不了我这样的人', '我没读。后来我算账比谁都快，字还是写不好。']
+  ],
+  guiren: [
+    ['接住', '这时候不推辞', '我接住了。那一年我什么也没做错。'],
+    ['推掉', '不是我的路', '我推了。后来听说那个位子坐了个人，坐了十年。'],
+    ['问清楚', '先看他图什么', '我先问了他图什么。他笑了，说你这人谨慎。']
+  ],
+  wuwang: [
+    ['认', '该我倒霉', '我认了。认了之后，事情反而小了。'],
+    ['托人', '花钱把事推出去', '我托了人。事情转了个弯，落到别人头上。'],
+    ['硬顶', '不认这个理', '我硬顶了。顶赢了，也顶出了一身病。']
+  ],
+  late: [
+    ['将就', '一个人过太久了', '我应了。婚礼办得很小，我们都没请什么人。'],
+    ['一个人过', '这条路我认了', '我摇了摇头。回去的路上买了半斤酒，一个人喝完。']
+  ],
+  qie: [
+    ['要了', '花钱买个孩子，最脏的一笔', '我应了。她进门那天一直低着头，我也没抬头。'],
+    ['不要', '没有就没有', '我没要。这话我说得很轻，可我说了。']
+  ],
+  again: [
+    ['留一个地址', '只是留一个地址', '我留了地址。后来那个地址上，来过三封信。'],
+    ['当没看见', '有些门不推就不会开', '我当没看见。散场时我先走的。'],
+    ['', '', '']
+  ]
+};
+
+/* 只补空缺：已经写过今世文案的选项不动 */
+EV.forEach(e => {
+  const m = MO_OPT[e.id];
+  if (!m) return;
+  e.opts.forEach((o, i) => {
+    const x = m[i];
+    if (!x) return;
+    if (!o.tMo && x[0]) o.tMo = x[0];
+    if (!o.subMo && x[1] && o.sub) o.subMo = x[1];
+    if (!o.lineMo && x[2] && o.line) o.lineMo = x[2];
+  });
+});
+
+/* 一条事件碰的是哪一格：只用来排班，不用来算分 */
+const EV_DIMS = {};
+EV.forEach(e => {
+  const s = new Set();
+  e.opts.forEach(o => {
+    for (const k in (o.eff || {})){
+      if (k === '寿'){ if ((o.eff['寿'] || 0) <= -5) s.add('寿'); }
+      else s.add(k);
+    }
+    if (o.love || o.knot || o.concubine || o.love2) s.add('室');
+    if (o.adopt || o.loseChild || o.raised !== undefined || o.child || o.grand) s.add('子');
+  });
+  if (e.needChild) s.add('子');
+  EV_DIMS[e.id] = [...s];
+});
+
+/* ══════════════ 一生的长度 ══════════════
+   十六折，一折四年：十六岁起，八十岁止。
+   十二折太短了——刚摸到门，人就老了。
+   折数一多，职业的常态消耗就得跟着放慢，否则所有人都在六十岁前死光：
+   同样的寿命，摊到更多折上，每折扣得就少。 */
+const FOLD_MAX = 16;
+const SHOU_SCALE = .72;
+
+/* ══════════════ 状态 ══════════════ */
+let S = null;
+
+/* ══════════════ 排命 ══════════════ */
+let noonAssumed = false;
+
+function birthRead(){
+  const sv = id => $('#' + id).value.trim();
+  const y = +sv('by'), m = +sv('bm'), d = +sv('bd');
+  const hs = sv('bh');
+  if (!sv('by') || !sv('bm') || !sv('bd') || hs === '')
+    return { ok:false, err:'年、月、日、时，四样都要填。' };
+  const h = +hs;
+  if (!(y >= 1900 && y <= 2026)) return { ok:false, err:'年份填 1900 到 2026 之间。' };
+  if (!(m >= 1 && m <= 12)) return { ok:false, err:'月份是 1 到 12。' };
+  const dim = new Date(y, m, 0).getDate();
+  if (!(d >= 1 && d <= dim)) return { ok:false, err:`${y} 年 ${m} 月只有 ${dim} 天。` };
+  if (!(h >= 0 && h <= 23)) return { ok:false, err:'时辰按 0 到 23 填。' };
+  return { ok:true, y, m, d, h, pillars: pillarsOf(y, m, d, h) };
+}
+
+function birthPreview(){
+  const r = birthRead();
+  const box = $('#bdPreview');
+  if (!r.ok){
+    box.textContent = '填完四样，这里会先排给你看';
+    box.className = 'bd-prev empty';
+    return;
+  }
+  const zhi = ZHI[Math.floor(((r.h + 1) % 24) / 2)];
+  box.textContent = `${r.y} 年 ${r.m} 月 ${r.d} 日 · ${zhi}时　${r.pillars.join('　')}`;
+  box.className = 'bd-prev';
+}
+
+function renderBirth(){
+  noonAssumed = false;
+  ['by', 'bm', 'bd', 'bh'].forEach(id => { $('#' + id).value = ''; });
+  $('#bdErr').textContent = '';
+  const pv = $('#bdPreview');
+  pv.textContent = '填完四样，这里会先排给你看';
+  pv.className = 'bd-prev empty';
+  $('#by').focus();
+}
+
+function applyBirth(pillars, birth){
+  S = newSoul(pillars);
+  S.birth = birth;
+  S.needBirth = false;
+  save();
+  renderHub();
+  go('hub');
+}
+
+function initBirth(){
+  ['by', 'bm', 'bd', 'bh'].forEach(id => {
+    $('#' + id).addEventListener('input', () => {
+      if (id === 'bh') noonAssumed = false;
+      $('#bdErr').textContent = '';
+      birthPreview();
+    });
+    $('#' + id).addEventListener('keydown', e => { if (e.key === 'Enter') birthGo(); });
+  });
+
+  $('#bdGo').onclick = birthGo;
+
+  $('#bdNoon').onclick = () => {
+    if (!$('#by').value || !$('#bm').value || !$('#bd').value){
+      $('#bdErr').textContent = '先把年月日填上。';
+      return;
+    }
+    $('#bh').value = 12;
+    noonAssumed = true;
+    birthPreview();
+  };
+
+  $('#bdRand').onclick = () => {
+    applyBirth(null, null);
+  };
+}
+
+function birthGo(){
+  const r = birthRead();
+  if (!r.ok){ $('#bdErr').textContent = r.err; return; }
+  applyBirth(r.pillars, {
+    y: r.y, m: r.m, d: r.d, h: r.h, noon: noonAssumed
+  });
+}
+
+/* ══════════════ 声音：三记，不多给 ══════════════
+   不引音频文件——全部现场合成，单文件还是单文件。
+   只有三处出声：掷局落定、六事透了、人卒了。
+   命书翻开是静默的（§2.12），那三秒留白比任何音效都重。
+   浏览器不许无手势自动出声，所以第一次按下去才算"开机"。 */
+let AC = null;
+let muted = false;
+try { muted = localStorage.getItem('renjian_mute') === '1'; } catch(e){}
+
+function canSound(){
+  return !muted && !(S && S.auto)
+    && !document.documentElement.classList.contains('static');
+}
+
+function ac(){
+  if (!canSound()) return null;
+  try {
+    if (!AC){
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) return null;
+      AC = new Ctx();
+    }
+    if (AC.state === 'suspended') AC.resume();
+    return AC;
+  } catch (e){ return null; }   // 无声也不该让人玩不了
+}
+
+/* 一个音：起音极快、指数衰到无。要的是"一击"，不是"一段" */
+function tone(c, o){
+  const t = c.currentTime + (o.delay || 0);
+  const osc = c.createOscillator(), g = c.createGain();
+  osc.type = o.type || 'sine';
+  osc.frequency.setValueAtTime(o.f0, t);
+  if (o.f1 && o.f1 !== o.f0) osc.frequency.exponentialRampToValueAtTime(o.f1, t + o.dur);
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(o.gain, t + 0.006);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + o.dur);
+  osc.connect(g); g.connect(c.destination);
+  osc.start(t); osc.stop(t + o.dur + 0.03);
+}
+
+/* 一小把噪声：木头、纸、布，都是它 */
+function hiss(c, o){
+  const t = c.currentTime + (o.delay || 0);
+  const n = Math.max(1, Math.floor(c.sampleRate * o.dur));
+  const buf = c.createBuffer(1, n, c.sampleRate);
+  const d = buf.getChannelData(0);
+  for (let i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 2);
+  const src = c.createBufferSource(); src.buffer = buf;
+  const bp = c.createBiquadFilter(); bp.type = 'bandpass';
+  bp.frequency.value = o.freq; bp.Q.value = o.q || 1;
+  const g = c.createGain(); g.gain.value = o.gain;
+  src.connect(bp); bp.connect(g); g.connect(c.destination);
+  src.start(t);
+}
+
+function sfxRoll(){          // 梆子：短、干、不留尾。骰子落地就这一下
+  const c = ac(); if (!c) return;
+  hiss(c, { dur:.045, gain:.09, freq:2400, q:1.6 });
+  tone(c, { f0:560, f1:300, dur:.11, gain:.05, type:'triangle' });
+}
+
+function sfxReveal(){        // 磬：敲一下就撒手，让它自己散
+  const c = ac(); if (!c) return;
+  tone(c, { f0:196,   dur:1.8, gain:.055, type:'sine' });
+  tone(c, { f0:392,   dur:1.3, gain:.028, type:'sine' });
+  tone(c, { f0:587.3, dur:.95, gain:.014, type:'sine' });
+  hiss(c, { dur:.02, gain:.04, freq:3400, q:2.4 });
+}
+
+function sfxDeath(){         // 闷鼓：往下掉，收得干净
+  const c = ac(); if (!c) return;
+  tone(c, { f0:132, f1:48, dur:.9, gain:.10, type:'sine' });
+  hiss(c, { dur:.18, gain:.045, freq:380, q:.7 });
+}
+
+function initSfx(){
+  const b = $('#sfxBtn');
+  if (!b) return;
+  b.textContent = muted ? '静' : '音';
+  b.classList.toggle('off', muted);
+  b.onclick = e => {
+    e.stopPropagation();
+    muted = !muted;
+    try { localStorage.setItem('renjian_mute', muted ? '1' : '0'); } catch(err){}
+    b.textContent = muted ? '静' : '音';
+    b.classList.toggle('off', muted);
+    if (!muted) sfxRoll();     // 开声时回你一记，让你知道它开了
+  };
+  // 第一次按下去，把声卡叫醒；此后再点不必重建
+  document.addEventListener('pointerdown', () => ac(), { once:true });
+}
+
+
+function newSoul(pillars){
+  const bz = analyseBazi(pillars || makeBazi());
+  return {
+    index: 1,
+    bz,
+    needBirth: true,     // 还没排命：起卷时先去填生辰
+    birth: null,
+    hand: [],
+    book: false,
+    rooted: false, rootAt: null,   // 五世之中看过一次自己，根就留下了
+    tianji: null,
+    eras: [],
+    edits: [],
+    echo: null,
+    lives: [],
+    peak: {}
+  };
+}
+function load(){
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (!raw) return null;
+    const o = JSON.parse(raw);
+    if (!o || !o.bz) return null;
+    return o;
+  } catch(e){ return null; }
+}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} }
+function reset(){ localStorage.removeItem(KEY); S = null; boot(); }
+
+/* ══════════════ 屏幕 ══════════════ */
+function go(id){
+  $$('.screen').forEach(s => s.classList.toggle('on', s.id === 'sc-' + id));
+  window.scrollTo(0, 0);
+}
+
+/* ══════════════ 卷首 ══════════════ */
+function renderCover(){
+  const b = $('#coverBtns');
+  if (S && S.index > 1){
+    b.innerHTML = '<span class="btn" id="coverGo">续 卷</span><span class="btn ghost" id="coverNew">另起一卷</span>';
+    $('#coverGo').onclick = () => { renderHub(); go('hub'); };
+    $('#coverNew').onclick = () => { if (confirm('清掉现有的五世，重新起卷？')) reset(); };
+  } else {
+    b.innerHTML = '<span class="btn zin" id="coverGo">起 卷</span>';
+    $('#coverGo').onclick = () => {
+      if (S && S.needBirth){ renderBirth(); go('birth'); }
+      else { renderHub(); go('hub'); }
+    };
+  }
+}
+
+/* ══════════════ 五局盘 ══════════════ */
+function renderHub(){
+  const n = S ? S.index : 1;
+  $('#hubSub').textContent = n === 1
+    ? '一魂五世 · 古或今，不由你挑'
+    : (n === 6 ? '五世已毕 · 天机既开，尚可再入' : '古或今，不由你挑');
+  $('#hubNote').innerHTML = S && S.index === 1
+    ? '五世共用一个八字。<b>第一世你看不见它</b>，只能从"顺不顺"里反推；<b>第五世结算，命书才开</b>。每一世掷古或今——你想不到自己生在哪一半。'
+    : `第 <b>${n}</b> 局。上一世留下三句手记，可能是错的。`;
+
+  const box = $('#lives');
+  box.innerHTML = '';
+  const total = n > 5 ? 6 : 5;
+  for (let i = 1; i <= total; i++){
+    const rec = S && S.lives ? S.lives[i - 1] : null;
+    const d = document.createElement('div');
+    d.className = 'life-cell' + (rec ? ' done' : '') + (i > n ? ' lock' : '');
+    const eraTxt = rec ? (rec.era === 'an' ? '古' : '今') : (i === n ? '待 掷' : '—');
+    const eraCls = rec ? rec.era : '';
+    d.innerHTML = `
+      <div class="no">第 ${'一二三四五六'[i-1]} 局</div>
+      <div class="era ${eraCls}">${eraTxt}</div>
+      <div class="yr">${rec ? rec.yearLabel : '　'}</div>
+      <div class="bd">${rec ? rec.verdict : (i === n ? '入 此 局' : '　')}</div>
+      ${rec ? '<div class="seal">讫</div>' : ''}`;
+    if (!rec && i === n) d.onclick = () => { rollLife(); go('roll'); };
+    if (rec) d.onclick = () => showHand(i);
+    box.appendChild(d);
+  }
+
+  const hb = $('#hubHand');
+  if (S && S.hand && S.hand.length && S.index > 1 && S.index <= 5){
+    hb.innerHTML = `<div class="hand-strip"><div class="ttl">手 记 · 上一世</div>${
+      S.hand.map(t => `<p>${t}</p>`).join('')}</div>`;
+  } else if (S && S.index > 5){
+    hb.innerHTML = '';
+  } else {
+    hb.innerHTML = '';
+  }
+
+  const act = $('#hubAct');
+  if (S && S.index > 5){
+    act.innerHTML = '<span class="btn zin" id="toBook">开 命 书</span>';
+    $('#toBook').onclick = () => { renderBook(); go('book'); };
+  } else if (S && S.rooted){
+    act.innerHTML = '<span class="btn" id="toRoot">看 根 · 命 书</span>'
+      + ((S.edits && S.edits.length) ? `<span class="jk" style="font-family:var(--kai);font-size:11.5px;`
+        + `letter-spacing:.24em;color:var(--cinnabar);margin-left:18px">此世已知：${S.edits[S.edits.length-1].text}</span>` : '');
+    $('#toRoot').onclick = () => { renderBook(); go('book'); };
+  } else if (S && S.edits && S.edits.length && S.index > 1){
+    act.innerHTML = `<span class="jk" style="font-family:var(--kai);font-size:11.5px;letter-spacing:.24em;color:var(--cinnabar)">此世已知：${S.edits[S.edits.length-1].text}</span>`;
+  } else {
+    act.innerHTML = '';
+  }
+}
+
+/* ══════════════ 掷局 ══════════════ */
+const ERA_AN = { from:1494, to:1594 };
+const ERA_MO = { from:2020, to:2032 };
+
+function eraColor(era){ return era === 'an' ? '' : 'mo'; }
+
+function yearLabel(y, era){
+  if (era === 'mo') return y + ' 年';
+  const tab = [
+    [1488, 1505, '弘治', 1487], [1506, 1521, '正德', 1505],
+    [1522, 1566, '嘉靖', 1521], [1567, 1572, '隆庆', 1566],
+    [1573, 1620, '万历', 1572]
+  ];
+  for (const r of tab){
+    if (y >= r[0] && y <= r[1]){
+      const n = y - r[3];
+      return r[2] + (n === 1 ? '元年' : numToCn(n) + '年');
+    }
+  }
+  return y + ' 年';
+}
+function numToCn(n){
+  const d = ['〇','一','二','三','四','五','六','七','八','九'];
+  if (n < 10) return d[n];
+  if (n < 20) return '十' + (n % 10 ? d[n % 10] : '');
+  return d[Math.floor(n / 10)] + '十' + (n % 10 ? d[n % 10] : '');
+}
+
+let pending = null;
+
+function rollLife(){
+  // 古今平衡：已定四局时补缺口
+  const done = S && S.lives ? S.lives.length : 0;
+  const anCount = S && S.lives ? S.lives.filter(l => l.era === 'an').length : 0;
+  const moCount = done - anCount;
+  let era;
+  if (done === 4){
+    if (anCount === 1) era = 'an';
+    else if (moCount === 1) era = 'mo';
+    else era = Math.random() < .5 ? 'an' : 'mo';
+  } else {
+    era = Math.random() < .5 ? 'an' : 'mo';
+  }
+  const w = era === 'an' ? ERA_AN : ERA_MO;
+  const y0 = w.from + R(w.to - w.from + 1);
+
+  const el = $('#rollEra'), yr = $('#rollYr'), gn = $('#rollGan'), nt = $('#rollNote');
+  $('#originBox').innerHTML = '';
+  nt.innerHTML = '';
+  el.className = 'roll-era flick';
+  yr.textContent = '';
+  gn.textContent = '';
+  const marks = ['古', '今'];
+  let k = 0;
+  const tick = setInterval(() => {
+    el.textContent = marks[k++ % 2];
+    if (k > 9){
+      clearInterval(tick);
+      el.className = 'roll-era';
+      el.textContent = era === 'an' ? '古' : '今';
+      const gz = ganZhiOfYear(y0 - 16).join('');
+      yr.textContent = yearLabel(y0, era);
+      gn.textContent = era === 'an' ? `起局 · ${gz} 年 · 十六岁` : `起局 · 十六岁`;
+      sfxRoll();                       // 骰子落地，就这一下
+      // 改史已知
+      if (S && S.edits && S.edits.length && S.index > 1){
+        nt.textContent = '（此世已知：' + S.edits[S.edits.length - 1].text + '）';
+      }
+      pending = { era, y0 };
+      renderOrigins();
+    }
+  }, 62);
+}
+
+function renderOrigins(){
+  // 投胎由不得人挑：掷到谁家，就是谁家
+  const o = pick(ORIGINS.slice());
+  pending.origin = o;
+  const six = SIXK.map(k => `<span>${k} <i>${o.six[k]}</i></span>`).join('');
+  const box = $('#originBox');
+  box.innerHTML = `
+    <div class="hd-row" style="margin-top:8px">
+      <h1 style="font-size:16px">生 在 谁 家</h1>
+      <span class="sub">这一世，由不得你挑</span>
+    </div>
+    <div class="origin origin-solo" id="orgCard">
+      <span class="tag">投 胎</span>
+      <h4>${pending.era === 'an' ? o.an : o.mo}</h4>
+      <div class="d">${pending.era === 'an' ? o.d : (o.dMo || o.d)}</div>
+      <div class="six">${six}</div>
+    </div>
+    <div class="center" style="margin-top:40px">
+      <span class="btn" id="btnBorn">入 世 · 十 六 岁</span>
+    </div>`;
+  $('#btnBorn').onclick = () => startLife(o);
+}
+
+function startLife(origin){
+  const era = pending.era, y0 = pending.y0;
+  const bz = S.bz;
+  const cai = {};
+  CAIK.forEach(k => { cai[k] = bz.init[k]; });
+  S.life = {
+    era, y0, age: 16, fold: 0,
+    origin: origin.id, originName: era === 'an' ? origin.an : origin.mo,
+    six: Object.assign({}, origin.six),
+    cai, ink: 0, lone: false,
+    used: [], minAt: {}, lines: [], shownEcho: false,
+    lastDim: {},        // 六事排班：每一格上一次露面是第几折
+    lu: origin.six['禄'],
+    // 职业与轨。职业决定每折做什么事，轨决定史书把你归进哪一本传
+    job: ORIGIN_JOB[origin.id] || 'jiaofu',
+    trk: { 清流:0, 能吏:0, 权臣:0, 边臣:0, 循吏:0, 孤臣:0 },
+    track: null, trackAt: 0, trackChange: 0, betrayed: false,
+    cutParty: false,          // 主动断党：孤臣的另一条开启条件
+    ruined: false,            // 倒台：权臣的结局，位子是真的没了
+    deeds: 0, pupils: 0,      // 大事 / 门生。门生到死后才结算
+    // 气运：看不见，只能从"顺不顺"里猜。三年一转，转的时候人会知道
+    yun: clamp(42 + (bz.he || 0) * 6 - (bz.ch || 0) * 6 + R(18), 8, 92),
+    // 学：读书、拜师、进修攒下来的东西。它能顶高你的顶，但顶不到极处
+    study: 0,
+    // 情关：情／义／时三轴。情不出数，只给字数
+    love: null, lockSix: {}, knots: [], concubine: false,
+    capSix: null,
+    // 子：不看水位，看台阶。五级各占一份，缺哪级就是缺哪级
+    heir: { has: false, born: 0, judged: false, job: false, grand: false, great: false, lost: false },
+    law: 0,             // 律：暗线。不显示条，只在风声紧的时候透一句
+    monk: null,         // '佛' / '道'：方外之人
+    reputeFull: false, reputeWhy: null,
+    revealed: false, revealWhy: null, revealAge: 0,   // 六事全隐：某一格到 100 才全亮
+    raised: 0,          // 教出来的成色：0 没管 / 1 请人教 / 2 亲自教
+    gateDone: [false, false, false],
+    // 同榜：三个跟你同一年进门的人。他们不在你的六事里，但他们记账
+    peers: makePeers({ era }),
+    peerN: 0,                 // 同榜的事，一局最多三次
+    love2: null,              // 第二段关系：有了它，就迟早有一次对质
+    due: [], dueN: 0,         // 事后账簿：签过的字、压过的人，都留了底
+    cd: {}, fullN: 0          // 满招损：冷却与次数
+  };
+  const bias = JOB_BIAS[S.life.job] || {};
+  for (const k in bias) S.life.trk[k] = (S.life.trk[k] || 0) + bias[k];
+  recalcCaps(S.life);
+  renderLife();
+  go('life');
+}
+
+/* ══════════════ 一局 ══════════════ */
+/* 六事面板：没透之前一格都不给看。只有寿是身子，不是账。 */
+function veilLine(L){
+  if (L.monk) return '方外 · 六事按四项结算（室与子不在其道）';
+  // 规则得说一次。玩家不是来猜的——不知道自己被什么量，就不知道在做什么
+  if (!L.revealed) return '六 事 未 明 · 只有档位，没有数<br>'
+    + '<span style="font-size:11px;opacity:.75">这一生看最薄的那一格：撑不住的那一样，把其余的都说成空的</span>';
+  return L.lone ? '无室 · 六事按五项结算<br>每年多两格' : '月令十二格 · 花在哪，就在哪';
+}
+
+/* 六事档位：不给数，给一句话。
+   全隐太狠了——玩家看得见代价，却看不见自己站在哪，于是每张卡都像凭空落下。
+   档位保留了"说不准"的味道，但足够判断自己缺什么。 */
+function tierOf(v){
+  return v <= 15 ? '极薄' : v <= 30 ? '薄' : v <= 55 ? '够用' : v <= 78 ? '厚' : '极厚';
+}
+function tierShou(v){
+  return v <= 12 ? '将尽' : v <= 26 ? '不好' : v <= 45 ? '尚可' : v <= 65 ? '还行' : '硬朗';
+}
+
+function renderSixBar(){
+  const L = S.life, veil = !L.revealed;
+  $('#luShou').innerHTML = veil
+    ? '寿 <b style="color:var(--ink3);font-size:11px;letter-spacing:.14em">' + tierShou(L.six['寿']) + '</b>'
+    : '寿 <b>' + Math.round(L.six['寿']) + '</b>';
+  $('#sixBar').innerHTML = SIXK.map(k => veil
+    ? `<div class="row6 veiled" data-k="${k}">
+         <span class="k">${k}</span>
+         <span class="track"></span>
+         <span class="n" style="font-size:11px;letter-spacing:.06em">${tierOf(L.six[k])}</span>
+       </div>`
+    : `<div class="row6 shown" data-k="${k}">
+         <span class="k">${k}</span>
+         <span class="track"><span class="fill" style="width:${clamp(L.six[k],0,100)}%"></span></span>
+         <span class="n">${Math.round(L.six[k])}</span>
+       </div>`).join('');
+}
+
+function renderLife(){
+  const L = S.life;
+  $('#luNo').textContent = '第 ' + '一二三四五六七八'[S.index - 1] + ' 局';
+  $('#luEra').textContent = (L.era === 'an' ? '古 · ' : '今 · ') + yearLabel(L.y0 + L.age - 16, L.era);
+  $('#luAge').textContent = L.age + ' 岁';
+
+  renderSixBar();
+
+  const j = JOB(L.job), capLu = capOf(L, '禄');
+  const hintLines = [
+    '职 · ' + (L.era === 'an' ? j.an : j.mo)
+      + '（' + j.axis + (capLu === 0 ? ' · 无禄，财誉 +10' : ' · 禄顶 ' + capLu) + '）',
+    '轨 · ' + (L.track ? trkName(L.track, L) + '（缺' + TRK(L.track).lack + '）'
+      : (j.axis === '市' ? '不入传 —— 史书不写你这样的人'
+                         : '未定 —— 你在事上还没选过边')),
+    heirHint(L)
+  ];
+  // 同榜不在六事里，但他们是你这一辈子的另一半背景
+  if (L.peers && L.peers.length)
+    hintLines.push('同榜 · ' + peerTitle(L) + (L.cold ? ' · 有人说你凉薄' : ''));
+  // 情关这一格不出数：你只知道窗口还剩几折
+  const V = L.love;
+  if (V && !V.done) hintLines.push('情 · ' + V.xing + '家 · 窗口还剩 ' + Math.max(0, V.shi) + ' 折');
+  else if (V && V.result) hintLines.push('情 · ' + V.result + ' —— ' + LKIND[V.kind].an);
+  if (L.knots && L.knots.length) hintLines.push('情 · ' + L.knots.join('、') + ' · 记着');
+  // 气运不给数，只给一句"风往哪边吹"
+  hintLines.push('运 · ' + (L.yun >= 76 ? '这几年风是顺着吹的，做什么都有人接'
+    : L.yun >= 60 ? '还算顺'
+    : L.yun >= 41 ? '不咸不淡'
+    : L.yun >= 25 ? '这两年做什么都差一口气'
+    : '霉得说不出口'));
+  // 学能改命，但不外露
+  if (L.study >= 6) hintLines.push('学 · 书没有白读（此身的顶，被撑高了一点）');
+  if (L.monk) hintLines.push('誉 · 方外之名（' + L.monk + '门）');
+  else if (L.reputeFull) hintLines.push('誉 · 一极即满 —— ' + L.reputeWhy);
+  if (!L.revealed){                              // 寿不给你数，只给身子的话
+    const s = L.six['寿'];
+    if (s <= 12) hintLines.push('寿 · 灯要灭了，你知道的');
+    else if (s <= 22) hintLines.push('寿 · 这两年，气一天短一天');
+    else if (s <= 35) hintLines.push('寿 · 身上开始有旧伤');
+  }
+  const lh = lawHint(L);
+  if (lh) hintLines.push(lh);
+
+  $('#inkHint').innerHTML = (veilLine(L))
+    + '<div style="margin-top:12px;padding-top:9px;border-top:1px dashed rgba(92,76,51,.18);'
+    + 'font-family:var(--kai);font-size:11.5px;letter-spacing:.08em;color:var(--ink3);line-height:1.9">'
+    + hintLines.join('<br>') + '</div>';
+
+  renderCard();
+}
+
+/* 处境：不给数，只给一句话。
+   玩家要在按下去之前知道"我现在是个什么光景"，否则每一张卡都像凭空落下来的。 */
+function situLine(L){
+  const bits = [];
+  const j = JOB(L.job);
+  if (L.monk) bits.push('方外之人');
+  else bits.push(L.era === 'an' ? j.an : j.mo);
+  if (L.track) bits.push(trkName(L.track, L));
+  if (L.love && L.love.done) bits.push('成了家');
+  else if (L.lone) bits.push('一个人');
+  const h = L.heir;
+  if (h && h.has) bits.push('孩子 ' + Math.max(0, L.age - h.born) + ' 岁');
+  else if (h && h.lost) bits.push('没有孩子');
+  const s = L.six['寿'];
+  if (s <= 18) bits.push('身上很不好了');
+  else if (s <= 32) bits.push('身上有旧伤');
+  if (capOf(L, '禄') === 0) bits.push('不在仕上');
+  else if (L.six['禄'] >= 60) bits.push('手里有实权');
+  else if (L.six['禄'] <= 18) bits.push('位子很低');
+  if (L.ink >= 60) bits.push('名声上有污点');
+  if (L.ruined) bits.push('已经倒了台');
+  return bits.join(' · ');
+}
+
+function renderCard(){
+  const L = S.life;
+  let ev = pickEvent();
+  const box = $('#cardBox');
+
+  if (!ev){
+    return endLife('无 事 可 记');
+  }
+
+  const isAn = L.era === 'an';
+  const body = isAn ? ev.bodyAn : ev.bodyMo;
+  const head = ev.head || 'journey';
+
+  let echoHtml = '';
+  if (!L.shownEcho && S.echo && ev.id !== 'hist' && Math.random() < .45){
+    echoHtml = `<div class="echo">（人群里有人说了句"${S.echo.line}"。这个名字你觉得眼熟，想不起来在哪见过。）</div>`;
+    L.shownEcho = true;
+  }
+
+  box.innerHTML = `
+    <div class="card">
+      <div class="card-h" style="background-image:${imgOf(head, isAn)}"></div>
+      <div class="meta">第 ${numToCn(L.fold + 1)} 折 · ${L.age} 岁 · ${isAn ? '明' : '今'}</div>
+      <h3>${isAn ? ev.an : (ev.mo || ev.an)}</h3>
+      <div class="situ" style="font-family:var(--kai);font-size:11.5px;letter-spacing:.1em;
+        color:var(--ink3);margin:-4px 0 15px">${situLine(L)}</div>
+      <div class="body">${body}</div>
+      ${echoHtml}
+      <div class="opts" id="opts"></div>
+    </div>`;
+
+  const opts = $('#opts');
+  ev.opts.forEach(o => {
+    if (o.edit && (!isAn || L.six['禄'] < (ev.minLu || 40))) return;
+    const d = document.createElement('div');
+    d.className = 'opt';
+    const cost = o.eff && o.eff['禄'] ? '' : '';
+    const caiSum = Object.keys(o.cai || {}).reduce((a, k) => a + o.cai[k], 0);
+    d.dataset.cai = caiSum;
+    d.dataset.home = ((o.eff || {})['室'] || 0) + ((o.eff || {})['子'] || 0);
+    // 同一件事，古时说"外放"，今时说"下去带项目"。选项要跟着身上的时代改口
+    const ot = isAn ? o.t : (o.tMo || o.t);
+    const os = isAn ? o.sub : (o.subMo || o.sub);
+    d.innerHTML = `<span class="t">${ot}<em>${os}</em></span><span class="c">${costTag(o)}</span>`;
+    d.onclick = () => choose(ev, o);
+    opts.appendChild(d);
+  });
+  if (S.auto) setTimeout(autoPickOpt, 4);
+}
+
+function autoPickOpt(){
+  const list = $$('#opts .opt');
+  if (!list.length) return;
+  if (!S.smart){ list[R(list.length)].click(); return; }
+  // 刻意专精：挑"最练才"的那一项
+  let best = null, bv = -1e9;
+  list.forEach(el => {
+    const cai = el.dataset.cai ? parseFloat(el.dataset.cai) : 0;
+    const home = el.dataset.home ? parseFloat(el.dataset.home) : 0;
+    const v = S.strat === 'home' ? home : cai;
+    if (v > bv){ bv = v; best = el; }
+  });
+  (best || list[0]).click();
+}
+
+const WEBP = { court:1, home:1, journey:1, study:1, war:1, wedding:1, winter:1 };
+/* 题图：古世十三张，今世十三张（assets/mo/，同一件事在两个时代各有一张脸）。
+   今世那张列两层：第一张 404 时，浏览器自动落到第二张 modern.jpg 上——
+   生成图缺了哪张，界面都不会开天窗 */
+function imgOf(head, isAn){
+  if (isAn) return `url('assets/${head}.${WEBP[head] ? 'webp' : 'jpg'}')`;
+  return `url('assets/mo/${head}.jpg'), url('assets/modern.jpg')`;
+}
+
+function costTag(o){
+  const parts = [];
+  for (const k in (o.eff || {})){
+    const v = o.eff[k];
+    if (!v) continue;
+    parts.push(k + (v > 0 ? '+' : '') + v);
+  }
+  return parts.join('　');
+}
+
+/* ══════════════ 同榜：三个人，跟你同一年进门 ══════════════
+   §6.5 党争网。他们不替你做事，只是和你同一年进来。
+   你帮过他，他会还；你踩过他，他也记得。这些账不显示，
+   只在某一年，有人突然替你说了一句话——或者，压了你一句。 */
+const PEER_XING = ['沈','顾','陆','周','冯','柳','温','苏','叶','程','许','裴'];
+const PEER_AN = ['允恭','子昂','文渊','仲舒','敬之','子澄','惟中','伯谦'];
+const PEER_MO = ['明远','嘉树','立诚','子文','晓航','一鸣','嘉禾','正阳'];
+
+function makePeers(L){
+  const xs = PEER_XING.slice(), ns = (L.era === 'an' ? PEER_AN : PEER_MO).slice();
+  const out = [];
+  for (let i = 0; i < 3; i++){
+    out.push({
+      n: xs.splice(R(xs.length), 1)[0] + ns.splice(R(ns.length), 1)[0],
+      lu: 18 + R(30),            // 进门时的位置，跟你差不多
+      alive: true, fell: false,
+      debt: 0,                   // 正：他欠你；负：你欠他
+      asked: false, blocked: false, paid: false, visited: false
+    });
+  }
+  // 同榜里总有一个从不犯错、也从不被记住的人。他的位置永远在中间
+  out[2].plain = true;
+  out[2].lu = 38 + R(8);
+  return out;
+}
+function peerLive(L){ return (L.peers || []).filter(p => p.alive); }
+function peerTitle(L){
+  return (L.peers || []).map(p => p.n + (p.alive ? (p.lu >= 60 ? '（在上）' : '（在列）') : '（已倒）')).join(' · ');
+}
+
+function stepPeers(L){
+  if (!L.peers) return;
+  L.peers.forEach(p => {
+    if (!p.alive) return;
+    if (p.plain){                       // 平庸的那一个：不升、不倒、不出事
+      p.lu = clamp(p.lu + (Math.random() < .3 ? 1 : 0), 0, 64);
+      return;
+    }
+    p.lu = clamp(p.lu + R(6) + 1, 0, 100);
+    // 走得太快的人，会先撞上墙
+    if (p.lu >= 55 && Math.random() < .07){ p.alive = false; p.fell = true; }
+  });
+  // 他升得比你快，这一口气是要咽下去的。咽不下去的人，寿短
+  const top = peerLive(L).reduce((m, p) => p.lu > (m ? m.lu : -1) ? p : m, null);
+  if (top && top.lu > L.six['禄'] + 20 && Math.random() < .3){
+    bump(L, '寿', -1);
+    if (Math.random() < .35) heirNote(L, top.n + '又升了。我恭喜了他。');
+  }
+}
+
+function peerEvent(L){
+  if (L.monk || !L.peers || !L.peers.length) return null;
+  if ((L.peerN || 0) >= 4) return null;
+  L.cd = L.cd || {};
+  const alive = peerLive(L);
+  // 一、他倒了。这一幕最硬，先出
+  const fell = L.peers.find(p => p.fell && !p.visited);
+  if (fell && L.age >= 28 && !L.cd.pfall){
+    L.cd.pfall = 1; fell.visited = true; L.peerN = (L.peerN || 0) + 1;
+    return makePeer(L, fell, 'fall');
+  }
+  // 二、账要清了：他欠你的，或者你欠他的
+  const owing = alive.find(p => p.debt !== 0 && !p.paid && (L.fold - (p.debtAt || 0)) >= 1);
+  if (owing && L.fold >= 3 && !L.cd.ppay){
+    L.cd.ppay = 1; owing.paid = true; L.peerN = (L.peerN || 0) + 1;
+    return makePeer(L, owing, 'pay');
+  }
+  // 三、他挡你：他比你高，而你的名字被划掉了
+  const block = alive.find(p => !p.blocked && p.lu > L.six['禄'] + 12 && L.six['禄'] >= 18);
+  if (block && L.fold >= 3 && !L.cd.pblock && Math.random() < .6){
+    L.cd.pblock = 1; block.blocked = true; L.peerN = (L.peerN || 0) + 1;
+    return makePeer(L, block, 'block');
+  }
+  // 四、他求你。这一件最轻，所以放最后
+  const asker = alive.find(p => !p.asked && p.lu >= 20);
+  if (asker && L.fold >= 1 && !L.cd.pask && Math.random() < .5){
+    L.cd.pask = 1; asker.asked = true; L.peerN = (L.peerN || 0) + 1;
+    return makePeer(L, asker, 'ask');
+  }
+  return null;
+}
+
+function makePeer(L, p, kind){
+  const n = p.n;
+  if (kind === 'ask') return {
+    id: 'peer_ask', force: true, head: 'journey', peerRef: p.n,
+    an: '同 年', mo: '同 批',
+    bodyAn: n + '夜里来了。坐了很久，才说他要外放，缺一个保举。他说，名字已经替你写上了。',
+    bodyMo: n + '在楼下等你。他要调去分公司，表上缺一个签字。他说，你的名字他已经填好了。',
+    opts: [
+      { t:'保他', tMo:'签字', sub:'他还得起', subMo:'这笔人情在', eff:{誉:6, 禄:-3, 寿:-1}, cai:{缘:3}, peer:'help',
+        line:'我签了。他走那天，站在车门口给我鞠了一躬。',
+        lineMo:'我签了。他走那天，在电梯口回头看了我一眼。' },
+      { t:'不保', tMo:'不签', sub:'你自己也还没站稳', subMo:'你自己也还没站稳', eff:{誉:-3, 禄:2}, cai:{忍:1}, peer:'refuse',
+        line:'我没签。三个月后，他的位置有人坐了。',
+        lineMo:'我没签。半年后那个岗位换了人，不是他。' },
+      { t:'拖着', tMo:'拖着', sub:'等他自动放弃', subMo:'等他不再提', eff:{寿:-2, 誉:-1}, peer:'drag',
+        line:'我拖着。拖到他不再来找我。' }
+    ]
+  };
+  if (kind === 'block') return {
+    id: 'peer_block', force: true, head: 'yamen', peerRef: p.n,
+    an: '划 掉', mo: '名 单',
+    bodyAn: '你的名字从那本册子上被划掉了。划的人是他。你去问他，他说：这是上头的意。',
+    bodyMo: '名单下来，你在最后一页。会上有人说了一句他还早。说这话的人，你叫得出名字。',
+    opts: [
+      { t:'当面问', tMo:'当面问', sub:'问一次，问到他无话', subMo:'问一次，问到他无话', eff:{誉:4, 禄:-2, 寿:-3}, ink:4, cai:{言:3}, peer:'ask',
+        line:'我问了。他答得很客气。客气到他走后我才明白，这就是答案。' },
+      { t:'绕过去', tMo:'绕过去', sub:'找上面另一个人', subMo:'找上面另一个人', eff:{禄:5, 财:-6}, ink:8, cai:{巧:2}, peer:'pierce',
+        line:'我从另一条路把事办成了。这条路走一次，以后就只会走这种路。' },
+      { t:'记着', tMo:'记着', sub:'不吵，也不忘', subMo:'不吵，也不忘', eff:{誉:-2, 寿:2}, cai:{忍:2}, peer:'yield',
+        line:'我什么都没说。我记住了。' }
+    ]
+  };
+  if (kind === 'fall') return {
+    id: 'peer_fall', force: true, head: 'court', peerRef: p.n,
+    an: '他 倒 了', mo: '他 出 事 了',
+    bodyAn: n + '被拿下了。抄家的人从他家抬出十七只箱子。有人来问你：他那几件事，你知情不知情。',
+    bodyMo: n + '被带走了。通知发在群里，底下没有人回。第二天有人来问你：他那几笔签字，你在不在。',
+    opts: [
+      { t:'保', tMo:'替他说话', sub:'他家里还有老小', subMo:'他家里还有老小', eff:{誉:8, 财:-12, 禄:-6}, ink:-6, cai:{缘:3}, peer:'save',
+        line:'我替他说了话。说完那天，我在门口站了很久。',
+        lineMo:'我替他说了话。说完那天，我在楼下站了很久。' },
+      { t:'划清', tMo:'说不熟', sub:'一句不熟，能保十年', subMo:'一句不熟，能保十年', eff:{誉:-6, 禄:4}, ink:6, cai:{忍:2}, peer:'cut',
+        line:'我说不熟。这两个字，我后来在心里念了很多年。' },
+      { t:'踩', tMo:'踩', sub:'踩下去，位子就空出来', subMo:'踩下去，位子就空出来', eff:{禄:10, 誉:-10}, ink:14, cai:{巧:2}, peer:'stomp',
+        line:'我说了他三件事。三件都是真的。' }
+    ]
+  };
+  // pay：债清了。正的还恩，负的还怨
+  const good = p.debt > 0;
+  return {
+    id: 'peer_pay', force: true, head: good ? 'yamen' : 'ruin', peerRef: p.n,
+    an: good ? '他 还 了' : '他 记 着',
+    mo: good ? '他 提 了 一 句' : '他 压 了 一 句',
+    bodyAn: good
+      ? n + '如今在上面了。有人在背后提你的名字，他替你说了一句。'
+      : n + '没有提你的名字。他提的是另外一件事，那件事刚够把你的名字压下去。',
+    bodyMo: good
+      ? n + '现在的位置比你高。评审会上有人提了你的名字，他替你说了一句。'
+      : n + '在会上说了一句话。话里没有你，但所有人都知道说的是你。',
+    opts: good ? [
+      { t:'谢', tMo:'谢他', sub:'这一句，值多少你清楚', subMo:'这一句值多少，你清楚', eff:{誉:2}, peer:'usepay',
+        line:'我去谢了他。他说不用。他还是当年那个坐很久才开口的人。' },
+      { t:'不认', tMo:'不接', sub:'当年那事，本不该由他记', subMo:'当年那事，本不该由他记', eff:{誉:4, 禄:-2}, cai:{忍:2}, peer:'usepay',
+        line:'我没接这句。人情记在别人账上，往后就都是别人的。' },
+      { t:'再开口', tMo:'再开口', sub:'人情是拿来用的', subMo:'人情是拿来用的', eff:{禄:6, 誉:-4}, ink:4, peer:'usepay',
+        line:'我又开了一次口。他答应了。答应得比上次快。' }
+    ] : [
+      { t:'认', tMo:'认', sub:'当年是我压的', subMo:'当年是我压的', eff:{誉:2, 禄:-5}, cai:{忍:2}, peer:'usepay',
+        line:'我认了。认了之后，他反而没再动手。' },
+      { t:'辩', tMo:'辩', sub:'把话摊到桌上', subMo:'把话摊到桌上', eff:{誉:4, 禄:-3, 寿:-3}, ink:3, cai:{言:3}, peer:'usepay',
+        line:'我辩了。辩完两边的名字都脏了。' },
+      { t:'找人对冲', tMo:'对冲', sub:'你有人，他也有', subMo:'你有人，他也有', eff:{禄:4, 财:-8, 誉:-4}, ink:6, peer:'usepay',
+        line:'我找人对冲。这一手下去，两个人的账都翻到了台面上。' }
+    ]
+  };
+}
+
+/* ══════════════ 满招损 ══════════════
+   §1.10 六事有一件做到了极处，别处就开始漏。
+   不是天罚，是人事：你顾不上别的地方了，别人也盯上你了。 */
+// 说话时用"名声""位子"，不用字面的"誉""禄"——账本上的字不该出现在人嘴里
+const SIX_SAY = { 室:'家', 财:'家底', 子:'后', 禄:'位子', 寿:'身子', 誉:'名声' };
+function maxSix(L){
+  let k = '禄', v = -1;
+  SIXK.forEach(x => { if (x !== '寿' && L.six[x] > v){ v = L.six[x]; k = x; } });
+  return { k, v };
+}
+function stepFull(L){
+  const m = maxSix(L);
+  // 常态的漏：一季一季地漏，比"被人告一状"更钝、也更真
+  if (m.v >= 92 && Math.random() < .35){
+    const others = SIXK.filter(x => x !== m.k && x !== '寿');
+    bump(L, pick(others), -2);
+  }
+}
+function fullEvent(L){
+  if (L.monk) return null;
+  L.cd = L.cd || {};
+  if ((L.fullN || 0) >= 2) return null;
+  if (L.cd.full !== undefined && L.fold - L.cd.full < 3) return null;
+  const m = maxSix(L);
+  if (m.v < 88) return null;
+  if (Math.random() > .45) return null;
+  L.fullN = (L.fullN || 0) + 1; L.cd.full = L.fold;
+  return makeFull(L, m.k);
+}
+function makeFull(L, k){
+  const others = SIXK.filter(x => x !== k && x !== '寿');
+  const other = pick(others);
+  // 注意：{[k]:-10, 誉:4} 里字面量会盖掉计算键，k 正好是誉时 -10 就丢了。
+  // 所以这几个效果必须手工累加
+  const take = {}; take[k] = -10; take['誉'] = (take['誉'] || 0) + 4; take['寿'] = 3;
+  const hold = {}; hold[k] = 4; hold[other] = -12;
+  return {
+    id: 'full', force: true, head: 'censor',
+    an: '树 大', mo: '太 快',
+    bodyAn: (SIX_SAY[k] || k) + '这一样，你已经是这一辈人里数得出来的。有人递了折子，说某某一项过盛，恐非地方之福。折子没有署名。',
+    bodyMo: (SIX_SAY[k] || k) + '这一项，你已经到了别人开会时会念出来的地步。有人把你的名字列进了那份材料，理由只有一句：他这些年走得太快。',
+    opts: [
+      { t:'收', tMo:'退', sub:'主动退一步', subMo:'自己先退半步', eff:take, cai:{忍:3},
+        line:'我退了一步。退的时候没有人看见，可我自己知道。',
+        lineMo:'我自己先退半步。这件事我没有跟任何人说过。' },
+      { t:'扛', tMo:'顶', sub:'顶回去', subMo:'顶回去，代价在别处', eff:hold, ink:6, cai:{体:2},
+        line:'我顶回去了。顶回去的那一年，' + other + '上出了事，我没顾上。',
+        lineMo:'我顶回去了。那一年' + other + '那头出了事，我没顾上。' },
+      { t:'让名', tMo:'让出去', sub:'把名字让人，把实惠留下', subMo:'名字让人，实惠留下', eff:{誉:-8, 禄:6, 财:4}, ink:8, cai:{巧:2},
+        line:'我把名字让了出去。剩下的事，我一件没落。',
+        lineMo:'名字让别人挂，事还是我办。剩下的我一件没落。' }
+    ]
+  };
+}
+
+/* ══════════════ 两段关系：摆到桌上那一次 ══════════════
+   §7.6 同时维持两段，是不会自己过去的。到某一年，它会自己坐到你对面。 */
+function duizhiEvent(L){
+  if (!L.love2 || L.love2.exposed) return null;
+  if (!L.love || !L.love.done) return null;
+  if (L.fold - (L.love2.since || 0) < 1) return null;
+  L.love2.exposed = true;
+  return makeDuizhi(L);
+}
+function makeDuizhi(L){
+  const x = (L.love2 && L.love2.xing) || '她';
+  return {
+    id: 'duizhi', force: true, head: 'home',
+    an: '对 质', mo: '摊 牌',
+    bodyAn: '她知道了。两个人坐在堂上，谁都不先开口。茶换了三次，都是凉的。' + x + '家的人昨天来过。',
+    bodyMo: '她知道了。手机放在桌上，屏幕朝下。她只问了一句：还有别人，是不是。',
+    opts: [
+      { t:'认', tMo:'认', sub:'一句实话，把两个都赔进去', subMo:'一句实话，把两个都赔进去', eff:{誉:-10, 室:-14}, cai:{忍:2}, duizhi:'admit',
+        line:'我认了。认完那顿饭，桌上的菜一个都没动。',
+        lineMo:'我认了。那顿饭谁也没动筷子。' },
+      { t:'瞒', tMo:'瞒', sub:'瞒得住，就是另一笔账', subMo:'瞒得住，就是另一笔账', eff:{财:-10, 寿:-6}, cai:{巧:3}, duizhi:'hide',
+        line:'我瞒住了。瞒住之后，家里的门我没有一天是踏实进出的。',
+        lineMo:'我瞒住了。从此每次手机响，我都先看一眼是谁。' },
+      { t:'断一头', tMo:'了断', sub:'花钱了断，把人送走', subMo:'花钱了断，把人送走', eff:{财:-14, 誉:-4, 室:2}, cai:{巧:2}, duizhi:'cut',
+        line:'我把那一头了断了。钱给得厚，话没有多说一句。',
+        lineMo:'我把那一头了断了。钱给得厚，话没多说一句。' }
+    ]
+  };
+}
+
+/* ══════════════ 事后账簿：三年前那一笔 ══════════════
+   §8.5 你签过的字、压过的人、放过的人，不会自己消失。
+   三五年后，会有人拿着它回来找你——不是报应，是流程。 */
+function dueEvent(L){
+  if (!L.due || !L.due.length) return null;
+  if ((L.dueN || 0) >= 3) return null;
+  const i = L.due.findIndex(d => !d.fired && L.fold >= d.at);
+  if (i < 0) return null;
+  L.due[i].fired = true; L.dueN = (L.dueN || 0) + 1;
+  return makeDue(L, L.due[i].kind);
+}
+function makeDue(L, kind){
+  if (kind === 'audit') return {
+    id: 'due_audit', force: true, head: 'court',
+    an: '旧 账', mo: '旧 账',
+    bodyAn: '三年前那一笔，有人翻出来了。册子上是你的字。来的人只说了一句：这一处，要你解释。',
+    bodyMo: '几年前那一笔，有人翻出来了。单子上是你的签字。来的人只说了一句：这一处，要你解释。',
+    opts: [
+      { t:'认', tMo:'认', sub:'字是我签的', subMo:'字是我签的', eff:{财:-9, 誉:-6, 禄:-5}, cai:{忍:2}, dueAct:'own',
+        line:'我认了。赔的那笔钱，是我这些年攒下的一半。',
+        lineMo:'我认了。那笔钱是我这些年攒下的一半。' },
+      { t:'推给下面', tMo:'推下去', sub:'当时经办的人不止一个', subMo:'当时经办的人不止一个', eff:{誉:-10, 禄:2}, ink:6, cai:{巧:2}, dueAct:'shift',
+        line:'我说是下面办的。说完这句，我在这间屋子里的分量轻了一点。',
+        lineMo:'我说是下面办的。说完这句，我在会上说话就没人接了。' },
+      { t:'补上', tMo:'补上', sub:'钱补了，话不多说', subMo:'钱补了，话不多说', eff:{财:-16, 誉:2, 禄:2}, cai:{忍:3}, dueAct:'pay',
+        line:'我把钱补齐了。补齐之后，这件事就没有再提过。',
+        lineMo:'我把钱补齐了。补齐之后，没有人再提。' }
+    ]
+  };
+  if (kind === 'grudge') return {
+    id: 'due_grudge', force: true, head: 'ruin',
+    an: '旧 怨', mo: '旧 人',
+    bodyAn: '你压下去的那个人，回来了。他没有带人来，只带了一句话：当年那件事，他还记得。',
+    bodyMo: '当年被你挤走的那个，回来了。他现在的位置，正好管得着你。',
+    opts: [
+      { t:'赔一句话', tMo:'赔个话', sub:'低头比赔钱便宜', subMo:'低头比赔钱便宜', eff:{财:-10, 誉:6}, cai:{缘:2}, dueAct:'own',
+        line:'我请他吃了一顿饭。这顿饭吃了三个时辰，话说得很少。',
+        lineMo:'我请他吃了一顿饭。这顿饭吃了三个小时，话说得很少。' },
+      { t:'压下去', tMo:'压', sub:'他还差得远', subMo:'他还差得远', eff:{禄:3, 誉:-6}, ink:6, cai:{巧:2}, dueAct:'shift',
+        line:'我又压了他一次。这一次压得更干净。',
+        lineMo:'我又压了他一次。这次压得更干净。' },
+      { t:'见他', tMo:'见他', sub:'见一面，把话说透', subMo:'见一面，把话说透', eff:{寿:-3, 誉:2}, cai:{言:2}, dueAct:'pay',
+        line:'我见了他。他说了很多，我只说了一句对不起。',
+        lineMo:'我见了他。他说了很多，我只说了一句对不起。' }
+    ]
+  };
+  return {
+    id: 'due_favor', force: true, head: 'journey',
+    an: '旧 恩', mo: '旧 情',
+    bodyAn: '三年前你放过的那个人，如今在别人手底下说得上话。他托人带了一句：这一回，他能替你说。',
+    bodyMo: '当年你放过的那个，如今混得比你好。他让人带话：这一回，他能替你说一句。',
+    opts: [
+      { t:'用', tMo:'用', sub:'这句话现在最值钱', subMo:'这句话现在最值钱', eff:{禄:8, 誉:-3}, cai:{缘:2}, dueAct:'use',
+        line:'我用了这句话。用完，我们两个就都清了。',
+        lineMo:'我用了这句话。用完，我们两个就都清了。' },
+      { t:'不用', tMo:'不用', sub:'当年放他，不是为了今天', subMo:'当年放他，不是为了今天', eff:{誉:5}, cai:{忍:2}, dueAct:'keep',
+        line:'我没有用。他后来还是替我说了，只是没有让我知道。' },
+      { t:'让他记着', tMo:'让他记着', sub:'不求这一次，求下一次', subMo:'不求这一次，求下一次', eff:{誉:2, 禄:2, 财:2}, cai:{巧:2}, dueAct:'keep',
+        line:'我说，这一次不用。他懂了。',
+        lineMo:'我说，这一次不用。他懂了。' }
+    ]
+  };
+}
+
+function pickEvent(){
+  const L = S.life;
+  const isAn = L.era === 'an';
+  const hasKid = !!(L.heir && L.heir.has);
+  const pool = EV.filter(e => !(e.onlyAn && !isAn)
+    && (!e.hasLove || (L.love && L.love.done))   // 旧人只找已经有家室的人
+    && (!e.noLove2 || !L.love2)
+    && (!e.needChild || hasKid)       // 没孩子就不该抽到"教子""嫁女""惊风"
+    && (!e.noChild || !hasKid)        // 已经有孩子了，就不必再过继
+    && (!e.minAge || L.age >= e.minAge)
+    && (!e.maxAge || L.age <= e.maxAge)
+    && (!e.minLu || L.six['禄'] >= e.minLu)
+    && (!e.axis || JOB(L.job).axis === e.axis)      // 散馆只在"仕"这一轴才有
+    && (!e.hasTrack || !!L.track)                   // 断党要先有党
+    && (!e.noTrack || e.noTrack !== L.track)
+    && (!e.noLove || !L.love)                        // 已经有一关了，不再开第二关
+    && (!e.minShi || L.six['室'] >= e.minShi)
+    && (!e.minYun || L.yun >= e.minYun)              // 顺的时候才遇得上"贵人"
+    && (!e.maxYun || L.yun <= e.maxYun)              // 背的时候才撞得上"无妄"
+    && (!e.softLone || (L.lone && L.loneSoft))       // "将就"只给当年说不议亲的人"
+    && (!e.beforeJob || !(L.heir && L.heir.judged))   // 人都二十了，再谈"教"就晚了
+    && (!e.noMonk || !L.monk)
+    && !e.force);                       // 强制事件不进日常池
+  // 情关的窗口到了。这一折不谈别的，只谈这一件
+  if (L.love && L.love.due && !L.love.done) return makeKnot(L);
+  // 三年前那一笔，会自己找上门。这一折不谈别的
+  const dueEv = dueEvent(L);
+  if (dueEv) return dueEv;
+  // 两段关系摆到桌面上
+  const dzEv = duizhiEvent(L);
+  if (dzEv) return dzEv;
+  // 子：这件事不能一直拖。二十八岁还没有，它会自己找上来。
+  // 试不成还能再试一次——但"认命"只有一次，选了就是断在这里。
+  const heirEv = EV.find(e => e.id === 'heir');
+  if (heirEv && L.heir && !L.monk && !L.lone && !L.heir.has && !L.heir.lost
+      && (L.heirTry || 0) < 3
+      && L.age >= 28 && L.fold - ((L.cd && L.cd.heir) === undefined ? -9 : L.cd.heir) >= 3){
+    L.cd = L.cd || {}; L.cd.heir = L.fold;
+    L.heirTry = (L.heirTry || 0) + 1;
+    return heirEv;
+  }
+  // 无后的人，族里迟早要你过继一个。四十六岁以后，这件事会自己找上门。
+  // 没有这一条，选过"再试试"却始终没成的人，就只剩断子绝孙一个结局
+  const adEv = EV.find(e => e.id === 'adopt');
+  if (adEv && L.heir && !L.heir.has && !L.heir.lost && !L.monk
+      && L.age >= 46 && !L.used.includes('adopt')){
+    L.used.push('adopt'); return adEv;
+  }
+  // 教子与抱孙：这两件跟着孩子的岁数走，不该靠随机撞上。
+  // 从前它们是池子里普通的一条，十四折撞一条，一辈子也就露一次面。
+  const hh = L.heir;
+  if (hh && hh.has && !L.monk){
+    const ch = EV.find(e => e.id === 'child');
+    if (ch && L.age >= hh.born + 6 && L.age <= hh.born + 16 && !L.used.includes('child')){
+      L.used.push('child'); return ch;
+    }
+    const sn = EV.find(e => e.id === 'sun');
+    if (sn && L.age >= hh.born + 26 && !L.used.includes('sun')){
+      L.used.push('sun'); return sn;
+    }
+  }
+  // 树大招风
+  const fuEv = fullEvent(L);
+  if (fuEv) return fuEv;
+  // 同榜：求、挡、倒、还
+  const peEv = peerEvent(L);
+  if (peEv) return peEv;
+  // 当年说过"不议亲"的，三十岁以后媒人会再来一次
+  const late = EV.find(e => e.id === 'late');
+  if (late && L.loneSoft && !L.used.includes('late') && L.age >= 32){
+    L.used.push('late'); return late;
+  }
+  // 旧人：家也成了，日子也稳了，这时候遇见，才是真的难
+  const again = EV.find(e => e.id === 'again');
+  if (again && L.love && L.love.done && !L.love2 && !L.used.includes('again')
+      && L.age >= 28 && L.age <= 46 && Math.random() < .5){
+    L.used.push('again'); return again;
+  }
+  // 一生总要遇上一次。二十岁上下，它会自己找上来——不是你去挑的
+  const meet = EV.find(e => e.id === 'meet');
+  if (meet && !L.love && !L.monk && !L.used.includes('meet')
+      && L.six['室'] < 55 && L.age >= 20 && L.age <= 30
+      && (L.age >= 28 || Math.random() < .5)){
+    L.used.push('meet');
+    return meet;
+  }
+  // 历史事件：古代、禄够、第五折起、一世只一次
+  const hist = EV.find(e => e.id === 'hist');
+  if (isAn && hist && !L.used.includes('hist')
+      && L.six['禄'] >= (hist.minLu || 40) && L.fold >= 4){
+    L.used.push('hist');
+    return hist;
+  }
+  // 律这条暗线走到 60，就不是"可能会出事"，是"哪天来人"
+  const cse = EV.find(e => e.id === 'case');
+  if (cse && !L.used.includes('case') && L.law >= 55 && L.age >= 24){
+    L.used.push('case');
+    return cse;
+  }
+  const fresh = pool.filter(e => !L.used.includes(e.id));
+  // 六事排班：哪一格好几折没露面，这一折先把它捞上来。
+  // 位子和名声本来就最容易自己找上门；家和后，不会自己来敲门。
+  let ev = null;
+  if (L.fold >= 2 && fresh.length && Math.random() < .6){
+    const ld = L.lastDim || {};
+    const starved = SIXK.filter(k => L.fold - (ld[k] === undefined ? -99 : ld[k]) >= 4);
+    if (starved.length){
+      const cand = fresh.filter(e => (EV_DIMS[e.id] || []).some(k => starved.includes(k)));
+      if (cand.length) ev = pick(cand);
+    }
+  }
+  if (!ev) ev = fresh.length ? pick(fresh) : pick(pool);
+  if (ev){
+    L.used.push(ev.id);
+    L.lastDim = L.lastDim || {};
+    (EV_DIMS[ev.id] || []).forEach(k => { L.lastDim[k] = L.fold; });
+  }
+  return ev;
+}
+
+function choose(ev, o){
+  const L = S.life;
+  const veilBefore = !L.revealed;
+  const deltas = [];
+  for (const k in (o.eff || {})){
+    const raw = o.eff[k];
+    if (!raw) continue;
+    if (k === '子') continue;          // 子不走加减，走台阶（见 stepHeir）
+    // 折数多了三成，同样的负价会滚成不可承受；负价按 0.72 折算，正价原样
+    let v = Math.round(raw * (raw > 0 ? 0.8 : 0.72));
+    if (v === 0) v = raw > 0 ? 1 : -1;
+    L.six[k] = clamp(L.six[k] + v, 0, capOf(L, k));
+    deltas.push({ k, v });
+  }
+  if (o.ink){
+    L.ink = clamp(L.ink + o.ink, 0, 100);
+    // 律是墨的影子：墨落在纸上，纸就留在衙门里
+    L.law = clamp(L.law + Math.round(o.ink * .8), 0, 100);
+  }
+  if (o.law) L.law = clamp(L.law + o.law, 0, 100);
+  if (o.study){
+    L.study = (L.study || 0) + o.study;
+    if (o.study >= 3) heirNote(L, L.age + ' 岁，书读进去了。手指上有墨，洗不掉。');
+  }
+  if (o.yun) L.yun = clamp((L.yun || 50) + o.yun, 5, 95);
+  if (o.lone){ L.lone = true; }
+  if (ev && ev.id === 'case') L.law = 10;          // 这一案结了，账翻过去
+  if (o.monk){
+    L.monk = o.monk; L.lone = true;                // 方外无室
+    if (!L.heir.has){ L.heir.lost = true; L.heir.has = false; }   // 无后
+    heirNote(L, o.monk === '佛' ? '我把头剃了。剃刀凉，头皮也凉。' : '我上了山。山上的日子长，长得像没有尽头。');
+  }
+
+  // 子：只认三件事——教得怎样、有没有过继、这一个有没有留住
+  const z0 = L.six['子'];
+  if (o.raised !== undefined) L.raised = o.raised;
+  if (o.adopt){
+    L.heir.has = true; L.heir.born = L.age; L.heir.judged = false; L.heir.adopted = true;
+    L.heir.job = L.heir.grand = L.heir.great = false;
+    heirNote(L, L.age + ' 岁，族里过继来一个孩子。他改口叫我爹，声音很小。');
+  }
+  if (o.loseChild){
+    L.heir.has = false; L.heir.lost = true; L.heir.judged = false;
+    L.heir.job = L.heir.grand = L.heir.great = false;
+  }
+  // 求子：成不成不由你，只有"试不试"由你
+  if (o.child && !L.heir.has && Math.random() < o.child){
+    L.heir.has = true; L.heir.born = L.age; L.heir.judged = false;
+    L.heir.job = L.heir.grand = L.heir.great = false;
+    L.six['室'] = clamp(L.six['室'] + 8, 0, capOf(L, '室'));
+    heirNote(L, L.age + ' 岁，孩子落地。抱的时候我不敢用力。');
+  }
+  // 认了这条线断在这里，往后就不会再有了
+  if (o.noHeir){ L.heir.lost = true; L.heir.has = false; }
+  if (o.grand && !L.heir.grand){ L.heir.grand = true; }
+  stepHeir(L);
+  stepRepute(L);
+  stepReveal(L);
+  const dz = Math.round(L.six['子'] - z0);
+  if (dz) deltas.push({ k: '子', v: dz });
+
+  // 六才：隐藏成长
+  for (const k in (o.cai || {})){
+    const v = (o.cai[k] || 0) * 4;
+    L.cai[k] = clamp(L.cai[k] + v, 0, S.bz.cap[k]);
+    // 到顶 = 摸到"自己那一格"的上限；缺格（cap<78）永不算
+    if (S.bz.cap[k] >= 78 && L.cai[k] >= S.bz.cap[k]) S.peak[k] = S.bz.cap[k];
+  }
+
+  // 手记里那句，也要跟着时代改口
+  if (o.line) L.lines.push(L.era === 'an' ? o.line : (o.lineMo || o.line));
+
+  // 行当：择业、改行、自己开张
+  if (o.job && JOB(o.job).id === o.job){ L.job = o.job; recalcCaps(L); }
+  if (o.jobAxis){
+    const pool = JOBS.filter(j => j.axis === o.jobAxis && j.id !== L.job);
+    if (pool.length){ L.job = pick(pool).id; recalcCaps(L); }
+  }
+  if (o.pupil) L.pupils = (L.pupils || 0) + o.pupil;
+  // 大事：让位子或名声跳了一大格的，就是"一件不可抹去的事"。史评认这一条
+  if (o.deed) L.deeds = (L.deeds || 0) + 1;
+  else if (((o.eff || {})['禄'] || 0) >= 6 || ((o.eff || {})['誉'] || 0) >= 6)
+    L.deeds = (L.deeds || 0) + 1;
+  if (o.cutParty){ L.cutParty = true; }
+  if (o.faction) L.faction = true;
+
+  // 站边：这一次选得偏向哪一轨
+  const td = trackDeltas(o, ev);
+  for (const k in td) L.trk[k] = (L.trk[k] || 0) + td[k];
+  // 能吏的代价：办成一件大事，清誉就低一分（"他的钱哪来的"）
+  if (o.deed && L.track === '能吏') bump(L, '誉', -5);
+  stepTrack(L);
+  recalcCaps(L);
+
+  // 情关：开、断、还是干脆不议亲
+  if (o.knot) resolveKnot(L, o.knot);
+  if (o.love === 'none'){ L.lone = true; L.loneSoft = true; }
+  else if (o.love){
+    startLove(L);
+    if (o.love === 'chase'){
+      L.love.qing = clamp(L.love.qing + 12, 0, 100);
+      L.love.mine = clamp(L.love.mine + 12, 0, 100);
+    } else {
+      L.love.qing = clamp(L.love.qing + 4, 0, 100);
+      bump(L, '室', 4);
+    }
+  }
+  if (o.unlone){ L.lone = false; L.loneSoft = false; }
+  if (o.concubine){
+    L.concubine = true;
+    // 有了第二个人，就迟早有一次要摆到桌上
+    if (L.love && L.love.done && !L.love2) L.love2 = { xing: pick(XING), since: L.fold };
+  }
+
+  // 旧人重逢：从这一折起，桌上有两个人了
+  if (o.love2 && !L.love2) L.love2 = { xing: pick(XING), since: L.fold };
+
+  // 同榜记账：正的他还，负的他记
+  if (o.peer){
+    const p = (L.peers || []).find(x => x.n === ev.peerRef);
+    if (p){
+      if (o.peer === 'help'){ p.debt = 1; p.debtAt = L.fold; }
+      else if (o.peer === 'save'){ p.debt = 2; p.debtAt = L.fold; }
+      else if (o.peer === 'refuse' || o.peer === 'cut' || o.peer === 'stomp'){
+        p.debt = -1; p.debtAt = L.fold;
+        if (o.peer !== 'refuse') L.cold = true;   // 不救与踩，是会传出去的
+      }
+    }
+  }
+  // 对质：认、瞒、断。三种收场，三种留下
+  if (o.duizhi){
+    if (o.duizhi === 'admit'){ knotted(L, '负'); L.love2 = null; }
+    else if (o.duizhi === 'hide'){ knotted(L, '疑'); lockSix(L, '誉'); }
+    else { knotted(L, '负'); L.love2 = null; L.concubine = false; }
+  }
+
+  // 事后账簿：这一笔太大，留个底。三五年后有人来翻
+  if (!o.peer && !o.duizhi && !o.dueAct && !o.knot){
+    const e = o.eff || {};
+    const mag = Math.abs(e['禄'] || 0) + Math.abs(e['誉'] || 0) + Math.abs(e['财'] || 0);
+    if (mag >= 16 && (L.due || []).length < 3){
+      const y = e['誉'] || 0;
+      const kind = (o.ink && o.ink >= 10) ? 'audit' : (y <= -6 ? 'grudge' : (y >= 8 ? 'favor' : null));
+      if (kind) L.due.push({ at: L.fold + 1, kind });
+    }
+  }
+
+  // 改史
+  if (o.edit && S.edits.length < 2){
+    const t = o.edit.text;
+    S.edits.push({ life: S.index, year: String(L.y0 + L.age - 16), grade: o.edit.grade, text: t });
+  }
+
+  // 结算动效。刚"透"的那一下不叠数字——面板已经全亮了，数字在牌上
+  if (veilBefore && L.revealed) { /* 让位给「六事俱明」 */ }
+  else showDelta(deltas);
+
+  // 推进时间
+  setTimeout(advanceFold, S.auto ? 0 : 900);
+}
+
+/* ── 子：五级台阶 ────────────────────────────────────────────
+   你要的不是一个"子"的分数，是你活着的时候能不能看见：
+   有后（25）→ 他立了业（20）→ 他有后（20）→ 家和（15）→ 四世同堂（20）
+   一级一级往上走，缺哪一级，一眼就看得见。 */
+function heirScore(L){
+  const h = L.heir;
+  if (!h) return 0;
+  let v = 0;
+  if (h.has) v += 25;
+  if (h.job) v += 20;
+  if (h.grand) v += 20;
+  if (h.has && L.six['室'] >= 45 && L.ink <= 45) v += 15;   // 家和：屋里有人气，外头没血债
+  if (h.great) v += 20;
+  return clamp(v, 0, 100);
+}
+
+/* ── 誉：一极即满 ─────────────────────────────────────────────
+   名声不是攒出来的，攒出来的是"人缘"。誉只有一种拿法：
+   把一件事做到没人能装作没看见。室、财、子、禄，任一项到 100，誉就满。
+   另一条路是剃度入山——不争了，反倒是大名。 */
+function reputePeak(L){
+  return ['室', '财', '子', '禄'].find(k => L.six[k] >= 100) || null;
+}
+function stepRepute(L){
+  if (L.monk){ L.reputeFull = true; L.reputeWhy = '方外之名'; }
+  else if (!L.reputeFull){
+    const pk = reputePeak(L);
+    if (pk){ L.reputeFull = true; L.reputeWhy = pk + '至其极'; }
+  }
+  if (L.reputeFull){
+    // 能吏的名是真的，可"好名声"这一格被他自己缺掉了——封顶就是封顶
+    L.six['誉'] = Math.max(L.six['誉'], Math.min(100, capOf(L, '誉')));
+  }
+}
+// 律这条暗线不出条。它只在快到头的时候，透一句话给你
+function lawHint(L){
+  if (L.law >= 55) return '律 · 案已立案，只看哪天来人';
+  if (L.law >= 35) return '律 · 风声渐紧';
+  if (L.law >= 18) return '律 · 有些账，经不起人翻';
+  return '';
+}
+
+/* ── 透：六事全隐，一格到了头才全亮 ─────────────────────────────
+   活着的每一天，你都不知道自己几斤几两。只有一件事能让你看清：
+   某一样，被你做到了头。到了头，别的就藏不住了。
+   "头"不是 100——是你的位子能到的那个头。官宦人家的禄顶 80，
+   到 80 那天，照样是到了头。 */
+function stepReveal(L){
+  if (L.revealed) return;
+  const atTop = [];
+  // 先看室财子禄——誉是被它们带上 100 的，"禄到了头"才是真话
+  for (const k of ['室', '财', '子', '禄']){
+    const c = capOf(L, k);
+    if (L.six[k] >= 100) atTop.push([k, false]);
+    else if (c >= 60 && c < 100 && L.six[k] >= c) atTop.push([k, true]);
+  }
+  if (!atTop.length && L.six['誉'] >= 100) atTop.push(['誉', false]);
+  if (!atTop.length) return;
+  const [full, viaCap] = atTop[0];
+  L.revealed = true; L.revealWhy = full; L.revealAge = L.age; L.revealViaCap = viaCap;
+  // 五世里只要有一世看清过一次自己，这个"根"就留下来了
+  if (!S.rooted){ S.rooted = true; S.rootAt = { i: S.index, age: L.age, k: full }; }
+  renderSixBar();
+  if (!S.auto) revealFlash(full);
+}
+
+function revealFlash(k){
+  const L = S.life;
+  sfxReveal();
+  const why = (L.monk && k === '誉')
+    ? '剃了头，账就不用算了。'
+    : (L.revealViaCap
+        ? k + '到了你的头。再往上那一格，本来就不属于你。'
+        : k + '到了头。别的，也就藏不住了。');
+  const div = document.createElement('div');
+  div.className = 'flash reveal';
+  div.innerHTML = `<div class="rv">
+    <span class="seal">透</span>
+    <div class="t">六 事 俱 明</div>
+    <div class="s">${why}</div>
+    <div class="s" style="margin-top:8px;opacity:.7;font-size:12px">你记住了这一刻。往后再有来世，你还认得自己。</div>
+    <div class="nums">${SIXK.map(x =>
+      `<span>${x}<b>${Math.round(L.six[x])}</b></span>`).join('')}</div>
+  </div>`;
+  document.body.appendChild(div);
+  setTimeout(() => div.remove(), 3400);
+}
+
+// 手记里留一句"看得见的事"。这类句子不写心情，只写发生了什么
+function heirNote(L, s){ if (L.lines.length < 9) L.lines.push(s); }
+
+// 一行字把"子孙这件事"说清楚：现在走到哪一级了
+function heirHint(L){
+  const h = L.heir || {};
+  if (!h.has) return L.monk ? '子 · 方外无后'
+    : (h.lost ? '子 · 那一个没留住' : (L.lone ? '子 · 一个人过，膝下无人' : '子 · 尚无'));
+  const p = ['子 · ' + h.born + ' 岁' + (h.adopted ? '过继' : '得子')];
+  p.push(!h.judged ? '尚幼' : (h.job ? '已立业' : '未成器'));
+  if (h.grand) p.push(L.six['室'] >= 45 && L.ink <= 45 ? '孙辈绕膝' : '有孙');
+  if (h.great) p.push('四世同堂');
+  return p.join(' · ');
+}
+
+function heirLine(L){
+  const h = L.heir || {};
+  if (!h.has) return L.monk ? '方外之人，无后。'
+    : (h.lost ? '膝下那一个，没留住。' : (L.lone ? '一个人过到老，膝下无人。' : '一生无后。'));
+  const p = [h.born + ' 岁' + (h.adopted ? '过继' : '得子'), h.job ? '子立业' : '子未成器'];
+  if (h.grand) p.push(L.six['室'] >= 45 && L.ink <= 45 ? '孙辈绕膝，家中和睦' : '有孙，家中不宁');
+  if (h.great) p.push('四世同堂');
+  return p.join(' · ');
+}
+
+function stepHeir(L){
+  const h = L.heir;
+  if (!h) return;
+  // 得子不再自动发生：这一格要你自己去要，或者自己认了（见 heir 事件）。
+  // 从前是系统替你生，结果"子"这条线一辈子都不露一次面。
+  if (h.has){
+    // 立业：只看他二十岁那年。立没立起来，一次定终身
+    if (h.has && !h.judged && L.age >= h.born + 20){
+      const teach = Math.max(L.raised || 0, (L.cai && L.cai['智'] >= 78) ? 1 : 0);
+      // 立业看的是"这个家托不托得住他"。
+      // 没有位子的人家，看的是名声——街坊认你这块招牌，儿子才立得起来
+      const noLu = capOf(L, '禄') === 0;
+      const sc = L.six['禄'] * .5 + L.six['财'] * .3 + L.six['室'] * .2 + teach * 20;
+      h.judged = true;
+      // 无禄的人家不看位子，只看名声：街坊认你这块招牌，儿子才立得起来
+      h.job = noLu ? (L.six['誉'] >= 50) : (sc >= 50);
+      heirNote(L, h.job ? '他做了官。我送他到门口，忽然不知道该说什么。'
+                        : '他没能做上官。这件事我们父子都没提过。');
+    }
+    // 没有位子的人家，这笔账不是一锤子买卖：此后誉到了，照样算他立了业
+    if (!h.job && capOf(L, '禄') === 0 && L.age >= h.born + 16 && L.six['誉'] >= 50){
+      h.job = true;
+      heirNote(L, '他在巷口支了个自己的摊子。街坊说，这小子随他爹。');
+    }
+    if (!h.grand && L.age >= h.born + 22){
+      h.grand = true;
+      heirNote(L, '他抱了个孩子回来，说要我起名。');
+    }
+    // 四世同堂：要活到看得见曾孙的那一年
+    // 四世同堂要的是"还在一处吃饭"：人散了的四代，不算
+    if (h.grand && !h.great && L.age >= h.born + 40 && L.six['室'] >= 45 && L.ink <= 45){
+      h.great = true;
+      heirNote(L, '曾孙满月。四代人在一个院里吃饭，我坐在最里面。');
+    }
+  }
+  L.six['子'] = heirScore(L);
+}
+
+/* ── 职业：每折的常态流量 ──────────────────────────────────────
+   从前所有人的一折都是"禄 +5、财 +4、寿 −4"。现在不是了：
+   文官升得快、家里空；军职命是国家的；商人的财是攒出来的；
+   市井的人没有位，只有一双手和每天少一点的力气。 */
+function stepJob(L){
+  const j = JOB(L.job), f = j.f || {};
+  if (L.monk){                       // 出了家，俸禄这条线就断了；清修换的是命
+    bump(L, '财', 1);
+    bump(L, '寿', -2);               // 清修不是不老，只是老得慢
+    return;
+  }
+  // 倒台之后，位子是真的没了。不是降级，是这条路走到头
+  if (L.ruined){ bump(L, '财', 1); bump(L, '寿', -4); return; }
+  let up = f['禄'] || 0;
+  // 清流：越有名越升不上去。誉过 80，升迁只余三成
+  if (L.track === '清流' && L.six['誉'] > 80) up = Math.round(up * .3);
+  // 官宦人家的门荫：禄低的时候垫一把。位子是给的，不是挣的
+  if (L.track !== '孤臣' && L.six['禄'] < 25 && (ORIGIN_LU[L.origin] || 0) >= 70) up += 1;
+  bump(L, '禄', up);
+  bump(L, '财', (f['财'] || 0) + (L.six['禄'] >= 30 ? 1 : 0));
+  bump(L, '誉', f['誉'] || 0);
+  // 室里有人，家自己会长；没人的屋子才会空下去
+  let shi = f['室'] || 0;
+  if (L.six['室'] >= 40) shi += 1;
+  if (!L.lone) bump(L, '室', shi);
+  bump(L, '寿', Math.round((f['寿'] || 0) * SHOU_SCALE));
+  // 门生：教书的人每年都带出几个人。活着时不见得有用，死了才有
+  if (j.id === 'jiao' || j.id === 'shushu') L.pupils = (L.pupils || 0) + 1;
+  // 行当本身就是轨的那几个：每折自己往前走一格
+  const ft = JOB_FOLD_TRK[j.id];
+  if (ft) L.trk[ft] = (L.trk[ft] || 0) + 1;
+}
+
+/* ── 轨：每折的常态代价 ────────────────────────────────────────
+   缺的那一项不是口号，是每四年扣一次的东西。 */
+function stepTrackFx(L){
+  const t = L.track ? TRK(L.track) : null;
+  if (!t) return;
+  const tf = t.fold || {};
+  if (tf['寿']) bump(L, '寿', tf['寿']);      // 权臣 −2、边臣 −3
+  if (tf['禄']) bump(L, '禄', tf['禄']);      // 孤臣：每年多两格
+  if (tf['财']) bump(L, '财', tf['财']);
+  // 边臣：每三折一次战／和。败了不是降职，是少活
+  if (t.id === '边臣' && L.fold % 3 === 0 && L.fold > 0){
+    const win = Math.random() < .5 + ((L.cai['体'] || 60) - 60) / 300 + (L.yun - 50) / 400;
+    if (win){
+      bump(L, '誉', 6); L.deeds = (L.deeds || 0) + 1;
+      heirNote(L, L.age + ' 岁，这一仗打赢了。城头上风大，我站了很久。');
+    } else {
+      bump(L, '寿', -15); bump(L, '誉', -4);
+      heirNote(L, L.age + ' 岁，败了。名单送到我手上，我自己签的字。');
+    }
+  }
+  // 权臣：倒台。禄、财、誉三样同时归零——这一条从来不是"可能会"
+  if (t.id === '权臣' && L.law >= 45 && L.six['禄'] >= 70 && Math.random() < .45){
+    L.six['禄'] = 0; L.six['财'] = Math.round(L.six['财'] * .2); L.six['誉'] = 0;
+    L.faction = true; L.law = 100; L.ruined = true;
+    heirNote(L, L.age + ' 岁，抄家。我从后门被带走，家里人一个都没见上。');
+  }
+}
+
+/* ── 站边：轨分不是自报的，是从"你怎么做"里看出来的 ─────────────
+   得罪人换名 → 清流；把事办成 → 能吏；落墨换位子 → 权臣；
+   拿命去换 → 边臣；在原地待住 → 循吏；谁也不靠 → 孤臣。 */
+function trackDeltas(o, ev){
+  if (o.tr) return o.tr;
+  const e = o.eff || {}, t = {};
+  const yu = e['誉'] || 0, lu = e['禄'] || 0, cai = e['财'] || 0,
+        shi = e['室'] || 0, shou = e['寿'] || 0;
+  if (yu >= 5) t['清流'] = 3;                           // 得罪人换名，是最响的一次站边
+  else if (yu >= 3 && lu <= 0) t['清流'] = 1;
+  if (o.ink >= 8) t['权臣'] = (t['权臣'] || 0) + 3;      // 落了墨的，都是替人办事
+  else if (o.ink >= 5) t['权臣'] = (t['权臣'] || 0) + 1;
+  if (lu >= 3) t['能吏'] = 1;                           // 事办成了——禄太常见，只给一分
+  if (lu >= 3 && cai >= 3) t['能吏'] = 2;               // 又升又进钱：这才是能吏
+  if (cai >= 4 && yu <= 0) t['权臣'] = (t['权臣'] || 0) + 1;
+  if (shou <= -4) t['边臣'] = (t['边臣'] || 0) + 2;     // 拿命换的
+  if (shi >= 4 && lu <= 0) t['循吏'] = 2;               // 在原地熬住
+  if (yu >= 3 && lu <= 2) t['循吏'] = (t['循吏'] || 0) + 1;
+  if (o.pupil) t['循吏'] = (t['循吏'] || 0) + 2;        // 提携后进
+  if (o.lone || shi <= -4) t['孤臣'] = (t['孤臣'] || 0) + 2;
+  return t;
+}
+
+// 孤臣的开启条件：室 = 0（无室档），或主动断党。二者都不可逆
+function loneOpen(L){ return L.six['室'] <= 0 || L.lone || L.cutParty; }
+
+function normTrk(L, k){ return (L.trk[k] || 0) / (TRACK_RATE[k] || 1); }
+
+function stepTrack(L){
+  // 这条轴能不能被归进这一轨；孤臣还要另外开条件
+  const ok = AXIS_TRK[JOB(L.job).axis] || ['孤臣'];
+  const pool = TRACK.filter(t => ok.includes(t.id)
+    && (t.id !== '孤臣' || loneOpen(L)));
+  let best = null, bv = 0;
+  pool.forEach(t => { const v = normTrk(L, t.id); if (v > bv){ bv = v; best = t.id; } });
+  if (!best) return;
+  const NEED = 5;
+  if (!L.track){
+    if (bv >= NEED){
+      L.track = best; L.trackAt = L.age;
+      recalcCaps(L); trackFlash('定 轨', best, TRK(best).lack);
+    }
+    return;
+  }
+  if (best !== L.track && bv >= NEED && normTrk(L, best) - normTrk(L, L.track) >= 2.5){
+    const old = L.track;
+    L.track = best; L.trackAt = L.age; L.trackChange = (L.trackChange || 0) + 1;
+    // 改轨有价：誉 −8，旧同党视你为叛，此后所有"托人"判定 −15
+    bump(L, '誉', -8); L.betrayed = true;
+    recalcCaps(L); trackFlash('改 轨', old + ' → ' + best, TRK(best).lack);
+  }
+}
+
+function trackFlash(a, b, lack){
+  const L = S.life;
+  const veil = !L.revealed;
+  const div = document.createElement('div');
+  div.className = 'flash';
+  const bn = trkName(b, L);
+  div.innerHTML = `<div class="deltas"><span style="color:var(--ink2);letter-spacing:.14em">${
+    a} · ${bn}${lack ? '（缺' + lack + '）' : ''}</span></div>`;
+  document.body.appendChild(div);
+  setTimeout(() => div.remove(), 2200);
+  heirNote(L, a.replace(/ /g, '') + '：' + bn);
+}
+
+/* ══════════════ 情关（§7） ══════════════
+   三轴：情（她对你，每年 −2，不维护就淡）／义（你欠她）／时（窗口，过期作废）。
+   情不显示数字——你只能从回信的字数、从她看你的次数里猜。
+   这一条是全作最狠的机制：不是"你选错了"，是"你没来得及"。 */
+const XING = ['沈','顾','陆','周','冯','柳','温','苏','叶','程','许','裴'];
+const LOOK = [
+  '她说话的时候总看着别处，说完才看你一眼。',
+  '她笑起来先皱一下鼻子，像在忍着什么。',
+  '她走路很快，像总有件事在等她。',
+  '她记性极好，你说过一遍的事她都记得。',
+  '她不太说话，可一开口就问到点上。'
+];
+const LKIND = {
+  A:{ an:'你爱她，她不爱', lack:'寿', why:'「念」伤身' },
+  B:{ an:'她爱你，你不爱', lack:'誉', why:'「负」损名' },
+  C:{ an:'两情相悦，她变了心', lack:'誉', why:'「疑」使人刻薄' },
+  D:{ an:'两情相悦，抵不过现实', lack:'禄', why:'「债」替你选一次' }
+};
+
+function startLove(L){
+  const r = Math.random();
+  const kind = r < .30 ? 'A' : r < .52 ? 'B' : r < .80 ? 'C' : 'D';
+  const hi = () => 70 + R(21), lo = () => 22 + R(20);
+  L.love = {
+    kind, xing: pick(XING), look: pick(LOOK),
+    qing: kind === 'A' ? lo() : hi(),
+    mine: kind === 'B' ? lo() : hi(),
+    yi: 0, shi: 1, done: false, due: false,
+    result: null, mods: null
+  };
+  heirNote(L, L.age + ' 岁，我见到了' + L.love.xing + '家的姑娘。' + L.love.look);
+}
+
+// 每年 −2，一折四年；窗口到期就作废，永不复开
+function stepLove(L){
+  const V = L.love;
+  if (!V || V.done) return;
+  V.qing = clamp(V.qing - 8, 0, 100);
+  if (V.mods) for (const k in V.mods) bump(L, k, V.mods[k]);
+  if (V.shi > 0){ V.shi--; if (V.shi <= 0) V.due = true; }
+}
+
+/* 情关那一下：四种关，关关都有自己的账 */
+function makeKnot(L){
+  const V = L.love, K = V.kind, an = L.era === 'an';
+  const x = V.xing;
+  const body = {
+    A: an
+      ? `你去${x}家第三回了。她父亲客气，她也客气，客气得像在送一个不该来的人。媒人私下说：她家里已经相看了一户，是城东的。`
+      : `${x}回你消息越来越慢。不是不回，是回得很短。你翻着那几行字，看得出她并没有讨厌你——只是没有那样想你。`,
+    B: an
+      ? `${x}等了你两年。她母亲已经问过三次了。她见你的时候什么都不说，只是把茶推到你手边，推得很慢。`
+      : `${x}不问你要什么，只是每次你说"再等等"，她都说"好"。你已经数不清自己说过几次了。`,
+    C: an
+      ? `说好了的事，她家忽然要再议。有人替另一户来说合，那户能给她父亲一个缺。她见了你一面，什么都没提，只问你最近瘦了没有。`
+      : `${x}开始回避你的问题。你后来才知道，有人给她介绍了一个更"稳"的人。她说：不是我变心，是我等不起了。`,
+    D: an
+      ? `她父亲把话说透了：门第差着两档，你连一间自己的屋都没有。${x}在里屋，一直没有出来。`
+      : `房子、彩礼、两边老人。这些事你们算了整整一夜，算到最后谁都不说话。她说：我不怕穷，我怕你将来怨我。`
+  }[K];
+  const opts = {
+    A: [
+      { t:'把话说明白', sub:'问一次，不留着', knot:'ask', eff:{寿:-2},
+        line:'我问了。她答得很轻，我听见了。' },
+      { t:'再等等', sub:'也许她会改主意', knot:'wait', eff:{寿:-4},
+        line:'我又等了。等到她家办了事，我才知道自己等的是什么。' },
+      { t:'放手', sub:'不让她为难', knot:'let', eff:{誉:2,寿:-3},
+        line:'我放了手。后来很多年，我一听见那个姓就抬头。' }
+    ],
+    B: [
+      { t:'娶', sub:'她肯将就，你不肯说破', knot:'marry', eff:{室:6},
+        line:'我娶了。她待我极好，好得我心里发虚。' },
+      { t:'不娶', sub:'不能这样耽误她', knot:'refuse', eff:{誉:-3},
+        line:'我说了不娶。她点点头，说"我早知道"。' },
+      { t:'拖', sub:'再说吧', knot:'drag', eff:{寿:-2},
+        line:'我拖了。拖到她自己把这件事了了。' }
+    ],
+    C: [
+      { t:'挽回', sub:'花钱，或者求人调回来', knot:'save', eff:{财:-14,禄:-6},
+        line:'我把能拿出来的都拿出来了。她回来了，可有些东西没回来。' },
+      { t:'放手', sub:'她要的，我给不了', knot:'letgo', eff:{誉:-4,寿:-5},
+        line:'我放了手。此后我看谁都先想一层。' },
+      { t:'装作不知道', sub:'等它自己过去', knot:'blind', eff:{誉:-6},
+        line:'我装作不知道。她也装作不知道。我们装了很久。' }
+    ],
+    D: [
+      { t:'扛', sub:'拿命去补那个缺口', knot:'carry', eff:{寿:-8,财:-10},
+        line:'我扛了。那几年我怎么过来的，我没跟任何人说过。' },
+      { t:'放', sub:'认清自己够不着', knot:'release', eff:{誉:-2},
+        line:'我放了。她家后来帮过我一次，也挡过我一次。' },
+      { t:'私奔', sub:'什么都不要了', knot:'run', eff:{誉:-8,寿:4},
+        line:'我什么都不要了。那天晚上的车，我记了一辈子。' }
+    ]
+  }[K];
+  return {
+    id:'knot', force:true, head:'wedding',
+    an:'情 关', mo:'情 关',
+    bodyAn: body, bodyMo: body,
+    opts
+  };
+}
+
+function knotted(L, tag){ L.knots = L.knots || []; if (!L.knots.includes(tag)) L.knots.push(tag); }
+function lockSix(L, k){ L.lockSix = L.lockSix || {}; L.lockSix[k] = Math.min(L.lockSix[k] === undefined ? 100 : L.lockSix[k], 70); }
+
+function resolveKnot(L, act){
+  const V = L.love; if (!V || V.done) return;
+  const K = V.kind, q = clamp(V.qing + (L.yun - 50) * 0.25, 0, 100);
+  V.done = true; V.act = act;
+  let res = '', line = '';
+  if (K === 'A'){
+    const win = q >= 60, half = q >= 40 && q < 60;
+    if (act === 'ask' && win){ res = '成'; bump(L,'室',0); L.six['室'] = 80; if (L.lockSix) L.lockSix['室'] = 85;
+      line = '她应了。婚礼很简，她一直低着头。'; }
+    else if ((act === 'ask' || act === 'wait') && (win || half)){
+      res = '半'; L.six['室'] = Math.max(L.six['室'], 60);
+      V.mods = {室:-12}; lockSix(L, '室');
+      line = '她应了。她待我好，只是不像我待她那样。';
+    } else {
+      res = '败'; knotted(L, '念'); V.mods = {寿:-4}; lockSix(L, '寿');
+      line = '她嫁了别人。此后每年那一天，我都会想起她。';
+    }
+  } else if (K === 'B'){
+    if (act === 'marry'){
+      res = '娶'; L.six['室'] = Math.max(L.six['室'], 60); lockSix(L, '誉');
+      line = '她进了门。很多年后她病，我在任上。';
+    } else if (act === 'refuse'){
+      res = '不娶'; knotted(L, '负'); bump(L,'誉',-6); L.lone = true; lockSix(L, '誉');
+      line = '我说了不娶。此后我没再议过亲。';
+    } else {
+      res = '拖过了'; knotted(L, '负'); L.six['室'] = 0; bump(L,'誉',-10); lockSix(L, '誉');
+      line = '拖到最后，她自己把这件事了了。乡里的话很难听。';
+    }
+  } else if (K === 'C'){
+    if (act === 'save'){
+      res = '挽回'; bump(L,'财',-8); L.six['室'] = Math.max(L.six['室'], 70);
+      lockSix(L, '誉');
+      line = '她回来了。可有些东西，谁也没再提。';
+    } else if (act === 'letgo'){
+      res = '放手'; knotted(L, '疑'); bump(L,'誉',-4); lockSix(L, '誉');
+      line = '我放了手。此后我看谁都先想一层。';
+    } else {
+      res = '被弃'; knotted(L, '疑'); L.six['室'] = 0; bump(L,'誉',-10); lockSix(L, '誉');
+      line = '我装作不知道。她走的时候，我还在装。';
+    }
+  } else {
+    if (act === 'carry'){
+      res = '扛'; V.mods = {寿:-20}; L.six['室'] = Math.max(L.six['室'], 90);
+      L.six['子'] = clamp(L.six['子'] + 10, 0, capOf(L,'子')); lockSix(L, '禄');
+      line = '我扛了。那几年我怎么过来的，我没跟任何人说过。';
+    } else if (act === 'release'){
+      res = '放'; knotted(L, '债'); L.six['室'] = 0; lockSix(L, '禄');
+      line = '我放了。她家后来帮过我一次，也挡过我一次。';
+    } else {
+      res = '私奔'; L.six['禄'] = 0; L.six['财'] = 10; bump(L,'寿',5); bump(L,'誉',-8);
+      lockSix(L, '禄');
+      line = '我什么都不要了。那天晚上的车，我记了一辈子。';
+    }
+  }
+  V.result = res;
+  if (line) heirNote(L, L.age + ' 岁：' + line);
+  recalcCaps(L);
+  // 那一下要你看见，不能只是数字
+  const div = document.createElement('div');
+  div.className = 'flash';
+  div.innerHTML = `<div class="deltas"><span style="color:var(--ink2);letter-spacing:.12em">情关 · ${
+    LKIND[K].an} · ${res}</span></div>`;
+  document.body.appendChild(div);
+  setTimeout(() => div.remove(), 2200);
+}
+
+/* ── 气运：看不见的那一手 ─────────────────────────────────────
+   同一个八字，有人一辈子顺，有人一辈子差一口气。差别不在做了什么，
+   在"什么时候做"。气运三年一小转（这里三折十二年一大转），
+   转的时候不报数字，只让人知道风是顺着吹还是逆着吹。 */
+function stepFortune(L){
+  if (L.fold > 0 && L.fold % 3 === 0){
+    const old = L.yun;
+    L.yun = clamp(L.yun + R(31) - 15, 5, 95);
+    if (Math.abs(L.yun - old) >= 18){
+      const div = document.createElement('div');
+      div.className = 'flash';
+      div.innerHTML = '<div class="deltas"><span style="color:var(--ink2);letter-spacing:.14em">'
+        + (L.yun > old ? '运 · 转了 —— 风向变了' : '运 · 转了 —— 风停了') + '</span></div>';
+      document.body.appendChild(div);
+      setTimeout(() => div.remove(), 2000);
+    }
+  }
+  // 顺的时候，连名声都涨得比别人快；不顺的时候，做什么都差一口气
+  if (L.yun >= 70) bump(L, '誉', 1);
+  else if (L.yun <= 30) bump(L, '誉', -1);
+}
+
+function luckOf(L){ return (L.yun - 50) / 100; }   // −0.45 … +0.45
+
+function advanceFold(){
+  const L = S.life;
+  if (!L) return;
+  L.fold++;
+  L.age += 4;
+  stepJob(L);          // 职业的常态流量
+  stepTrackFx(L);      // 轨的常态代价
+  stepFortune(L);      // 气运：三年一转，顺逆都落在名声上
+  stepLove(L);         // 情关：情每年 −2，窗口每年的在减法
+  if (L.concubine){    // 纳妾不增"室"：那是人丁，不是家室
+    bump(L, '誉', -8);
+    if (!L.lone) bump(L, '室', -12);
+  }
+  stepHeir(L);
+  stepRepute(L);
+  stepPeers(L);        // 同榜：三个人各自往上走，或者撞上墙
+  stepFull(L);         // 满招损：一样到了极处，别处开始漏
+  stepReveal(L);
+  S.bz.gates.forEach((g, i) => {
+    if (!L.gateDone[i] && L.age >= g){
+      L.gateDone[i] = true;
+      applyGate(i);
+    }
+  });
+  if (L.six['寿'] <= 0 || L.fold >= FOLD_MAX) return endLife();
+  renderLife();
+}
+
+function showDelta(ds){
+  if (!ds.length) return;
+  const veil = S.life && !S.life.revealed;   // 没透之前只给方向，不给数
+  const div = document.createElement('div');
+  div.className = 'flash';
+  div.innerHTML = '<div class="deltas">' + ds.map(d => veil
+    ? `<span style="color:${d.v > 0 ? 'var(--cinnabar)' : 'var(--azurite)'}">${d.k} ${d.v > 0 ? '↑' : '↓'}</span>`
+    : `<span style="color:${d.v > 0 ? 'var(--cinnabar)' : 'var(--azurite)'}">${d.k} ${d.v > 0 ? '+' : ''}${d.v}</span>`
+  ).join('') + '</div>';
+  document.body.appendChild(div);
+  setTimeout(() => div.remove(), 1600);
+}
+
+function applyGate(i){
+  const L = S.life;
+  const key = [S.bz.main, weakestCai(), '缘'][i];
+  const val = L.cai[key] || 60;
+  const pass = val + R(30) + (L.yun - 50) * 0.5 > 62;   // 气运在这一下里也有一份
+  const div = document.createElement('div');
+  div.className = 'flash';
+  div.innerHTML = `<div class="deltas"><span style="color:var(--ink2)">${
+    ['一','二','三'][i]}关 · ${S.bz.gates[i]} 岁 · ${pass ? '过了' : '没过'}</span></div>`;
+  document.body.appendChild(div);
+  setTimeout(() => div.remove(), 1800);
+
+  if (pass){
+    if (i === 0) L.cai[key] = clamp((L.cai[key] || 60) + 4, 0, S.bz.cap[key]);
+    if (i === 1) S.bz.cap[key] = clamp(S.bz.cap[key] + 10, 5, 78);
+    if (i === 2) L.gateGood = true;
+  } else {
+    if (i === 0) L.cai[key] = clamp(Math.min(L.cai[key] || 60, 70), 0, 100);
+    if (i === 1){
+      const ks = SIXK.slice().sort(() => Math.random() - .5).slice(0, 2);
+      ks.forEach(k => { L.six[k] = clamp(L.six[k] - 8, 0, 100); });
+    }
+  }
+}
+
+function weakestCai(){
+  let best = '智', bv = 999;
+  CAIK.forEach(k => { if (S.bz.cap[k] < bv){ bv = S.bz.cap[k]; best = k; } });
+  return best;
+}
+
+/* ══════════════ 局末 ══════════════ */
+/* ── 史评：五笔法（§5.5） ────────────────────────────────────
+   死亡不是结束。死后三年才定稿——这三年里，你的门生、你的敌人、
+   你修过的堤、你烧掉的册子，都还在说话。
+   所以"门生"这一项，活着的时候一点用都没有。 */
+function histoBio(L){
+  const y = L.six['誉'], ink = L.ink;
+  const pupils = L.pupils || 0, big = L.deeds || 0;
+
+  // 先定"哪一种笔法"，再按时代换笔。
+  // 古时有史官，今时只有档案、通报、词条和评论区——写法得换一套，分寸不能换
+  let kind;
+  if (L.monk) kind = 'monk';
+  else if (L.track === '权臣' && ink >= 60) kind = 'xing';
+  else if (L.track === '权臣' || L.faction) kind = 'fu';
+  else if (L.track === '能吏' && ink >= 45) kind = 'ku';
+  else if (L.track === '循吏') kind = 'xun';
+  else if (L.track && y >= 70 && big >= 1) kind = 'ben';
+  else if (L.track) kind = y >= 45 ? 'xun' : 'none';
+  else kind = JOB(L.job).axis === '市' ? 'nolen' : 'none';   // 未入任何轨：一行，没有名字
+
+  // 死后三年，门生替你说话。生前最不在意的那几个人，决定这一行怎么写
+  let note = kind === 'monk' ? '方外' : '';
+  if (pupils >= 2 && (kind === 'none' || kind === 'nolen')){ kind = 'ben'; note = '门生'; }
+  else if (pupils >= 2 && kind === 'ben'){ kind = 'bend'; note = '门生'; }
+  else if (pupils >= 2 && kind === 'fu'){ kind = 'ben'; note = '门生'; }
+  else if (pupils === 0 && kind === 'ben'){ kind = 'bens'; }
+  else if (pupils === 0 && y < 30 && kind !== 'monk' && kind !== 'ben' && kind !== 'bens'){ kind = 'none'; }
+
+  const AN = {
+    monk: (L.monk === '佛' ? '《高僧传》' : '《高士传》') + ' —— 不载于吏部之册',
+    xing: '《佞幸传》 —— 善伺上意，天下侧目',
+    fu:   '附传 —— 某人之党也，附见其传',
+    ku:   '《酷吏传》 —— 所至有能名，民畏之，亦思之',
+    xun:  '《循吏传》',
+    ben:  '本传',
+    bend: '本传（详） —— 门生某某为之状',
+    bens: '本传（简） —— 无门生为状，事迹多阙',
+    none: '无传 ——「时同僚有某者」',
+    nolen:'不载 —— 里巷之人，本无传'
+  };
+  const MO = {
+    monk: (L.monk === '佛' ? '某寺的简介里有一行' : '一本地方人物志收了他') + ' —— 不在任何一份档案里',
+    xing: '讣告底下三万条评论 —— 一半在骂，一半在问他是谁',
+    fu:   '一篇写别人的报道 —— 末尾一句「时任……」',
+    ku:   '内部通报里点过名 —— 能力强，方式有问题',
+    xun:  '地方志里有一行 —— 后面还带一句评语',
+    ben:  '一个词条 —— 生卒、籍贯、职务，三段',
+    bend: '词条很长 —— 末尾附了一段学生写的回忆',
+    bens: '词条只有三段 —— 没有人替他补过一句',
+    none: '档案里只有一张表 —— 没有人为他写过什么',
+    nolen:'系统里查不到他 —— 里巷之人，本来不入档'
+  };
+  return { bio: L.era === 'an' ? AN[kind] : MO[kind], note, kind };
+}
+
+function endLife(reason){
+  const L = S.life;
+  sfxDeath();                          // 一声闷鼓，往下掉
+  let keys = (L.lone ? SIXK.filter(k => k !== '室') : SIXK.slice()).filter(k => k !== '寿');
+  // 无禄的路线（市井、个体户）不按禄算——他没有这一格，不是缺了这一格
+  if (capOf(L, '禄') === 0) keys = keys.filter(k => k !== '禄');
+  // 出了家：室与子本就不在其道，不按"缺"算
+  if (L.monk) keys = keys.filter(k => k !== '子');
+  // 没活到能立后的年纪，不算"绝后"——那是没来得及，不是缺
+  if (L.age < 26) keys = keys.filter(k => k !== '子');
+  const shouScore = clamp(Math.round((L.age - 40) * 1.8), 0, 100);
+  const stat = {};
+  keys.forEach(k => { stat[k] = L.six[k]; });
+  if (shouScore < 35) stat['寿'] = shouScore;   // 早死才罚
+  let minK = Object.keys(stat)[0];
+  Object.keys(stat).forEach(k => { if (stat[k] < stat[minK]) minK = k; });
+  const minV = Math.round(stat[minK]);
+  let maxK = Object.keys(stat)[0];
+  Object.keys(stat).forEach(k => { if (stat[k] > stat[maxK]) maxK = k; });
+  const maxV = Math.round(stat[maxK]);
+
+  let verdict, why;
+  // 覆：不是缺一项，是整盘没了
+  const wiped = L.ruined || L.law >= 85
+    || (L.six['财'] <= 6 && L.six['禄'] <= 6 && L.six['室'] <= 12)
+    || (L.six['室'] <= 2 && L.six['子'] <= 5 && L.six['财'] <= 30 && L.age >= 44);
+  // 一个人：没有室，也没有后。这不是"什么都没得到"，是"从来没往里放东西"
+  // 出了家的人不判"孤／绝"：室与子是他自己放下的，不是缺的
+  const aloner = !L.monk && L.six['室'] <= 5 && L.six['子'] <= 5 && L.age >= 40;
+  // 绝：别的都还在，就是没有后
+  const noHeir = !L.monk && L.six['子'] <= 5 && L.age >= 45;
+  if (wiped){ verdict = '覆'; why = '一场事下来，什么都没剩下。'; }
+  else if (minV >= 54) { verdict = '六 全'; why = '六样都不算亏。你比谁都清楚代价。'; }
+  else if (aloner){ verdict = '孤'; why = '屋里一直只有一双筷子。到最后也没多过。'; }
+  else if (noHeir){ verdict = '绝'; why = '该有的都有了，就是没有人接下去。'; }
+  else if (minV >= 42) { verdict = '寻 常'; why = '你过得去，只是每一样都差一口气。'; }
+  // 起伏：有几格推到很高，最薄那一格却塌着。这不是"平常"，是"差得远"
+  else if (maxV - minV >= 58) { verdict = '起 伏'; why = `你把${maxK}做到了 ${maxV}，可最薄那一格（${minK}）只有 ${minV}。`; }
+  else if (minV >= 12) { verdict = '缺 一'; why = `你赢了很多，但缺的那一样（${minK}），把其余的都说成空的。`; }
+  else { verdict = '空'; why = `缺的是${minK}。它把别的都吃掉了。`; }
+  // 这一句是判词，不是备注——它要说的是"你这辈子算个什么"，别拿卒年盖掉它
+  const layerWhy = why;
+  const tail = `卒于 ${L.age} 岁 · 最薄一格是${minK}（${minV}）`;
+
+  // 史评：五笔法。死后三年才定稿（见 histoBio）
+  const hb = histoBio(L);
+  const biog = hb.bio;
+
+  // 手记：取三句
+  let lines = L.lines.slice(-3);
+  while (lines.length < 3){
+    lines.push(pick([
+      '我这一辈子，好像一直在等一件事。',
+      '我都办成了。夜里想不起来任何一件。',
+      '我算过很多账，就是没算过自己。',
+      '那年冬天特别长。',
+      '有人劝过我，我没听。'
+    ]));
+  }
+
+  const rec = {
+    era: L.era,
+    yearLabel: yearLabel(L.y0, L.era),
+    verdict: verdict + ' · ' + minK + Math.round(L.six[minK]),
+    layerWhy, tail,
+    biog, minK, minV, six: Object.assign({}, L.six), age: L.age,
+    origin: L.originName, lines, heir: heirLine(L),
+    job: (L.era === 'an' ? JOB(L.job).an : JOB(L.job).mo),
+    track: L.track, trackAt: L.trackAt || 0, trackChange: L.trackChange || 0,
+    pupils: L.pupils || 0, deeds: L.deeds || 0, bioNote: hb.note,
+    love: L.love ? { kind: L.love.kind, xing: L.love.xing,
+                     result: L.love.result || '没来得及', act: L.love.act || null } : null,
+    knots: (L.knots || []).slice(), concubine: !!L.concubine,
+    repute: L.reputeFull ? L.reputeWhy : null, monk: L.monk,
+    revealed: !!L.revealed, revealAt: L.revealAge || 0, revealWhy: L.revealWhy,
+    heirAt: { has: L.heir.has, job: L.heir.job, grand: L.heir.grand, great: L.heir.great, born: L.heir.born },
+    peers: peerTitle(L), dueCount: (L.dueN || 0)
+  };
+
+  if (!S.lives) S.lives = [];
+  S.lives[S.index - 1] = rec;
+
+  // 手记跨局（第五条后替换）
+  S.hand = S.hand.concat(lines).slice(-5);
+  // 错的记忆：某才天生缺，却写出"我很会"的句子
+  const lack = CAIK.find(k => S.bz.cap[k] <= 58);
+  if (lack && Math.random() < .55){
+    const wrong = { 智:'我很会念书。这一条我从不怀疑。', 体:'我身子骨一直很好。',
+      言:'我这张嘴，从来没输过。', 巧:'这些账我心里过一遍就清楚。',
+      忍:'我什么都能忍。', 缘:'我人缘一向不错。' }[lack];
+    S.hand[S.hand.length - 1] = wrong;
+  }
+  S.hand = S.hand.slice(-5);
+
+  S.index++;
+  save();
+  showHand(S.index - 1);
+}
+
+function showHand(i){
+  const rec = S.lives[i - 1];
+  if (!rec) return;
+  const isAn = rec.era === 'an';
+  $('#handTitle').textContent = `第 ${'一二三四五六七八'[i-1]} 局 · 卒`;
+  $('#handSub').textContent = `${rec.origin} · ${rec.yearLabel} · 卒于 ${rec.age} 岁`;
+  const edits = S.edits.filter(e => e.life === i);
+  $('#handBody').innerHTML = `
+    <div class="verdict">
+      <div class="big">${rec.verdict.split(' · ')[0]}</div>
+      ${rec.layerWhy ? `<div class="why" style="color:var(--ink)">${rec.layerWhy}</div>` : ''}
+      <div class="why" style="margin-top:10px;font-size:12px;color:var(--ink3)">${rec.biog}</div>
+      <div style="margin-top:7px;font-family:var(--kai);font-size:11.5px;letter-spacing:.1em;
+        color:var(--ink3)">${rec.job || '—'} · ${
+        rec.track ? (isAn ? '入' + rec.track + '轨' : '走了「' + (TRK(rec.track).mo || rec.track) + '」那一路')
+                  + (rec.trackAt ? '（' + rec.trackAt + ' 岁定）' : '')
+                  : (isAn ? '未入任何一轨' : '没有归到任何一路')}${
+        rec.trackChange ? (isAn ? ' · 改轨 ' : ' · 换过 ') + rec.trackChange + (isAn ? ' 次' : ' 回') : ''}${
+        rec.pupils ? (isAn ? ' · 门生 ' + rec.pupils + ' 人' : ' · 带过 ' + rec.pupils + ' 个人') : ''}</div>
+    </div>
+    <div class="six-final">
+      ${SIXK.map(k => `<div><span>${k}</span><b>${Math.round(rec.six[k])}</b></div>`).join('')}
+    </div>
+    ${rec.love ? `<div style="text-align:center;margin-top:14px;font-family:var(--kai);font-size:12.5px;
+       letter-spacing:.1em;color:var(--ink2)">情 · ${rec.love.xing}家 · ${rec.love.result}${
+         (rec.knots && rec.knots.length) ? ' · ' + rec.knots.join('、') : ''}</div>` : ''}
+    ${rec.heir ? `<div style="text-align:center;margin-top:16px;font-family:var(--kai);font-size:12.5px;
+       letter-spacing:.1em;color:var(--ink2)">子 · ${rec.heir}</div>` : ''}
+    ${rec.peers ? `<div style="text-align:center;margin-top:8px;font-family:var(--kai);font-size:11.5px;
+       letter-spacing:.1em;color:var(--ink3)">同榜 · ${rec.peers}</div>` : ''}
+    ${(rec.monk || rec.repute) ? `<div style="text-align:center;margin-top:8px;font-family:var(--kai);
+       font-size:12.5px;letter-spacing:.1em;color:var(--cinnabar)">誉 · ${
+         rec.monk ? '方外之名（' + rec.monk + '门）' : '一极即满 —— ' + rec.repute}</div>` : ''}
+    <div style="text-align:center;margin-top:8px;font-family:var(--kai);
+       font-size:11.5px;letter-spacing:.12em;color:var(--ink3)">${rec.revealed
+         ? `${rec.revealAt} 岁那年，六事俱明 —— ${rec.revealWhy}到了头`
+         : '此世未透 · 六样一样也没看清，就过去了'}</div>
+    <div class="hand-card">
+      <div class="ttl">手 记 · 留给下一世</div>
+      ${rec.lines.map(t => `<p>${t}</p>`).join('')}
+    </div>
+    ${edits.length ? `<div class="edits"><div class="ttl">此 世 所 改</div>${
+      edits.map(e => `<p>${e.text}（${e.grade}）</p>`).join('')}</div>` : ''}
+    <div class="center" id="handAct"></div>`;
+
+  const act = $('#handAct');
+  if (S.index > 5){
+    act.innerHTML = '<span class="btn zin" id="toBook2">开 命 书</span>';
+    $('#toBook2').onclick = () => { renderBook(); go('book'); };
+  } else {
+    act.innerHTML = '<span class="btn" id="nextLife">入 下 一 局</span>';
+    $('#nextLife').onclick = () => { renderHub(); go('hub'); };
+  }
+  go('hand');
+  if (S.auto) setTimeout(autoNext, 8);
+}
+
+function autoStartLife(){
+  const done = (S.lives || []).filter(Boolean).length;
+  const an = (S.lives || []).filter(l => l && l.era === 'an').length;
+  let era;
+  if (done === 4){ era = an === 1 ? 'an' : (an === 3 ? 'mo' : (Math.random() < .5 ? 'an' : 'mo')); }
+  else era = Math.random() < .5 ? 'an' : 'mo';
+  const w = era === 'an' ? ERA_AN : ERA_MO;
+  pending = { era, y0: w.from + R(w.to - w.from + 1) };
+  startLife(pick(ORIGINS));
+}
+
+function autoNext(){
+  if (S.index > 5){
+    renderBook();
+    if (Object.keys(S.peak || {}).length) renderTianji();
+    autoReport();
+  } else autoStartLife();
+}
+
+function autoReport(){
+  const out = document.createElement('div');
+  out.id = 'testOut';
+  const peak = Object.keys(S.peak || {}).join(',') || '无';
+  const rows = (S.lives || []).map((l, i) =>
+    l ? `${i+1}:${l.era}/${l.yearLabel}/${l.age}岁/${l.verdict}/${SIXK.map(k => k + Math.round(l.six[k])).join(',')}/${
+      l.revealed ? '透' + l.revealAt + l.revealWhy : '未透'}` : 'null'
+  ).join(' || ');
+  out.setAttribute('data-test', 'OK');
+  out.style.display = 'none';
+  out.textContent = `lives=${S.lives.length} peak=${peak} tianji=${S.tianji || '-'} ${rows}`;
+  document.body.appendChild(out);
+  document.title = 'AUTO_OK peak=' + peak;
+}
+
+/* ══════════════ 命书 ══════════════ */
+function renderBook(){
+  const bz = S.bz;
+  const [y, m, d, h] = bz.pillars;
+  const notes = k => {
+    const c = bz.cap[k];
+    if (k === '缘') return c >= 84 ? '人缘极厚' : (c <= 60 ? '合少冲多，两头不靠' : '—');
+    if (c >= 95) return '此命唯一一格 · 可至顶';
+    if (c >= 88) return '可至顶（你的顶）';
+    if (c <= 58) return '终身不过六十';
+    if (c <= 70) return '弱，够用不够赢';
+    return '—';
+  };
+  const html = `
+  <div class="book" id="bookCard">
+    ${S.birth ? `<div class="birth-line">生于 ${S.birth.y} 年 ${S.birth.m} 月 ${S.birth.d} 日 · ${
+      ZHI[Math.floor(((S.birth.h + 1) % 24) / 2)]}时${S.birth.noon ? '（时柱暂拟）' : ''}</div>`
+      : '<div class="birth-line">此命未排生辰 · 随机所授</div>'}
+    ${(S.rooted && S.rootAt) ? `<div class="birth-line" style="margin-top:10px;color:var(--cinnabar)">第 ${
+      '一二三四五六'[S.rootAt.i - 1]} 局 · ${S.rootAt.age} 岁，${S.rootAt.k}到了头。那一眼之后，这副八字就是你的"根"了。</div>` : ''}
+    <div class="pil">
+      <div class="zhu lead">四柱</div>
+      <div class="zhu">${y}</div><div class="zhu">${m}</div>
+      <div class="zhu">${d}</div><div class="zhu">${h}</div>
+    </div>
+    <div class="cai-list">
+      ${CAIK.map(k => `
+        <div class="cai ${bz.cap[k] >= 95 ? 'top' : ''}">
+          <span class="k">${k}</span>
+          <span class="track"><span class="fill" data-w="${bz.cap[k]}"></span></span>
+          <span class="v">${numToCn(bz.cap[k])}</span>
+          <span class="note">${notes(k)}</span>
+        </div>`).join('')}
+    </div>
+    <div class="gates">
+      ${bz.gates.map((g, i) => `<div><b>${g}</b>${['一关·主才','二关·最弱','三关·缘'][i]}</div>`).join('')}
+    </div>
+    <div class="book-foot">此命 · ${wuxingLine(bz)}</div>
+    <div class="seal" id="bookSeal">命书</div>
+  </div>
+  <div class="center" id="bookAct"></div>`;
+
+  $('#bookBody').innerHTML = html;
+  setTimeout(() => {
+    $$('.cai .fill').forEach(f => { f.style.width = f.dataset.w + '%'; });
+    $('#bookSeal').classList.add('on');
+  }, 80);
+
+  const peak = Object.keys(S.peak || {}).length > 0;
+  const act = $('#bookAct');
+  if (S.index <= 5){
+    // 还没走完五世：这一眼是"看根"，不是终局
+    act.innerHTML = '<span class="btn ghost" id="backHub">回 头 · 尚 有 来 世</span>';
+    $('#backHub').onclick = () => { renderHub(); go('hub'); };
+  } else if (peak){
+    act.innerHTML = '<span class="btn zin" id="toTianji">窥 天 机</span>';
+    $('#toTianji').onclick = () => { renderTianji(); go('tianji'); };
+  } else {
+    act.innerHTML = '<span class="btn ghost" id="again">另 起 一 卷</span>';
+    $('#again').onclick = () => { if (confirm('清掉现有的五世，重新起卷？')) reset(); };
+  }
+  go('book');
+}
+
+function wuxingLine(bz){
+  const w = bz.wuxing;
+  const lack = Object.keys(w).filter(k => w[k] === 0);
+  const full = Object.keys(w).filter(k => w[k] >= 4);
+  if (!lack.length && !full.length) return '五行各具，无缺无旺。';
+  let t = lack.length === 0 ? '五行不缺'
+    : (lack.length === 1 ? `缺${lack[0]}` : `${lack.join('')}俱缺`);
+  if (full.length) t += `，${full.join('')}旺而` + (bz.de ? '得时' : '失时');
+  else t += bz.de ? `，日干得时` : `，日干失时`;
+  return t + '。';
+}
+
+/* ══════════════ 天机 ══════════════ */
+const GE = {
+  '智': { n:'偏印夺食', s:'你懂一切，只是做不成一件。', e:'每年可"先看一次底牌"；办事判定 −10。' },
+  '体': { n:'羊刃驾杀', s:'你只欠一场仗。', e:'边臣线全开；寿年损 −1。' },
+  '言': { n:'伤官配印', s:'你的话，比你的命长。', e:'言类判定 +10；弹章必至，每次都换来名。' },
+  '巧': { n:'食神生财', s:'你手里过的东西，都会变多。', e:'财类"过一手"：财 +，誉 − 减半。' },
+  '忍': { n:'官印相生', s:'你升得慢，但你一直在。', e:'考成永不落"下下"；升迁 −10。' },
+  '缘': { n:'孤辰寡宿', s:'你要的东西，都得自己拿。', e:'直接进无室档且无代价；六项上限各 +5。' }
+};
+
+function renderTianji(){
+  const bz = S.bz;
+  const top = Object.keys(S.peak || {})[0]
+    || CAIK.filter(k => bz.cap[k] === Math.max.apply(null, CAIK.map(x => bz.cap[x])))[0];
+  const g = GE[top] || GE['缘'];
+  S.tianji = g.n;
+  save();
+
+  $('#tianjiBody').innerHTML = `
+    <div class="ge">
+      <span class="tag">五世 · 摸到了自己的顶</span>
+      <div class="name">${g.n}</div>
+      <div class="say">「${g.s}」</div>
+      <div class="eff">第六局：${g.e}<br>
+        六才自今日起常显——盲打变明打。<br>
+        另给两次：<b>择时</b>（挑年份）、<b>补偏</b>（一才 +10，另一才 −10）。</div>
+      <div class="center">
+        <span class="btn zin" id="sixth">入 第 六 局</span>
+        <span class="btn ghost" id="tobook3" style="margin-left:12px">回 命 书</span>
+      </div>
+      <div class="book-foot" style="margin-top:34px">天机只改信息，不改难度。第六局结算仍取 min(六项)，一分不让。</div>
+    </div>`;
+
+  $('#sixth').onclick = () => {
+    S.index = 6;
+    S.lives[5] = null;
+    save();
+    renderHub(); go('hub');
+  };
+  $('#tobook3').onclick = () => { renderBook(); go('book'); };
+  go('tianji');
+}
+
+/* ══════════════ 启动 ══════════════ */
+function boot(){
+  const saved = load();
+  if (saved) S = saved;
+  else S = newSoul();
+
+  if (!S.lives) S.lives = [];
+  if (!S.edits) S.edits = [];
+  if (!S.hand) S.hand = [];
+  if (!S.peak) S.peak = {};
+  if (!S.index) S.index = 1;
+
+  const p = new URLSearchParams(location.search);
+  if (p.get('static')) document.documentElement.classList.add('static');
+  // 评审直链与自动回归不走排命那一屏
+  if (p.get('auto') || p.get('demo') || p.get('dev') || p.get('screen')) S.needBirth = false;
+  if (p.get('dev')){ // 预置四局，便于评审
+    S.lives = [
+      { era:'an', yearLabel:'嘉靖五年', verdict:'缺一 · 室12', biog:'附传 —— 无党、无室', heir:'二十八岁得子 · 子未成器 · 有孙', age:58, origin:'军户', lines:['三十一岁，河道上，我三天看完了一年的账。','四十四岁，那封信我压了两个月，还是烧了。','五十七岁，她没有等我。'] },
+      { era:'mo', yearLabel:'二〇二四年', verdict:'寻常 · 子22', biog:'循吏传', age:63, origin:'教师家庭', lines:['我把字签了，签得很快，快得自己都听见了。'] },
+      { era:'an', yearLabel:'万历二年', verdict:'缺一 · 禄18', biog:'无传 ——「时同僚有某者」', age:49, origin:'匠户', lines:['我拖了三个月。什么都没发生，什么也没解决。'] },
+      { era:'mo', yearLabel:'二〇二八年', verdict:'六全', biog:'本传', age:71, origin:'单亲', lines:['我教了他三年。他记住的不是书，是我坐在旁边那盏灯。'] }
+    ];
+    S.index = 5; S.hand = S.lives[3].lines;
+  }
+  if (p.get('auto')){
+    S.auto = true; S.smart = !!p.get('smart'); S.strat = p.get('strat') || 'cai'; S.index = 1; S.lives = []; S.hand = []; S.edits = []; S.peak = {}; S.tianji = null;
+    autoStartLife();
+    return;
+  }
+  const demo = p.get('demo');
+  if (demo === 'birth'){
+    S.needBirth = true; renderBirth(); go('birth');
+    return;
+  }
+  if (demo === 'roll'){
+    pending = { era: Math.random() < .5 ? 'an' : 'mo', y0: 1526 };
+    go('roll'); renderOrigins();
+    $('#rollEra').textContent = pending.era === 'an' ? '古' : '今';
+    $('#rollYr').textContent = yearLabel(1526, pending.era);
+    $('#rollGan').textContent = pending.era === 'an' ? '起局 · 十六岁 · 丙戌年' : '起局 · 十六岁';
+    return;
+  }
+  if (demo === 'life'){
+    S.lives = []; S.index = 1;
+    const isMo = p.get('era') === 'mo';
+    pending = { era: isMo ? 'mo' : 'an', y0: isMo ? 2026 : 1526 };
+    startLife(ORIGINS[0]); go('life');
+    return;
+  }
+  if (demo === 'hand'){
+    if (!S.lives || !S.lives.length){
+      S.lives = [{ era:'an', yearLabel:'嘉靖五年', verdict:'缺 一 · 室18', biog:'附传 —— 无党、无室',
+        layerWhy:'你赢了很多，但缺的那一样（室），把其余的都说成空的。',
+        peers:'沈允恭（在上）· 顾子昂（在列）· 陆文渊（已倒）',
+        heir:'二十四岁得子 · 子立业 · 有孙 · 家中不宁', repute:'禄至其极',
+        age:58, origin:'军户', lines:['三十一岁，河道上，我三天看完了一年的账。','四十四岁，那封信我压了两个月，还是烧了。','五十七岁，她没有等我。'], six:{室:18,财:40,子:65,禄:55,寿:0,誉:60} }];
+      S.index = 2; S.hand = S.lives[0].lines;
+      S.edits = [{ life:1, year:'1550', grade:'中', text:'俺答未至' }];
+    }
+    showHand(1);
+    return;
+  }
+  const sc = p.get('screen');
+  if (sc === 'hub'){ renderHub(); go('hub'); }
+  else if (sc === 'book'){ renderBook(); }
+  else if (sc === 'tianji'){ renderTianji(); }
+  else { renderCover(); go('cover'); }
+}
+boot();
+initSfx();
+initBirth();
+</script>
+</body>
+</html>
