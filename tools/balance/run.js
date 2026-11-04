@@ -4,12 +4,13 @@
    配平回归台 · CLI
    ──────────────────────────────────────────────────────────────
    用法：
-     node tools/balance/run.js                      # 默认 300 局 × 4 策略
+     node tools/balance/run.js                      # 默认 300 局 × 5 策略
      node tools/balance/run.js --lives 300 --seed 42
      node tools/balance/run.js --strategy balanced --lives 2000
      node tools/balance/run.js --only 结局           # 只看含"结局"的指标
      node tools/balance/run.js --verbose             # 每局打一行
      node tools/balance/run.js --write-baseline      # 重建基线（v+1）
+     node tools/balance/run.js --entry /tmp/x.html   # 对实验副本干跑（不写基线）
 
    退出码：PASS / CONCERNS = 0，FAIL = 1，跑挂 = 2
    ────────────────────────────────────────────────────────────── */
@@ -30,6 +31,10 @@ const REPORT_DIR = path.join(HERE, 'reports');
 const INTENT = {
   'verdict.寻常.pct': 6,
   'verdict.起伏.pct': 35,
+  // 裁决 01 ①：闭着眼睛过一辈子，约五分之一不娶 —— 这群人该被判「孤」（random 15~22%）
+  'verdict.孤.pct': 18,
+  // 裁决 01 ③：「覆」的成因里 clause-4（无室无后且家底空）不该独占（≤50%）
+  'verdict.覆.cause.clause4.pct': 50,
   'mech.duizhi.pct': 19.5,
   'mech.peers.perLife': 2.6,
   'mech.due.perLife': 1.0,
@@ -61,6 +66,7 @@ function parseArgs(argv) {
       case '--no-report': o.report = false; break;
       case '--write-baseline': o.writeBaseline = true; break;
       case '--baseline': o.baseline = path.resolve(next()); break;
+      case '--entry': o.entry = path.resolve(next()); break;   // 干跑用：指向实验副本
       case '--json': o.json = true; break;
       case '-h': case '--help': o.help = true; break;
       default:
@@ -83,7 +89,7 @@ function help() {
 
   --lives, -n <N>       每个策略跑多少局（默认 300）
   --seed, -s <N>        随机种子（默认 20260101）。同种子同局数 → 结果与 digest 完全一致
-  --strategy <list>     random,cai,home,balanced（默认 all）
+  --strategy <list>     random,cai,home,balanced,lone（默认 all）
   --only <名字>         只看匹配的指标（子串匹配中文名或 key）
   --verbose, -v         每局打一行摘要
   --write-baseline      用本次实测值重建 baseline.json（版本 +1）
@@ -121,9 +127,14 @@ function bandFor(key, value, d, n) {
     const se = Math.sqrt(Math.max(p * (1 - p), 1e-4) / Math.max(1, N)) * 100;
     return { warn: r1(Math.max(k1 * se, 2)), fail: r1(Math.max(k2 * se, 5)) };
   };
-  if (/^verdict\..+\.pct$/.test(key)) return shareOf(value, n, 3, 5.5);
+  if (/^verdict\..+\.pct$/.test(key)) {
+    // 覆 的成因分布：分母是"覆"的局数，样本很小，只抓大方向
+    if (/^verdict\.覆\.cause\./.test(key)) return { warn: 12, fail: 30 };
+    return shareOf(value, n, 3, 5.5);
+  }
   if (key === 'reveal.pct' || key === 'mech.duizhi.pct' ||
-      key === 'mech.full.livesPct' || key === 'heir.has.pct') return shareOf(value, n, 3, 5.5);
+      key === 'mech.full.livesPct' || key === 'heir.has.pct' ||
+      key === 'mech.full.silent.livesPct' || key === 'mech.case.livesPct') return shareOf(value, n, 3, 5.5);
   if (/^choice\.idx\d\.pct$/.test(key)) return shareOf(value, d.picks || n, 3, 5.5);
   if (key === 'choice.mono.pct') return shareOf(value, d.monoPool || n, 3.5, 6);
   if (/^heir\.job\./.test(key)) {
@@ -196,7 +207,7 @@ function main(argv) {
 
   const t0 = Date.now();
   const strategyList = S.resolve(opt.strategy);
-  const h = H.createHarness();
+  const h = H.createHarness(opt.entry ? { entry: opt.entry } : undefined);
   const meta = h.meta;
   const eventIds = h.api.EV.map(e => e.id);
 

@@ -40,6 +40,13 @@ add('avgAge', '平均卒年', '岁', B_AVG);
 for (const v of VERDICTS) add(`verdict.${v}.pct`, `结局 · ${v}`, '%', B_PCT);
 for (const v of VERDICTS) add(`verdict.${v}.count`, `结局 · ${v}（计数）`, '局', null, false);
 
+/* 「覆」的成因分布（裁决 01 ③ 要求：clause-4「无室无后且家底空」不许独占覆）。
+   分母是「覆」的局数，样本小，所以只展示不判定；门槛走 baseline 的 intent。 */
+add('verdict.覆.cause.clause4.pct', '覆 · 成因 clause-4（无室无后·家底空）', '%', null, false);
+add('verdict.覆.cause.coffer.pct', '覆 · 成因 财禄室同时见底', '%', null, false);
+add('verdict.覆.cause.law.pct', '覆 · 成因 律≥85', '%', null, false);
+add('verdict.覆.cause.ruined.pct', '覆 · 成因 倒台', '%', null, false);
+
 for (const k of SIX) {
   add(`six.${k}.p10`, `终局六事 · ${k} P10`, '', B_SIX);
   add(`six.${k}.p50`, `终局六事 · ${k} P50`, '', B_SIX);
@@ -56,6 +63,17 @@ add('mech.due_grudge.perLife', '· 旧怨（grudge）', '笔/局', B_PER);
 add('mech.due_favor.perLife', '· 旧恩（favor）', '笔/局', B_PER);
 add('mech.full.perLife', '满招损（树大事件）', '次/局', B_PER);
 add('mech.full.livesPct', '满招损 · 撞上的局占比', '%', B_RATE);
+/* 满招损的另一层：常态的漏（index.html:2843，≥92、35%/折、随机一项 −2）。
+   它不产事件，只在手记里落一句 —— 台子原先数不到（README 已知局限第 2 条），
+   现在由 harness 在 stepFull 外面包一层计数补上。 */
+add('mech.full.silent.perLife', '满招损·常态的漏', '次/局', B_PER);
+add('mech.full.silent.livesPct', '满招损·常态的漏 · 撞上的局占比', '%', B_RATE);
+
+/* 律这条暗线（裁决 01 ③：只承诺"不许再压"，不承诺"可达"）。
+   立案事件出现率是唯一的观测量，律的分位数用来看系数 0.8→0.6 的方向。 */
+add('mech.case.livesPct', '立案（问拟）· 撞上的局占比', '%', B_RATE);
+add('law.p50', '律 · 终局 P50', '', B_SIX, false);
+add('law.p90', '律 · 终局 P90', '', B_SIX, false);
 
 add('coverage.seen', '事件覆盖 · 抽到条数', '条', B_CNT);
 add('coverage.pct', '事件覆盖 · 覆盖率', '%', B_PCT);
@@ -74,6 +92,13 @@ add('heir.job.商', '立业率 · 商', '%', B_RATE);
 add('heir.job.市', '立业率 · 市', '%', B_RATE);
 
 add('model.drift', '效果模型漂移（自检）', '', { warn: 1, fail: 2 }, false);
+
+/* capOf / recalcCaps 的口径自检（⑤ 的验收指标）。
+   三个都是"条件占比"：分母是满足前提的局数，所以只看是不是 0。 */
+add('selfcheck.luPhantom.pct', '自检 · 无禄局长出幻顶', '%', null, false);
+add('selfcheck.luInMin.pct', '自检 · 无禄局把禄计进 min', '%', null, false);
+add('selfcheck.yuClaw.pct', '自检 · 誉顶 110 被压回', '%', null, false);
+add('selfcheck.capClaw', '自检 · 顶被压回（次）', '次', null, false);
 
 /* ── 统计小工具 ─────────────────────────────────────────────── */
 function pctile(arr, p) {
@@ -108,6 +133,17 @@ function compute(recs, meta) {
   }
   D.verdictCount = vc;
 
+  /* 覆 的成因分布（分母 = 覆 的局数） */
+  const wipeKinds = ['clause4', 'coffer', 'law', 'ruined'];
+  const wipeN = (vc['覆'] || 0);
+  for (const k of wipeKinds) {
+    const c = recs.filter(r => r.wipedBy === k).length;
+    M[`verdict.覆.cause.${k}.pct`] = wipeN ? p1(c / wipeN * 100) : 0;
+  }
+  D.wipeKinds = {};
+  for (const k of wipeKinds) D.wipeKinds[k] = recs.filter(r => r.wipedBy === k).length;
+  D.wipeOther = recs.filter(r => r.verdict === '覆' && r.wipedBy === '?').length;
+
   /* 终局六事 */
   for (const k of SIX) {
     const arr = [];
@@ -134,6 +170,18 @@ function compute(recs, meta) {
   M['mech.full.perLife'] = per(r => r.full);
   const fullLives = recs.filter(r => (r.full || 0) > 0).length;
   M['mech.full.livesPct'] = n ? p1(fullLives / n * 100) : 0;
+
+  /* 满招损 · 常态的漏（不产事件的那一层） */
+  M['mech.full.silent.perLife'] = per(r => r.fullSilent);
+  const silentLives = recs.filter(r => (r.fullSilent || 0) > 0).length;
+  M['mech.full.silent.livesPct'] = n ? p1(silentLives / n * 100) : 0;
+
+  /* 律 / 立案 */
+  const caseLives = recs.filter(r => r.events.indexOf('case') >= 0).length;
+  M['mech.case.livesPct'] = n ? p1(caseLives / n * 100) : 0;
+  const lawArr = recs.map(r => r.law || 0);
+  M['law.p50'] = p1(pctile(lawArr, 0.50));
+  M['law.p90'] = p1(pctile(lawArr, 0.90));
 
   /* 事件覆盖 */
   const allIds = Array.isArray(meta.eventIds) ? meta.eventIds : [];
@@ -203,6 +251,24 @@ function compute(recs, meta) {
   /* 自检：效果模型漂移（0 = balanced 的预测与游戏完全一致） */
   M['model.drift'] = meta.diag ? p1(meta.diag.maxDiff || 0) : 0;
   D.diag = meta.diag || null;
+
+  /* 自检：capOf / recalcCaps 的口径（条件占比，分母写进明细） */
+  const noLu = recs.filter(r => r.capLuBase === 0);
+  M['selfcheck.luPhantom.pct'] = noLu.length
+    ? p1(noLu.filter(r => (r.study || 0) >= 2 && r.capLu > 0).length / noLu.length * 100) : 0;
+  M['selfcheck.luInMin.pct'] = noLu.length
+    ? p1(noLu.filter(r => r.luInMin).length / noLu.length * 100) : 0;
+  const yu110 = recs.filter(r => r.capYuBase === 110 && (r.study || 0) >= 2 && !r.capYuLocked);
+  M['selfcheck.yuClaw.pct'] = yu110.length
+    ? p1(yu110.filter(r => r.capYu !== 110).length / yu110.length * 100) : 0;
+  M['selfcheck.capClaw'] = meta.diag ? (meta.diag.capClaw || 0) : 0;
+  D.selfcheck = {
+    noLuN: noLu.length,
+    noLuStudy2N: noLu.filter(r => (r.study || 0) >= 2).length,
+    luInMinN: noLu.filter(r => r.luInMin).length,
+    yu110N: yu110.length,
+    capLuP50: p1(pctile(noLu.map(r => r.capLu || 0), 0.50))
+  };
 
   /* 异常局（不该有，有就说明 harness 或游戏出问题了） */
   D.errorLives = recs.filter(r => r.error);

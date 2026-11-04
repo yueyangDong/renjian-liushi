@@ -297,7 +297,10 @@ function createHarness(opts) {
   /* 导出面。注意：全部走函数，因为 S 会被整体替换（每世 newSoul） */
   const API_NAMES = [
     'newSoul', 'autoStartLife', 'startLife', 'advanceFold', 'choose', 'pickEvent', 'endLife',
-    'capOf', 'heirScore', 'clamp', 'JOB'
+    'capOf', 'heirScore', 'clamp', 'JOB',
+    // 「顾家」计价的唯一实现（index.html 的 dataset.home 用的就是它）。
+    // home 策略走这里，保证"线上自动打法"与"回归台"不会各算一套。
+    'homeScoreOpt'
   ];
   const API_VALUES = ['EV', 'EV_DIMS', 'SIXK', 'FOLD_MAX', 'ORIGINS', 'JOBS', 'TRACK'];
 
@@ -313,6 +316,21 @@ function createHarness(opts) {
   ${API_NAMES.map(n => `${n}: (typeof ${n} !== 'undefined' ? ${n} : null)`).join(',\n  ')},
   ${API_VALUES.map(n => `${n}: (typeof ${n} !== 'undefined' ? ${n} : null)`).join(',\n  ')}
 };
+/* ── 满招损 · 常态的漏：补计量缺口（README 已知局限第 2 条） ──────────
+   stepFull（index.html:2838）每折 35% 让随机一项 −2，不产事件、只落一句手记，
+   台子原先数不到。这里在它外面包一层计数：只看"调用前后六事有没有真的动"，
+   动了才算漏了一次（被 0 顶住时不算）。
+   红线不变：只包内存里这份代码，不写回 index.html、不改任何数值。 */
+;(function(){
+  const orig = stepFull;
+  stepFull = function(L){
+    const before = { 室:L.six['室'], 财:L.six['财'], 子:L.six['子'], 禄:L.six['禄'], 誉:L.six['誉'] };
+    orig(L);
+    let moved = 0;
+    for (const k in before) moved += Math.abs(L.six[k] - before[k]);
+    if (moved > 0) globalThis.__balanceFullSilent = (globalThis.__balanceFullSilent || 0) + 1;
+  };
+})();
 `;
 
   const prelude =
@@ -462,6 +480,7 @@ function playLife(h, strategy, ctx) {
   const stratRng = mulberry32(h.hash32(ctx.seed, ctx.soul, ctx.life, 0x5B5B));
 
   api.clearEv();
+  globalThis.__balanceFullSilent = 0;   // 满招损·常态的漏：本局计数从 0 起
   api.autoStartLife();           // 掷古/今（含五局平衡）、掷出身、renderLife -> renderCard -> pickEvent
 
   const rec = {
@@ -473,6 +492,9 @@ function playLife(h, strategy, ctx) {
     love: false, duizhi: false, concubine: false, monk: false,
     events: [], choices: [],
     peers: 0, due: 0, dueKinds: { audit: 0, grudge: 0, favor: 0 }, full: 0,
+    fullSilent: 0, wipedBy: null, law: 0,
+    capLuBase: null, capLu: null, study: 0, luInMin: null,
+    capYuBase: null, capYu: null,
     folds16: false, ended: false, error: null, stratErr: 0
   };
 
@@ -566,6 +588,8 @@ function playLife(h, strategy, ctx) {
     try { api.endLife('harness'); } catch (e) { /* 收不了尾就记下来 */ }
   }
 
+  rec.fullSilent = globalThis.__balanceFullSilent || 0;
+
   const r = api.getS().lives[idxBefore - 1];
   if (!r) {
     rec.error = rec.error || 'no-record';
@@ -610,6 +634,36 @@ function playLife(h, strategy, ctx) {
     }
     rec.duizhi = rec.events.indexOf('duizhi') >= 0;
     rec.full = rec.events.filter(e => e === 'full').length;
+    rec.law = L2.law || 0;
+
+    /* ── 自检：capOf / recalcCaps 的口径（⑤ 的验收靠这三个数） ──────
+       capSix 是"裸顶"（出身＋行当＋轨），capOf 才是玩家真正撞到的顶。
+       ① 幻顶：裸顶 0（市井无禄）却被 study 顶出 1~12 → 系统把这人当成"有俸禄的人"；
+       ② 结算：无禄的人，禄 不该进 min；
+       ③ 压顶：裸顶 110 的誉，study 只许抬不许压。 */
+    rec.capLuBase = (L2.capSix && L2.capSix['禄'] !== undefined) ? L2.capSix['禄'] : null;
+    rec.capLu = api.capOf(L2, '禄');
+    rec.study = L2.study || 0;
+    rec.capYuBase = (L2.capSix && L2.capSix['誉'] !== undefined) ? L2.capSix['誉'] : null;
+    rec.capYu = api.capOf(L2, '誉');
+    // 情关锁顶（index.html:3649 lockSix）会把誉顶压到 70 —— 那是设计，不是 ⑤ 的 bug
+    rec.capYuLocked = !!(L2.lockSix && L2.lockSix['誉'] !== undefined);
+    if (rec.capLuBase === 0) {
+      // 复刻 index.html:3862-3868 的结算取项，只回答一件事：禄 在不在里面
+      let keys = (L2.lone ? api.SIXK.filter(k => k !== '室') : api.SIXK.slice()).filter(k => k !== '寿');
+      if (rec.capLu === 0) keys = keys.filter(k => k !== '禄');
+      rec.luInMin = keys.indexOf('禄') >= 0;
+    }
+
+    /* ── 覆 的成因（只有判「覆」的局才有意义） ────────────────────
+       顺序与 index.html:3882-3884 的 || 链一致，先命中先记。 */
+    if (rec.verdict === '覆') {
+      if (L2.ruined) rec.wipedBy = 'ruined';
+      else if (rec.law >= 85) rec.wipedBy = 'law';
+      else if (L2.six['财'] <= 6 && L2.six['禄'] <= 6 && L2.six['室'] <= 12) rec.wipedBy = 'coffer';
+      else if (L2.six['室'] <= 2 && L2.six['子'] <= 5 && L2.six['财'] <= 30 && L2.age >= 44) rec.wipedBy = 'clause4';
+      else rec.wipedBy = '?';
+    }
   }
   return rec;
 }

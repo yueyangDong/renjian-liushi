@@ -834,7 +834,12 @@ function capOf(L, k){
   let c = L.capSix[k] === undefined ? 100 : L.capSix[k];
   // 学能改命：读过的书把"顶"往上抬一点。抬得动，但抬不到极处——
   // 天才是天生的，学出来的只是"够用"
-  if (k === '禄' || k === '誉'){
+  // 三件事必须同时成立才抬（§1.7 只说"抬"，没说过"压"）：
+  //   c > 0  —— 市井无禄（capSix['禄'] = 0）不许被读书凭空顶出 1~12 的禄顶，
+  //             那是"把没有位子的人当成有俸禄的人"，五项结算与立业都会跟着错；
+  //   c < 90 —— 90 是"抬"的上限，不是所有人的上限。誉的裸顶是 100，
+  //             读书不该把它压到 90（原来的 Math.min(90, 110+…) 就在做这件事）。
+  if (c > 0 && c < 90 && (k === '禄' || k === '誉')){
     c = Math.min(90, c + Math.min(12, Math.floor((L.study || 0) / 2)));
   }
   const lk = L.lockSix && L.lockSix[k];
@@ -853,9 +858,14 @@ function recalcCaps(L){
     for (const k in (t.cap || {})) c[k] = Math.min(c[k], t.cap[k]);
     if (t.id === '孤臣'){ ['财','子','寿','誉'].forEach(k => { c[k] += 5; }); c['室'] = 0; }
   }
+  // 底座先落库（capOf 内部会再叠 study），下面用**同一个** capOf 压，
+  // 不再拿裸顶 c[k] 压 —— 否则读书挣来的那一格，每次选择后都被吃掉一点
   L.capSix = c;
   if (t && t.id === '孤臣') L.lone = true;   // 孤臣没有室，不是选的，是这一轨的定义
-  SIXK.forEach(k => { if (L.six[k] > c[k]) L.six[k] = c[k]; });
+  SIXK.forEach(k => {
+    const cc = capOf(L, k);
+    if (L.six[k] > cc) L.six[k] = cc;
+  });
 }
 // 有上限的加减：从前一律 clamp(0,100)，现在要认"这个位子能到多高"
 function bump(L, k, v){
@@ -2621,7 +2631,7 @@ function renderCard(){
     const cost = o.eff && o.eff['禄'] ? '' : '';
     const caiSum = Object.keys(o.cai || {}).reduce((a, k) => a + o.cai[k], 0);
     d.dataset.cai = caiSum;
-    d.dataset.home = ((o.eff || {})['室'] || 0) + ((o.eff || {})['子'] || 0);
+    d.dataset.home = homeScoreOpt(o, L);
     // 同一件事，古时说"外放"，今时说"下去带项目"。选项要跟着身上的时代改口
     const ot = isAn ? o.t : (o.tMo || o.t);
     const os = isAn ? o.sub : (o.subMo || o.sub);
@@ -2630,6 +2640,25 @@ function renderCard(){
     opts.appendChild(d);
   });
   if (S.auto) setTimeout(autoPickOpt, 4);
+}
+
+/* 「顾家」这个自动打法的一项得分：室 + 子台阶。
+   子 不走 eff（见 choose 里 `if (k === '子') continue;`），它走台阶：
+   有后 25 / 立业 20 / 有孙 20 / 家和 15 / 四世同堂 20（见 heirScore）。
+   所以只累加 eff.室 的话，「求子 0 / 纳妾 −10 / 认命 +2」——认命必胜，
+   顾家会在「求子」那一屏 100% 选"认命"，然后绝后。
+   这里按选项自带的键映射到台阶增量（不新造键，见 tools/balance/strategies.js 的同名函数）。 */
+function homeScoreOpt(o, L){
+  const H = (L && L.heir) || {};
+  const e = o.eff || {};
+  let s = (e['室'] || 0) + (e['子'] || 0);
+  if (o.child && !H.has) s += 22 * (o.child || 0);              // 求子：成率打折后的期望
+  if (o.adopt && !H.has) s += 25;                               // 过继：一级「有后」
+  if (o.grand && H.has && !H.grand) s += 20;                    // 二级「有孙」
+  if (o.raised !== undefined && H.has) s += 6 * o.raised;       // 教：影响二十岁那年立业
+  if (o.noHeir && !H.has) s -= 18;                              // 认了断后 = 把「绝」写死
+  if (o.loseChild && H.has) s -= 25;
+  return s;
 }
 
 function autoPickOpt(){
@@ -2882,6 +2911,29 @@ function makeFull(L, k){
 
 /* ══════════════ 两段关系：摆到桌上那一次 ══════════════
    §7.6 同时维持两段，是不会自己过去的。到某一年，它会自己坐到你对面。 */
+/* §1.1「老年独坐」：六十岁后，每年（这里以折为年）要自己面对一个空屋子 */
+function duzuoEvent(L){
+  if (L.monk) return null;
+  if (!(L.lone || L.six['室'] <= 5)) return null;
+  if (L.age < 60) return null;
+  L.cd = L.cd || {};
+  if (L.cd.duzuo === L.fold) return null;
+  L.cd.duzuo = L.fold;
+  return { id:'duzuo', force:true, head:'home', an:'独 坐', mo:'一 个 人',
+    bodyAn:'天黑了，院里没有人点灯。隔壁人家在吃饭，碗筷声隔着墙传过来。你得给自己找个去处。',
+    bodyMo:'屋里很静，冰箱在响。手机翻了一遍，没有一个可以打过去的号码。',
+    opts:[
+      { t:'会 友', tMo:'约 人', sub:'花几个钱，换一夜人声', subMo:'花点钱，换一顿饭的说话声',
+        eff:{财:-5, 誉:2},
+        line:'我去找了老友。喝到半夜，谁也没提家里的事。',
+        lineMo:'我约了人吃饭。全程聊工作，散场时反而更空。' },
+      { t:'不 出 门', tMo:'就 这 样', sub:'一个人坐着，坐过去', subMo:'算了，不动了',
+        eff:{寿:-2},
+        line:'我没有出门。坐到灯自己灭了。',
+        lineMo:'我在沙发上坐到天亮，手机没电了也没去充。' }
+    ]};
+}
+
 function duizhiEvent(L){
   if (!L.love2 || L.love2.exposed) return null;
   if (!L.love || !L.love.done) return null;
@@ -3005,12 +3057,15 @@ function pickEvent(){
   // 两段关系摆到桌面上
   const dzEv = duizhiEvent(L);
   if (dzEv) return dzEv;
+  // 六十以后，无室的人这一折要先过"一个人"这一关
+  const dzzEv = duzuoEvent(L);
+  if (dzzEv) return dzzEv;
   // 子：这件事不能一直拖。二十八岁还没有，它会自己找上来。
   // 试不成还能再试一次——但"认命"只有一次，选了就是断在这里。
   const heirEv = EV.find(e => e.id === 'heir');
   if (heirEv && L.heir && !L.monk && !L.lone && !L.heir.has && !L.heir.lost
       && (L.heirTry || 0) < 3
-      && L.age >= 28 && L.fold - ((L.cd && L.cd.heir) === undefined ? -9 : L.cd.heir) >= 3){
+      && L.age >= heirStart(L) && L.fold - ((L.cd && L.cd.heir) === undefined ? -9 : L.cd.heir) >= 3){
     L.cd = L.cd || {}; L.cd.heir = L.fold;
     L.heirTry = (L.heirTry || 0) + 1;
     return heirEv;
@@ -3067,11 +3122,16 @@ function pickEvent(){
     L.used.push('hist');
     return hist;
   }
-  // 律这条暗线走到 60，就不是"可能会出事"，是"哪天来人"
+  // 律这条暗线走到 60，就不是"可能会出事"，是"哪天来人"（§1.1）
+  // 案翻过去，账留着：了结之后律回到 10（见 choose 末尾），可再犯，冷却 3 折。
+  // （从前这里写成"一世只一次"，等于把这条线的一半内容关了。）
   const cse = EV.find(e => e.id === 'case');
-  if (cse && !L.used.includes('case') && L.law >= 55 && L.age >= 24){
-    L.used.push('case');
-    return cse;
+  if (cse && L.law >= 60 && L.age >= 24){
+    L.cd = L.cd || {};
+    if (L.cd.case === undefined || L.fold - L.cd.case >= 3){
+      L.cd.case = L.fold;
+      return cse;
+    }
   }
   const fresh = pool.filter(e => !L.used.includes(e.id));
   // 六事排班：哪一格好几折没露面，这一折先把它捞上来。
@@ -3087,6 +3147,13 @@ function pickEvent(){
   }
   if (!ev) ev = fresh.length ? pick(fresh) : pick(pool);
   if (ev){
+    // 病中无人照料：把「寿 −15」并进选项的 eff，而不是在 choose 里偷扣。
+    // 这样回归台的加法效果模型仍然成立（否则每次生病都会记一笔"漂移"）。
+    if (ev.id === 'sick' && (L.lone || L.six['室'] <= 5)){
+      ev = Object.assign({}, ev, { opts: ev.opts.map(o => Object.assign({}, o, {
+        eff: Object.assign({}, o.eff, { 寿: ((o.eff && o.eff.寿) || 0) - 15 })
+      })) });
+    }
     L.used.push(ev.id);
     L.lastDim = L.lastDim || {};
     (EV_DIMS[ev.id] || []).forEach(k => { L.lastDim[k] = L.fold; });
@@ -3111,7 +3178,10 @@ function choose(ev, o){
   if (o.ink){
     L.ink = clamp(L.ink + o.ink, 0, 100);
     // 律是墨的影子：墨落在纸上，纸就留在衙门里
-    L.law = clamp(L.law + Math.round(o.ink * .8), 0, 100);
+    // §1.1 原文是 律 += 墨 × 0.6（原实现是 .8）。
+    // 说明白：改回 0.6 不会让律更"活"，只会更死 —— 这条线今天不活，
+    // 瓶颈在墨的供给（每局 3.8~7.2），不在换算率。改回去只是让实现重新对得上设定。
+    L.law = clamp(L.law + Math.round(o.ink * .6), 0, 100);
   }
   if (o.law) L.law = clamp(L.law + o.law, 0, 100);
   if (o.study){
@@ -3139,8 +3209,12 @@ function choose(ev, o){
     L.heir.has = false; L.heir.lost = true; L.heir.judged = false;
     L.heir.job = L.heir.grand = L.heir.great = false;
   }
+  // §1.1「无人照料」：病中没人守夜（数值已并进 sick 的 eff，这里只留一句手记）
+  if (ev && ev.id === 'sick' && (L.lone || L.six['室'] <= 5)){
+    heirNote(L, '病中没有人守夜。水放在床头，凉了也没人换。');
+  }
   // 求子：成不成不由你，只有"试不试"由你
-  if (o.child && !L.heir.has && Math.random() < o.child){
+  if (o.child && !L.heir.has && Math.random() < o.child * heirK(L)){
     L.heir.has = true; L.heir.born = L.age; L.heir.judged = false;
     L.heir.job = L.heir.grand = L.heir.great = false;
     L.six['室'] = clamp(L.six['室'] + 8, 0, capOf(L, '室'));
@@ -3150,6 +3224,7 @@ function choose(ev, o){
   if (o.noHeir){ L.heir.lost = true; L.heir.has = false; }
   if (o.grand && !L.heir.grand){ L.heir.grand = true; }
   stepHeir(L);
+  stepNoRoom(L);
   stepRepute(L);
   stepReveal(L);
   const dz = Math.round(L.six['子'] - z0);
@@ -3278,6 +3353,12 @@ function heirScore(L){
 function reputePeak(L){
   return ['室', '财', '子', '禄'].find(k => L.six[k] >= 100) || null;
 }
+/* §1.1「无室」的代价：不是结算时扣一笔，是日子里一点一点漏 */
+function stepNoRoom(L){
+  const noRoom = L.lone || L.six['室'] <= 5;
+  if (noRoom && L.age >= 60) bump(L, '寿', -2);   // 无人照料：六十以后没人替你添衣递水
+}
+
 function stepRepute(L){
   if (L.monk){ L.reputeFull = true; L.reputeWhy = '方外之名'; }
   else if (!L.reputeFull){
@@ -3368,22 +3449,38 @@ function heirLine(L){
   return p.join(' · ');
 }
 
+/* §1.1「有后」：室薄的人，连儿子都来得晚。
+   实现用「求子」事件做唯一入口（系统不再替你生），但窗口与成率由「室」决定。 */
+function heirStart(L){ const r = L.six['室']; return r>=38?20 : r>=28?24 : r>=18?28 : r>=8?32 : r>=5?36 : 999; }
+function heirK(L){ const r = L.six['室']; return r>=38?1.0 : r>=28?0.9 : r>=18?0.78 : r>=8?0.60 : 0.45; }
 function stepHeir(L){
   const h = L.heir;
   if (!h) return;
   // 得子不再自动发生：这一格要你自己去要，或者自己认了（见 heir 事件）。
   // 从前是系统替你生，结果"子"这条线一辈子都不露一次面。
   if (h.has){
+    // 儿子立起来以后，这个家就多一口人往回拿东西（顾家的第二个出口）
+    if (h.job){ bump(L, '财', 1); bump(L, '誉', 1); }
     // 立业：只看他二十岁那年。立没立起来，一次定终身
     if (h.has && !h.judged && L.age >= h.born + 20){
       const teach = Math.max(L.raised || 0, (L.cai && L.cai['智'] >= 78) ? 1 : 0);
       // 立业看的是"这个家托不托得住他"。
       // 没有位子的人家，看的是名声——街坊认你这块招牌，儿子才立得起来
       const noLu = capOf(L, '禄') === 0;
-      const sc = L.six['禄'] * .5 + L.six['财'] * .3 + L.six['室'] * .2 + teach * 20;
+      // §1.1「子」二级·立业：儿子二十岁那年判一次，定了就不改
+      //   禄×0.5 + 财×0.25 + 教×30 ≥ 70
+      // 教与不教差 30 分：你能给儿子的只有两样——钱和在场。
+      // （从前这里是 禄.5 + 财.3 + 室.2 + 教×20，门槛 50：多算了一样"室"，
+      //   教 的权重被削掉三分之一，门槛又低了 20 分，于是"差不多就行"也能立业。）
+      const sc = L.six['禄'] * .5 + L.six['财'] * .25 + teach * 30;
       h.judged = true;
       // 无禄的人家不看位子，只看名声：街坊认你这块招牌，儿子才立得起来
-      h.job = noLu ? (L.six['誉'] >= 50) : (sc >= 50);
+      h.job = noLu ? (L.six['誉'] >= 50) : (sc >= 70);
+      // 顾家的出口之一：亲自教出来的儿子，第一笔出息会回到家里
+      if (h.job && teach >= 2){
+        bump(L, '财', 10);
+        heirNote(L, '他把头一个月的俸银放在桌上，说，爹，这个你收着。');
+      }
       heirNote(L, h.job ? '他做了官。我送他到门口，忽然不知道该说什么。'
                         : '他没能做上官。这件事我们父子都没提过。');
     }
@@ -3869,6 +3966,10 @@ function endLife(reason){
   const shouScore = clamp(Math.round((L.age - 40) * 1.8), 0, 100);
   const stat = {};
   keys.forEach(k => { stat[k] = L.six[k]; });
+  // §1.1「无人可托」：卒后 子与室都空着，丧仪降一等
+  if (L.six['子'] <= 5 && L.six['室'] <= 5 && stat['誉'] !== undefined){
+    stat['誉'] = Math.max(0, stat['誉'] - 10);
+  }
   if (shouScore < 35) stat['寿'] = shouScore;   // 早死才罚
   let minK = Object.keys(stat)[0];
   Object.keys(stat).forEach(k => { if (stat[k] < stat[minK]) minK = k; });
@@ -3884,12 +3985,20 @@ function endLife(reason){
     || (L.six['室'] <= 2 && L.six['子'] <= 5 && L.six['财'] <= 30 && L.age >= 44);
   // 一个人：没有室，也没有后。这不是"什么都没得到"，是"从来没往里放东西"
   // 出了家的人不判"孤／绝"：室与子是他自己放下的，不是缺的
-  const aloner = !L.monk && L.six['室'] <= 5 && L.six['子'] <= 5 && L.age >= 40;
+  // ── 判据里「子」的位置（裁决 01 ①）───────────────────────────
+  // 从前是 室≤5 且 子≤5：无室的人为了补 min 会正常走过继 → 子 25+ →
+  // 「孤」永不触发 → 五项取 min → 反而更容易六全。判词被玩家的最优解挤掉了。
+  // 现在：无室之后，"无后"是两种收场之一——他本来就打算一个人过（L.lone），
+  // 或者他真的没有后（子≤5）。室≤5 这一条必须留着：
+  // 去掉它会把"婚姻凉了"的人也判成孤，起伏会被吃掉一大半。
+  const aloner = !L.monk && L.six['室'] <= 5 && (L.lone || L.six['子'] <= 5) && L.age >= 40;
   // 绝：别的都还在，就是没有后
   const noHeir = !L.monk && L.six['子'] <= 5 && L.age >= 45;
   if (wiped){ verdict = '覆'; why = '一场事下来，什么都没剩下。'; }
-  else if (minV >= 54) { verdict = '六 全'; why = '六样都不算亏。你比谁都清楚代价。'; }
+  // 「孤」判在「六全」之前：无室档该有自己的判词（§1.1「另一种活法」），
+  // 不该因为他在别处补得很齐，就被「六全」抢先。
   else if (aloner){ verdict = '孤'; why = '屋里一直只有一双筷子。到最后也没多过。'; }
+  else if (minV >= 60 && maxV <= 85) { verdict = '六 全'; why = '六样都不算亏。你比谁都清楚代价。'; }
   else if (noHeir){ verdict = '绝'; why = '该有的都有了，就是没有人接下去。'; }
   else if (minV >= 42) { verdict = '寻 常'; why = '你过得去，只是每一样都差一口气。'; }
   // 起伏：有几格推到很高，最薄那一格却塌着。这不是"平常"，是"差得远"
