@@ -3,7 +3,7 @@
 > 室、财、子、禄、寿、誉。六事皆求，终不能全。
 > 五世只给你**一个八字**。第一世你看不见它，第五世它才开口。
 
-**在线玩：** https://yueyangdong.github.io/five-hundred-more-years/renjian-liushi/
+**在线玩：** https://yueyangdong.github.io/renjian-liushi/
 
 一款以明代嘉靖前后百年与当代为背景的人生模拟游戏。**设定框架 + 可玩原型**。
 
@@ -140,14 +140,17 @@
 
 ## 发布
 
-线上地址是 `yueyangdong/five-hundred-more-years` 仓库的子目录 `renjian-liushi/`（根目录属于《还想再活五百年》，勿覆盖）。更新方式：
+独立仓库：`yueyangdong/renjian-liushi`，GitHub Pages 直接发布仓库根目录（`main` 分支 / 根路径）。
 
 ```bash
-git clone --depth 1 https://github.com/yueyangdong/five-hundred-more-years /tmp/_pub
-cd /tmp/_pub
-rm -rf renjian-liushi && mkdir renjian-liushi
-cp -r <本地>/人间六事/{index.html,README.md,设定框架.md,assets} renjian-liushi/
-git add renjian-liushi && git commit -m "更新人间六事" && git push origin main
+git push origin main
 ```
+
+> 2026-11 起不再寄居在 `five-hundred-more-years` 的子目录下 —— 两个产品共用一条发布路径时，
+> 任何一方的发布事故都会污染另一方。仓库地址：<https://github.com/yueyangdong/renjian-liushi>
+
+**当前环境的网络限制（若在本机推送失败，先看这里）**：代理只放行 `api.github.com`，
+`github.com` 的 git smart-HTTP 会被拦成 `CONNECT tunnel failed, response 502`。
+此时用 Git Data API 建提交（blob → tree → commit → ref），或等网络恢复后 `git push --force` 补齐历史。
 
 `shots/` 不进线上（11MB 截图只作评审用）。
