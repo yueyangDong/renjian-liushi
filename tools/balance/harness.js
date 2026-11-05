@@ -331,6 +331,31 @@ function createHarness(opts) {
     if (moved > 0) globalThis.__balanceFullSilent = (globalThis.__balanceFullSilent || 0) + 1;
   };
 })();
+/* ── 退还 ·「无人劝你」减半的可测形式（卡 03-03 §5 第 13 项） ──────────
+   §1.1 的减半只落在「提点」这一条（refundEvent 里 p *= .5）。
+   要验它，必须同时数"机会"和"触发"：只数触发会被"无室的人本来就少"骗过去。
+   这里在 refundEvent 外面包一层：
+     · 机会 = 这一折满足提点的前置（墨≥20、龄≥22、还没触发过）
+     · 触发 = 真返回了 ref_warn
+   两边都按 室≤5（无人劝你）/ 室>5 分桶。红线不变：只包内存里这份代码。 */
+;(function(){
+  const orig = refundEvent;
+  refundEvent = function(L){
+    const used = (L.used || []);
+    let bucket = -1;
+    if (!used.includes('ref_warn') && L.ink >= 20 && L.age >= 22){
+      bucket = (L.lone || L.six['室'] <= 5) ? 1 : 0;
+      globalThis.__balanceRefExp = globalThis.__balanceRefExp || [0, 0];
+      globalThis.__balanceRefExp[bucket]++;
+    }
+    const ev = orig(L);
+    if (ev && ev.id === 'ref_warn'){
+      globalThis.__balanceRefFire = globalThis.__balanceRefFire || [0, 0];
+      globalThis.__balanceRefFire[bucket < 0 ? 0 : bucket]++;
+    }
+    return ev;
+  };
+})();
 `;
 
   const prelude =
@@ -425,7 +450,9 @@ function predictDelta(api, L, k, raw) {
 const SPECIAL_KEYS = [
   'child', 'concubine', 'love', 'love2', 'adopt', 'monk', 'unlone', 'loseChild', 'grand',
   'noHeir', 'raised', 'knot', 'duizhi', 'peer', 'job', 'jobAxis', 'edit', 'law', 'ink',
-  'study', 'yun', 'pupil', 'deed', 'cutParty', 'faction', 'lone'
+  'study', 'yun', 'pupil', 'deed', 'cutParty', 'faction', 'lone',
+  // 卡 03-03：退还只减墨（不动律），上船记号不进六事 —— 两者都不满足纯加法模型
+  'inkOff', 'darkIn'
 ];
 function isCleanOpt(o) {
   for (let i = 0; i < SPECIAL_KEYS.length; i++) if (o[SPECIAL_KEYS[i]] !== undefined) return false;
@@ -481,6 +508,8 @@ function playLife(h, strategy, ctx) {
 
   api.clearEv();
   globalThis.__balanceFullSilent = 0;   // 满招损·常态的漏：本局计数从 0 起
+  globalThis.__balanceRefExp = [0, 0];  // 提点机会：室>5 / 室≤5
+  globalThis.__balanceRefFire = [0, 0]; // 提点触发：室>5 / 室≤5
   api.autoStartLife();           // 掷古/今（含五局平衡）、掷出身、renderLife -> renderCard -> pickEvent
 
   const rec = {
@@ -493,6 +522,10 @@ function playLife(h, strategy, ctx) {
     events: [], choices: [],
     peers: 0, due: 0, dueKinds: { audit: 0, grudge: 0, favor: 0 }, full: 0,
     fullSilent: 0, wipedBy: null, law: 0,
+    inkGross: 0,          // 本局"墨的供给"：选项里写下的 ink 之和（含后来被退还掉的那部分）
+    inkFinal: 0,          // 终局实际留在身上的墨
+    darkIn: false,        // 上过船（深水链的二、三道门只认它）
+    refExp: [0, 0], refFire: [0, 0],
     capLuBase: null, capLu: null, study: 0, luInMin: null,
     capYuBase: null, capYu: null,
     folds16: false, ended: false, error: null, stratErr: 0
@@ -531,6 +564,7 @@ function playLife(h, strategy, ctx) {
 
     api.choose(ev, o);           // 真代码
     rec.folds++;
+    if (o.ink) rec.inkGross += o.ink;   // 墨的供给按"选项上写的数"记，不按终局余额
     rec.events.push(evId);
     rec.choices.push({ id: evId, idx: venue.i, n: ev.opts.length, nVis: vis.length, t: o.t || '', pick });
 
@@ -589,6 +623,8 @@ function playLife(h, strategy, ctx) {
   }
 
   rec.fullSilent = globalThis.__balanceFullSilent || 0;
+  rec.refExp = (globalThis.__balanceRefExp || [0, 0]).slice();
+  rec.refFire = (globalThis.__balanceRefFire || [0, 0]).slice();
 
   const r = api.getS().lives[idxBefore - 1];
   if (!r) {
@@ -635,6 +671,8 @@ function playLife(h, strategy, ctx) {
     rec.duizhi = rec.events.indexOf('duizhi') >= 0;
     rec.full = rec.events.filter(e => e === 'full').length;
     rec.law = L2.law || 0;
+    rec.inkFinal = L2.ink || 0;
+    rec.darkIn = !!L2.darkIn;
 
     /* ── 自检：capOf / recalcCaps 的口径（⑤ 的验收靠这三个数） ──────
        capSix 是"裸顶"（出身＋行当＋轨），capOf 才是玩家真正撞到的顶。

@@ -291,7 +291,48 @@ const lone = {
   }
 };
 
-const ALL = [random, cai, home, balanced, lone];
+/* ── 6. dark：走黑路 ────────────────────────────────────────
+   卡 03-03 的台子缺口：原来五个策略里**没有一个人会追墨**，
+   于是"这条线对走它的人是否成立"没法长期回归 —— 只有 random 撑着，
+   而 random 的墨是"撞上的"，不是"奔着去的"。
+
+   它代表的人：见墨就上、愿意上船、从不退还。
+     a) 墨是唯一的主指标（律 = 墨 × 0.6，墨就是路的深度）；
+     b) 退还（inkOff）一律不选 —— 这条打法就是"不回头"，
+        所以它同时也是"退还救不了立案"这条红线的长期对照；
+     c) darkIn（上船）单独加分：它是二、三道门的唯一钥匙；
+     d) 命只保到"走得到收网"，不为长寿放弃墨。
+   ─────────────────────────────────────────────────────────── */
+const dark = {
+  id: 'dark',
+  label: '走黑路',
+  desc: '见墨就上：优先添墨、愿意上船、从不退还',
+  // 探针策略：它代表"把脏事做到底的人"，不是人群里的一个打法。
+  // 所以它进回归基线，但**不进合并口径（pool）** —— 否则 pool 的覆率会被
+  // 一个必然撞线的样本抬高约 1.1pp，那不是世界变坏了，是样本里混进了一个必死的人。
+  probe: true,
+  choose(ctx) {
+    const { opts, L, predictDelta } = ctx;
+    const shouLow = L.six['寿'] < 26;
+    let best = 0, bv = -Infinity;
+
+    for (let k = 0; k < opts.length; k++) {
+      const o = opts[k].o;
+      const eff = o.eff || {};
+      let s = (o.ink || 0) * 2;                 // a) 墨就是路的深度
+      if (o.inkOff) s -= o.inkOff * 3;          // b) 不退还
+      if (o.darkIn) s += 6;                     // c) 上船
+      if (eff['财']) s += predictDelta('财', eff['财']) * 0.6;
+      if (eff['禄']) s += predictDelta('禄', eff['禄']) * 0.4;
+      if (eff['誉']) s += predictDelta('誉', eff['誉']) * 0.2;
+      if (eff['寿']) s += predictDelta('寿', eff['寿']) * (shouLow ? 2.2 : 0.25);  // d)
+      if (s > bv) { bv = s; best = k; }
+    }
+    return best;
+  }
+};
+
+const ALL = [random, cai, home, balanced, lone, dark];
 const BY_ID = {};
 for (const s of ALL) BY_ID[s.id] = s;
 
@@ -308,4 +349,4 @@ function resolve(spec) {
   return out;
 }
 
-module.exports = { ALL, BY_ID, resolve, random, cai, home, balanced, lone, homeScore, JUDGED, thinnest, heirPoints };
+module.exports = { ALL, BY_ID, resolve, random, cai, home, balanced, lone, dark, homeScore, JUDGED, thinnest, heirPoints };

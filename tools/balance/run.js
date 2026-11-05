@@ -135,6 +135,20 @@ function bandFor(key, value, d, n) {
   if (key === 'reveal.pct' || key === 'mech.duizhi.pct' ||
       key === 'mech.full.livesPct' || key === 'heir.has.pct' ||
       key === 'mech.full.silent.livesPct' || key === 'mech.case.livesPct') return shareOf(value, n, 3, 5.5);
+  /* ── 卡 03-03 的新指标 ─────────────────────────────────────── */
+  // 墨供给：均值与分位数都是"每局一个数"，按均值/分位数给带宽
+  if (key === 'ink.gross.mean' || key === 'ink.final.mean') return { warn: 3, fail: 8 };
+  if (key === 'ink.gross.p50') return { warn: 6, fail: 15 };
+  if (key === 'ink.gross.p90') return { warn: 8, fail: 20 };
+  // 退还覆盖 / 深水门覆盖：都是"局占比"，按份额推标准误
+  if (key === 'mech.refund.livesPct' || key === 'mech.dark.door.pct') return shareOf(value, n, 3, 5.5);
+  if (/^mech\.refund\.(warn|pay|stop)\.pct$/.test(key) ||
+      /^mech\.dark\.(livesPct|seal\.pct|boat\.pct|net\.pct)$/.test(key)) return shareOf(value, n, 3, 5.5);
+  // 「无人劝你」的比值：结构性数字，容差按 0.5 的摆动给
+  if (key === 'mech.refund.noRoom.ratio') return { warn: 0.15, fail: 0.35 };
+  // 上过船者 / 墨≥40 者的立案率：子样本，分母不是局长
+  if (key === 'mech.dark.case.rate') return shareOf(value, Math.max(20, (d.darkN || 0)), 3.5, 6);
+  if (key === 'mech.darkink40.case.rate') return shareOf(value, Math.max(20, (d.ink40N || 0)), 3.5, 6);
   if (/^choice\.idx\d\.pct$/.test(key)) return shareOf(value, d.picks || n, 3, 5.5);
   if (key === 'choice.mono.pct') return shareOf(value, d.monoPool || n, 3.5, 6);
   if (/^heir\.job\./.test(key)) {
@@ -161,7 +175,7 @@ function buildBaselineEntry(metrics, detail, spec, nLives) {
   for (const s of spec) {
     const v = metrics[s.key];
     if (!Number.isFinite(v)) continue;
-    const band = s.band ? bandFor(s.key, v, detail, nLives) : null;
+    const band = s.band ? (bandFor(s.key, v, detail, nLives) || s.band) : null;
     out[s.key] = {
       value: v,
       warn: band ? band.warn : 0,
@@ -240,7 +254,9 @@ function main(argv) {
     if (!poolDiag.clawSample && diag.clawSample) poolDiag.clawSample = diag.clawSample;
     const c = M.compute(recs, { eventIds, diag });
     runs[strat.id] = { metrics: c.metrics, detail: c.detail, label: strat.label, desc: strat.desc };
-    for (const r of recs) poolRecs.push(r);
+    // probe 策略（dark）进基线、不进合并口径：它必撞线，混进来会把 pool 的覆率抬高 1pp，
+    // 那样 pool 就再也无法与 v3 的历史值对照了。
+    if (!strat.probe) for (const r of recs) poolRecs.push(r);
     if (!opt.verbose) process.stderr.write(`  · ${strat.label} ${opt.lives} 局 ${((Date.now() - ts) / 1000).toFixed(2)}s\n`);
   }
 

@@ -1,9 +1,9 @@
 {
-  "version": 3,
-  "updatedAt": "2026-11-04T11:29:45.187Z",
+  "version": 4,
+  "updatedAt": "2026-11-05T05:51:50.640Z",
   "note": "配平回归台基线。value=基线值，warn/fail=容差（|本次-基线| 超过即 CONCERNS / FAIL）。改这里就是改门槛。",
   "meta": {
-    "sourceHash": "282850fcd009",
+    "sourceHash": "0411b4edec9e",
     "livesAt": 2000,
     "seedAt": 20260101,
     "strategyIds": [
@@ -11,7 +11,8 @@
       "cai",
       "home",
       "balanced",
-      "lone"
+      "lone",
+      "dark"
     ]
   },
   "intent": {
@@ -46,7 +47,7 @@
         "gate": true
       },
       "avgAge": {
-        "value": 70.5,
+        "value": 70.2,
         "warn": 1.2,
         "fail": 3,
         "unit": "岁",
@@ -54,7 +55,7 @@
         "gate": true
       },
       "verdict.覆.pct": {
-        "value": 3.9,
+        "value": 4.6,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -62,7 +63,7 @@
         "gate": true
       },
       "verdict.六全.pct": {
-        "value": 0.4,
+        "value": 0.3,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -70,7 +71,7 @@
         "gate": true
       },
       "verdict.孤.pct": {
-        "value": 18.5,
+        "value": 18.9,
         "warn": 2.6,
         "fail": 5,
         "unit": "%",
@@ -78,15 +79,15 @@
         "gate": true
       },
       "verdict.绝.pct": {
-        "value": 17.8,
-        "warn": 2.6,
-        "fail": 5,
+        "value": 22.8,
+        "warn": 2.8,
+        "fail": 5.2,
         "unit": "%",
         "label": "结局 · 绝",
         "gate": true
       },
       "verdict.寻常.pct": {
-        "value": 8.5,
+        "value": 7.5,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -94,23 +95,23 @@
         "gate": true
       },
       "verdict.起伏.pct": {
-        "value": 25.6,
-        "warn": 2.9,
-        "fail": 5.4,
+        "value": 23,
+        "warn": 2.8,
+        "fail": 5.2,
         "unit": "%",
         "label": "结局 · 起伏",
         "gate": true
       },
       "verdict.缺一.pct": {
-        "value": 11.7,
-        "warn": 2.2,
+        "value": 9.9,
+        "warn": 2,
         "fail": 5,
         "unit": "%",
         "label": "结局 · 缺一",
         "gate": true
       },
       "verdict.空.pct": {
-        "value": 13.6,
+        "value": 13.3,
         "warn": 2.3,
         "fail": 5,
         "unit": "%",
@@ -118,7 +119,7 @@
         "gate": true
       },
       "verdict.覆.count": {
-        "value": 78,
+        "value": 92,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -126,7 +127,7 @@
         "gate": false
       },
       "verdict.六全.count": {
-        "value": 8,
+        "value": 6,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -134,7 +135,7 @@
         "gate": false
       },
       "verdict.孤.count": {
-        "value": 370,
+        "value": 377,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -142,7 +143,7 @@
         "gate": false
       },
       "verdict.绝.count": {
-        "value": 357,
+        "value": 455,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -150,7 +151,7 @@
         "gate": false
       },
       "verdict.寻常.count": {
-        "value": 169,
+        "value": 149,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -158,7 +159,7 @@
         "gate": false
       },
       "verdict.起伏.count": {
-        "value": 512,
+        "value": 459,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -166,7 +167,7 @@
         "gate": false
       },
       "verdict.缺一.count": {
-        "value": 234,
+        "value": 197,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -174,7 +175,7 @@
         "gate": false
       },
       "verdict.空.count": {
-        "value": 272,
+        "value": 265,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -182,7 +183,7 @@
         "gate": false
       },
       "verdict.覆.cause.clause4.pct": {
-        "value": 79.5,
+        "value": 67.4,
         "warn": 0,
         "fail": 0,
         "unit": "%",
@@ -190,7 +191,7 @@
         "gate": false
       },
       "verdict.覆.cause.coffer.pct": {
-        "value": 20.5,
+        "value": 14.1,
         "warn": 0,
         "fail": 0,
         "unit": "%",
@@ -206,7 +207,7 @@
         "gate": false
       },
       "verdict.覆.cause.ruined.pct": {
-        "value": 0,
+        "value": 18.5,
         "warn": 0,
         "fail": 0,
         "unit": "%",
@@ -222,7 +223,7 @@
         "gate": true
       },
       "six.室.p50": {
-        "value": 7,
+        "value": 10,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -238,7 +239,7 @@
         "gate": true
       },
       "six.财.p10": {
-        "value": 19,
+        "value": 20,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -246,7 +247,7 @@
         "gate": true
       },
       "six.财.p50": {
-        "value": 49,
+        "value": 52,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -294,7 +295,7 @@
         "gate": true
       },
       "six.禄.p50": {
-        "value": 3.5,
+        "value": 0,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -302,7 +303,7 @@
         "gate": true
       },
       "six.禄.p90": {
-        "value": 56.1,
+        "value": 56,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -326,7 +327,7 @@
         "gate": true
       },
       "six.寿.p90": {
-        "value": 4,
+        "value": 5,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -342,7 +343,7 @@
         "gate": true
       },
       "six.誉.p50": {
-        "value": 50,
+        "value": 42,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -358,23 +359,23 @@
         "gate": true
       },
       "reveal.pct": {
-        "value": 39.3,
-        "warn": 3.3,
-        "fail": 6,
+        "value": 37.3,
+        "warn": 3.2,
+        "fail": 5.9,
         "unit": "%",
         "label": "「透」触发率",
         "gate": true
       },
       "mech.duizhi.pct": {
-        "value": 19.7,
-        "warn": 2.7,
+        "value": 18.9,
+        "warn": 2.6,
         "fail": 5,
         "unit": "%",
         "label": "对质局占比",
         "gate": true
       },
       "mech.peers.perLife": {
-        "value": 2.3,
+        "value": 2.16,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "次/局",
@@ -382,7 +383,7 @@
         "gate": true
       },
       "mech.due.perLife": {
-        "value": 1.15,
+        "value": 1.3,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "笔/局",
@@ -390,7 +391,7 @@
         "gate": true
       },
       "mech.due_audit.perLife": {
-        "value": 0.23,
+        "value": 0.52,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "笔/局",
@@ -398,7 +399,7 @@
         "gate": true
       },
       "mech.due_grudge.perLife": {
-        "value": 0.55,
+        "value": 0.49,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "笔/局",
@@ -406,7 +407,7 @@
         "gate": true
       },
       "mech.due_favor.perLife": {
-        "value": 0.37,
+        "value": 0.28,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "笔/局",
@@ -414,7 +415,7 @@
         "gate": true
       },
       "mech.full.perLife": {
-        "value": 0.34,
+        "value": 0.29,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "次/局",
@@ -422,15 +423,15 @@
         "gate": true
       },
       "mech.full.livesPct": {
-        "value": 22.4,
-        "warn": 2.8,
-        "fail": 5.1,
+        "value": 20.3,
+        "warn": 2.7,
+        "fail": 5,
         "unit": "%",
         "label": "满招损 · 撞上的局占比",
         "gate": true
       },
       "mech.full.silent.perLife": {
-        "value": 0.69,
+        "value": 0.63,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "次/局",
@@ -438,15 +439,15 @@
         "gate": true
       },
       "mech.full.silent.livesPct": {
-        "value": 26.6,
-        "warn": 3,
+        "value": 25.5,
+        "warn": 2.9,
         "fail": 5.4,
         "unit": "%",
         "label": "满招损·常态的漏 · 撞上的局占比",
         "gate": true
       },
       "mech.case.livesPct": {
-        "value": 0,
+        "value": 4.3,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -454,23 +455,151 @@
         "gate": true
       },
       "law.p50": {
-        "value": 9,
-        "warn": 0,
-        "fail": 0,
+        "value": 10,
+        "warn": 4,
+        "fail": 10,
         "unit": "",
         "label": "律 · 终局 P50",
         "gate": false
       },
       "law.p90": {
-        "value": 22,
-        "warn": 0,
-        "fail": 0,
+        "value": 42,
+        "warn": 4,
+        "fail": 10,
         "unit": "",
         "label": "律 · 终局 P90",
         "gate": false
       },
+      "ink.gross.mean": {
+        "value": 28.6,
+        "warn": 3,
+        "fail": 8,
+        "unit": "",
+        "label": "墨供给 · 单局均值",
+        "gate": true
+      },
+      "ink.gross.p50": {
+        "value": 18,
+        "warn": 6,
+        "fail": 15,
+        "unit": "",
+        "label": "墨供给 · P50",
+        "gate": false
+      },
+      "ink.gross.p90": {
+        "value": 72,
+        "warn": 8,
+        "fail": 20,
+        "unit": "",
+        "label": "墨供给 · P90",
+        "gate": false
+      },
+      "ink.final.mean": {
+        "value": 23.7,
+        "warn": 3,
+        "fail": 8,
+        "unit": "",
+        "label": "墨 · 终局余额均值",
+        "gate": false
+      },
+      "mech.refund.livesPct": {
+        "value": 22.3,
+        "warn": 2.8,
+        "fail": 5.1,
+        "unit": "%",
+        "label": "退还 · 触发过的局占比",
+        "gate": true
+      },
+      "mech.refund.warn.pct": {
+        "value": 19.2,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 提点（有人拦你）",
+        "gate": false
+      },
+      "mech.refund.pay.pct": {
+        "value": 7.2,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 退赃（你去还）",
+        "gate": false
+      },
+      "mech.refund.stop.pct": {
+        "value": 2.8,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 收手（你自己回头）",
+        "gate": false
+      },
+      "mech.refund.noRoom.ratio": {
+        "value": 0.49,
+        "warn": 0.15,
+        "fail": 0.35,
+        "unit": "",
+        "label": "· 提点触发率比（室≤5 ÷ 室>5）",
+        "gate": false
+      },
+      "mech.dark.livesPct": {
+        "value": 43.9,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "深水 · 走过任一道门的局占比",
+        "gate": false
+      },
+      "mech.dark.door.pct": {
+        "value": 43.9,
+        "warn": 3.3,
+        "fail": 6.1,
+        "unit": "%",
+        "label": "· 门路（被找上门）",
+        "gate": true
+      },
+      "mech.dark.seal.pct": {
+        "value": 17.6,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 封口（同船的人被带走）",
+        "gate": false
+      },
+      "mech.dark.boat.pct": {
+        "value": 12.6,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 同船（最后一票）",
+        "gate": false
+      },
+      "mech.dark.net.pct": {
+        "value": 2.1,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 收网（案前来人）",
+        "gate": false
+      },
+      "mech.dark.case.rate": {
+        "value": 14.9,
+        "warn": 5.2,
+        "fail": 8.9,
+        "unit": "%",
+        "label": "深水 · 上过船者的立案率",
+        "gate": true
+      },
+      "mech.darkink40.case.rate": {
+        "value": 16.2,
+        "warn": 5.6,
+        "fail": 9.6,
+        "unit": "%",
+        "label": "深水 · 墨≥40 者的立案率",
+        "gate": true
+      },
       "coverage.seen": {
-        "value": 62,
+        "value": 66,
         "warn": 2,
         "fail": 6,
         "unit": "条",
@@ -478,7 +607,7 @@
         "gate": true
       },
       "coverage.pct": {
-        "value": 98.4,
+        "value": 100,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -486,7 +615,7 @@
         "gate": true
       },
       "coverage.missing": {
-        "value": 1,
+        "value": 0,
         "warn": 2,
         "fail": 6,
         "unit": "条",
@@ -502,7 +631,7 @@
         "gate": true
       },
       "choice.idx0.pct": {
-        "value": 35.4,
+        "value": 35.5,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -510,7 +639,7 @@
         "gate": true
       },
       "choice.idx1.pct": {
-        "value": 35.2,
+        "value": 34.9,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -518,7 +647,7 @@
         "gate": true
       },
       "choice.idx2.pct": {
-        "value": 29.4,
+        "value": 29.2,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -526,7 +655,7 @@
         "gate": true
       },
       "choice.idx3.pct": {
-        "value": 0.1,
+        "value": 0.5,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -542,41 +671,41 @@
         "gate": true
       },
       "heir.has.pct": {
-        "value": 59.3,
+        "value": 54.7,
         "warn": 3.3,
-        "fail": 6,
+        "fail": 6.1,
         "unit": "%",
         "label": "有后率",
         "gate": true
       },
       "heir.job.仕": {
-        "value": 29.8,
-        "warn": 8.5,
-        "fail": 14.6,
+        "value": 32,
+        "warn": 9.3,
+        "fail": 16,
         "unit": "%",
         "label": "立业率 · 仕",
         "gate": true
       },
       "heir.job.商": {
-        "value": 38.9,
-        "warn": 11.6,
-        "fail": 19.9,
+        "value": 39.6,
+        "warn": 12.7,
+        "fail": 21.8,
         "unit": "%",
         "label": "立业率 · 商",
         "gate": true
       },
       "heir.job.市": {
-        "value": 23,
-        "warn": 5.9,
-        "fail": 10.2,
+        "value": 20.5,
+        "warn": 5.7,
+        "fail": 9.8,
         "unit": "%",
         "label": "立业率 · 市",
         "gate": true
       },
       "model.drift": {
         "value": 2,
-        "warn": 0,
-        "fail": 0,
+        "warn": 1,
+        "fail": 2,
         "unit": "",
         "label": "效果模型漂移（自检）",
         "gate": false
@@ -624,7 +753,7 @@
         "gate": false
       },
       "avgFolds": {
-        "value": 13.8,
+        "value": 13.9,
         "warn": 0.6,
         "fail": 1.8,
         "unit": "折",
@@ -632,7 +761,7 @@
         "gate": true
       },
       "avgAge": {
-        "value": 71.3,
+        "value": 71.8,
         "warn": 1.2,
         "fail": 3,
         "unit": "岁",
@@ -640,7 +769,7 @@
         "gate": true
       },
       "verdict.覆.pct": {
-        "value": 7.7,
+        "value": 5.9,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -656,7 +785,7 @@
         "gate": true
       },
       "verdict.孤.pct": {
-        "value": 8.5,
+        "value": 7.8,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -664,7 +793,7 @@
         "gate": true
       },
       "verdict.绝.pct": {
-        "value": 41.2,
+        "value": 46.1,
         "warn": 3.3,
         "fail": 6.1,
         "unit": "%",
@@ -672,7 +801,7 @@
         "gate": true
       },
       "verdict.寻常.pct": {
-        "value": 8,
+        "value": 7.7,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -680,7 +809,7 @@
         "gate": true
       },
       "verdict.起伏.pct": {
-        "value": 19.2,
+        "value": 18.9,
         "warn": 2.6,
         "fail": 5,
         "unit": "%",
@@ -688,15 +817,15 @@
         "gate": true
       },
       "verdict.缺一.pct": {
-        "value": 12.2,
-        "warn": 2.2,
+        "value": 11,
+        "warn": 2.1,
         "fail": 5,
         "unit": "%",
         "label": "结局 · 缺一",
         "gate": true
       },
       "verdict.空.pct": {
-        "value": 2.7,
+        "value": 2.1,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -704,7 +833,7 @@
         "gate": true
       },
       "verdict.覆.count": {
-        "value": 154,
+        "value": 118,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -720,7 +849,7 @@
         "gate": false
       },
       "verdict.孤.count": {
-        "value": 169,
+        "value": 156,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -728,7 +857,7 @@
         "gate": false
       },
       "verdict.绝.count": {
-        "value": 823,
+        "value": 921,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -736,7 +865,7 @@
         "gate": false
       },
       "verdict.寻常.count": {
-        "value": 159,
+        "value": 153,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -744,7 +873,7 @@
         "gate": false
       },
       "verdict.起伏.count": {
-        "value": 384,
+        "value": 377,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -752,7 +881,7 @@
         "gate": false
       },
       "verdict.缺一.count": {
-        "value": 243,
+        "value": 219,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -760,7 +889,7 @@
         "gate": false
       },
       "verdict.空.count": {
-        "value": 53,
+        "value": 41,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -768,7 +897,7 @@
         "gate": false
       },
       "verdict.覆.cause.clause4.pct": {
-        "value": 88.3,
+        "value": 89.8,
         "warn": 0,
         "fail": 0,
         "unit": "%",
@@ -776,7 +905,7 @@
         "gate": false
       },
       "verdict.覆.cause.coffer.pct": {
-        "value": 11.7,
+        "value": 10.2,
         "warn": 0,
         "fail": 0,
         "unit": "%",
@@ -808,7 +937,7 @@
         "gate": true
       },
       "six.室.p50": {
-        "value": 30.5,
+        "value": 32,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -816,7 +945,7 @@
         "gate": true
       },
       "six.室.p90": {
-        "value": 86,
+        "value": 87,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -824,7 +953,7 @@
         "gate": true
       },
       "six.财.p10": {
-        "value": 12,
+        "value": 14,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -832,7 +961,7 @@
         "gate": true
       },
       "six.财.p50": {
-        "value": 39,
+        "value": 42,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -912,7 +1041,7 @@
         "gate": true
       },
       "six.寿.p90": {
-        "value": 4,
+        "value": 5.1,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -920,7 +1049,7 @@
         "gate": true
       },
       "six.誉.p10": {
-        "value": 44,
+        "value": 37,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -944,7 +1073,7 @@
         "gate": true
       },
       "reveal.pct": {
-        "value": 42,
+        "value": 41.5,
         "warn": 3.3,
         "fail": 6.1,
         "unit": "%",
@@ -952,15 +1081,15 @@
         "gate": true
       },
       "mech.duizhi.pct": {
-        "value": 30.3,
-        "warn": 3.1,
-        "fail": 5.7,
+        "value": 29.1,
+        "warn": 3,
+        "fail": 5.6,
         "unit": "%",
         "label": "对质局占比",
         "gate": true
       },
       "mech.peers.perLife": {
-        "value": 2.8,
+        "value": 2.75,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "次/局",
@@ -968,7 +1097,7 @@
         "gate": true
       },
       "mech.due.perLife": {
-        "value": 0.96,
+        "value": 1.31,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "笔/局",
@@ -976,7 +1105,7 @@
         "gate": true
       },
       "mech.due_audit.perLife": {
-        "value": 0.21,
+        "value": 0.59,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "笔/局",
@@ -984,7 +1113,7 @@
         "gate": true
       },
       "mech.due_grudge.perLife": {
-        "value": 0.05,
+        "value": 0.04,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "笔/局",
@@ -992,7 +1121,7 @@
         "gate": true
       },
       "mech.due_favor.perLife": {
-        "value": 0.71,
+        "value": 0.68,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "笔/局",
@@ -1000,7 +1129,7 @@
         "gate": true
       },
       "mech.full.perLife": {
-        "value": 0.59,
+        "value": 0.57,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "次/局",
@@ -1008,7 +1137,7 @@
         "gate": true
       },
       "mech.full.livesPct": {
-        "value": 35.8,
+        "value": 34.9,
         "warn": 3.2,
         "fail": 5.9,
         "unit": "%",
@@ -1032,7 +1161,7 @@
         "gate": true
       },
       "mech.case.livesPct": {
-        "value": 0,
+        "value": 1.8,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -1041,22 +1170,150 @@
       },
       "law.p50": {
         "value": 2,
-        "warn": 0,
-        "fail": 0,
+        "warn": 4,
+        "fail": 10,
         "unit": "",
         "label": "律 · 终局 P50",
         "gate": false
       },
       "law.p90": {
-        "value": 7,
-        "warn": 0,
-        "fail": 0,
+        "value": 27,
+        "warn": 4,
+        "fail": 10,
         "unit": "",
         "label": "律 · 终局 P90",
         "gate": false
       },
+      "ink.gross.mean": {
+        "value": 12.1,
+        "warn": 3,
+        "fail": 8,
+        "unit": "",
+        "label": "墨供给 · 单局均值",
+        "gate": true
+      },
+      "ink.gross.p50": {
+        "value": 4,
+        "warn": 6,
+        "fail": 15,
+        "unit": "",
+        "label": "墨供给 · P50",
+        "gate": false
+      },
+      "ink.gross.p90": {
+        "value": 40,
+        "warn": 8,
+        "fail": 20,
+        "unit": "",
+        "label": "墨供给 · P90",
+        "gate": false
+      },
+      "ink.final.mean": {
+        "value": 11.9,
+        "warn": 3,
+        "fail": 8,
+        "unit": "",
+        "label": "墨 · 终局余额均值",
+        "gate": false
+      },
+      "mech.refund.livesPct": {
+        "value": 7.8,
+        "warn": 2,
+        "fail": 5,
+        "unit": "%",
+        "label": "退还 · 触发过的局占比",
+        "gate": true
+      },
+      "mech.refund.warn.pct": {
+        "value": 5.8,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 提点（有人拦你）",
+        "gate": false
+      },
+      "mech.refund.pay.pct": {
+        "value": 2.6,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 退赃（你去还）",
+        "gate": false
+      },
+      "mech.refund.stop.pct": {
+        "value": 1,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 收手（你自己回头）",
+        "gate": false
+      },
+      "mech.refund.noRoom.ratio": {
+        "value": 0.53,
+        "warn": 0.15,
+        "fail": 0.35,
+        "unit": "",
+        "label": "· 提点触发率比（室≤5 ÷ 室>5）",
+        "gate": false
+      },
+      "mech.dark.livesPct": {
+        "value": 13.2,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "深水 · 走过任一道门的局占比",
+        "gate": false
+      },
+      "mech.dark.door.pct": {
+        "value": 13.2,
+        "warn": 2.3,
+        "fail": 5,
+        "unit": "%",
+        "label": "· 门路（被找上门）",
+        "gate": true
+      },
+      "mech.dark.seal.pct": {
+        "value": 7.3,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 封口（同船的人被带走）",
+        "gate": false
+      },
+      "mech.dark.boat.pct": {
+        "value": 3.2,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 同船（最后一票）",
+        "gate": false
+      },
+      "mech.dark.net.pct": {
+        "value": 0.2,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 收网（案前来人）",
+        "gate": false
+      },
+      "mech.dark.case.rate": {
+        "value": 13.3,
+        "warn": 7.3,
+        "fail": 12.5,
+        "unit": "%",
+        "label": "深水 · 上过船者的立案率",
+        "gate": true
+      },
+      "mech.darkink40.case.rate": {
+        "value": 14.6,
+        "warn": 8,
+        "fail": 13.7,
+        "unit": "%",
+        "label": "深水 · 墨≥40 者的立案率",
+        "gate": true
+      },
       "coverage.seen": {
-        "value": 61,
+        "value": 65,
         "warn": 2,
         "fail": 6,
         "unit": "条",
@@ -1064,7 +1321,7 @@
         "gate": true
       },
       "coverage.pct": {
-        "value": 96.8,
+        "value": 98.5,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -1072,7 +1329,7 @@
         "gate": true
       },
       "coverage.missing": {
-        "value": 2,
+        "value": 1,
         "warn": 2,
         "fail": 6,
         "unit": "条",
@@ -1088,7 +1345,7 @@
         "gate": true
       },
       "choice.idx0.pct": {
-        "value": 74.4,
+        "value": 72.1,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -1096,7 +1353,7 @@
         "gate": true
       },
       "choice.idx1.pct": {
-        "value": 11.8,
+        "value": 11.6,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -1104,7 +1361,7 @@
         "gate": true
       },
       "choice.idx2.pct": {
-        "value": 13.8,
+        "value": 16.3,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -1128,41 +1385,41 @@
         "gate": true
       },
       "heir.has.pct": {
-        "value": 28.2,
-        "warn": 3,
-        "fail": 5.5,
+        "value": 25.6,
+        "warn": 2.9,
+        "fail": 5.4,
         "unit": "%",
         "label": "有后率",
         "gate": true
       },
       "heir.job.仕": {
-        "value": 31.5,
-        "warn": 14.3,
-        "fail": 24.4,
+        "value": 48,
+        "warn": 17.3,
+        "fail": 29.7,
         "unit": "%",
         "label": "立业率 · 仕",
         "gate": true
       },
       "heir.job.商": {
-        "value": 34.4,
-        "warn": 20.8,
-        "fail": 35.6,
+        "value": 34.9,
+        "warn": 21,
+        "fail": 36,
         "unit": "%",
         "label": "立业率 · 商",
         "gate": true
       },
       "heir.job.市": {
-        "value": 46.3,
-        "warn": 9.1,
-        "fail": 15.6,
+        "value": 52.3,
+        "warn": 9.4,
+        "fail": 16.1,
         "unit": "%",
         "label": "立业率 · 市",
         "gate": true
       },
       "model.drift": {
         "value": 2,
-        "warn": 0,
-        "fail": 0,
+        "warn": 1,
+        "fail": 2,
         "unit": "",
         "label": "效果模型漂移（自检）",
         "gate": false
@@ -1210,7 +1467,7 @@
         "gate": false
       },
       "avgFolds": {
-        "value": 12.5,
+        "value": 12.6,
         "warn": 0.6,
         "fail": 1.8,
         "unit": "折",
@@ -1218,7 +1475,7 @@
         "gate": true
       },
       "avgAge": {
-        "value": 66.1,
+        "value": 66.3,
         "warn": 1.2,
         "fail": 3,
         "unit": "岁",
@@ -1226,7 +1483,7 @@
         "gate": true
       },
       "verdict.覆.pct": {
-        "value": 0.1,
+        "value": 0.3,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -1234,7 +1491,7 @@
         "gate": true
       },
       "verdict.六全.pct": {
-        "value": 0.7,
+        "value": 0.5,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -1242,7 +1499,7 @@
         "gate": true
       },
       "verdict.孤.pct": {
-        "value": 0.1,
+        "value": 0.3,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -1250,7 +1507,7 @@
         "gate": true
       },
       "verdict.绝.pct": {
-        "value": 0.1,
+        "value": 1.3,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -1258,15 +1515,15 @@
         "gate": true
       },
       "verdict.寻常.pct": {
-        "value": 30.5,
+        "value": 29.3,
         "warn": 3.1,
-        "fail": 5.7,
+        "fail": 5.6,
         "unit": "%",
         "label": "结局 · 寻常",
         "gate": true
       },
       "verdict.起伏.pct": {
-        "value": 42.7,
+        "value": 41.1,
         "warn": 3.3,
         "fail": 6.1,
         "unit": "%",
@@ -1274,15 +1531,15 @@
         "gate": true
       },
       "verdict.缺一.pct": {
-        "value": 20.5,
-        "warn": 2.7,
-        "fail": 5,
+        "value": 21.7,
+        "warn": 2.8,
+        "fail": 5.1,
         "unit": "%",
         "label": "结局 · 缺一",
         "gate": true
       },
       "verdict.空.pct": {
-        "value": 5.4,
+        "value": 5.7,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -1290,7 +1547,7 @@
         "gate": true
       },
       "verdict.覆.count": {
-        "value": 2,
+        "value": 5,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -1298,7 +1555,7 @@
         "gate": false
       },
       "verdict.六全.count": {
-        "value": 13,
+        "value": 9,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -1306,7 +1563,7 @@
         "gate": false
       },
       "verdict.孤.count": {
-        "value": 2,
+        "value": 5,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -1314,7 +1571,7 @@
         "gate": false
       },
       "verdict.绝.count": {
-        "value": 2,
+        "value": 25,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -1322,7 +1579,7 @@
         "gate": false
       },
       "verdict.寻常.count": {
-        "value": 609,
+        "value": 586,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -1330,7 +1587,7 @@
         "gate": false
       },
       "verdict.起伏.count": {
-        "value": 854,
+        "value": 822,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -1338,7 +1595,7 @@
         "gate": false
       },
       "verdict.缺一.count": {
-        "value": 411,
+        "value": 434,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -1346,7 +1603,7 @@
         "gate": false
       },
       "verdict.空.count": {
-        "value": 107,
+        "value": 114,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -1354,7 +1611,7 @@
         "gate": false
       },
       "verdict.覆.cause.clause4.pct": {
-        "value": 50,
+        "value": 20,
         "warn": 0,
         "fail": 0,
         "unit": "%",
@@ -1362,7 +1619,7 @@
         "gate": false
       },
       "verdict.覆.cause.coffer.pct": {
-        "value": 50,
+        "value": 20,
         "warn": 0,
         "fail": 0,
         "unit": "%",
@@ -1378,7 +1635,7 @@
         "gate": false
       },
       "verdict.覆.cause.ruined.pct": {
-        "value": 0,
+        "value": 60,
         "warn": 0,
         "fail": 0,
         "unit": "%",
@@ -1386,7 +1643,7 @@
         "gate": false
       },
       "six.室.p10": {
-        "value": 21,
+        "value": 19.9,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -1394,7 +1651,7 @@
         "gate": true
       },
       "six.室.p50": {
-        "value": 60.5,
+        "value": 57.5,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -1410,7 +1667,7 @@
         "gate": true
       },
       "six.财.p10": {
-        "value": 16,
+        "value": 18.9,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -1418,7 +1675,7 @@
         "gate": true
       },
       "six.财.p50": {
-        "value": 49,
+        "value": 50,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -1442,7 +1699,7 @@
         "gate": true
       },
       "six.子.p50": {
-        "value": 80,
+        "value": 65,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -1506,7 +1763,7 @@
         "gate": true
       },
       "six.誉.p10": {
-        "value": 39,
+        "value": 33,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -1522,7 +1779,7 @@
         "gate": true
       },
       "six.誉.p90": {
-        "value": 102,
+        "value": 101,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -1530,7 +1787,7 @@
         "gate": true
       },
       "reveal.pct": {
-        "value": 54.3,
+        "value": 53.6,
         "warn": 3.3,
         "fail": 6.1,
         "unit": "%",
@@ -1546,7 +1803,7 @@
         "gate": true
       },
       "mech.peers.perLife": {
-        "value": 2.61,
+        "value": 2.55,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "次/局",
@@ -1554,7 +1811,7 @@
         "gate": true
       },
       "mech.due.perLife": {
-        "value": 0.64,
+        "value": 0.88,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "笔/局",
@@ -1562,7 +1819,7 @@
         "gate": true
       },
       "mech.due_audit.perLife": {
-        "value": 0.13,
+        "value": 0.43,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "笔/局",
@@ -1578,7 +1835,7 @@
         "gate": true
       },
       "mech.due_favor.perLife": {
-        "value": 0.46,
+        "value": 0.4,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "笔/局",
@@ -1586,7 +1843,7 @@
         "gate": true
       },
       "mech.full.perLife": {
-        "value": 0.64,
+        "value": 0.59,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "次/局",
@@ -1594,15 +1851,15 @@
         "gate": true
       },
       "mech.full.livesPct": {
-        "value": 43.5,
+        "value": 40.7,
         "warn": 3.3,
-        "fail": 6.1,
+        "fail": 6,
         "unit": "%",
         "label": "满招损 · 撞上的局占比",
         "gate": true
       },
       "mech.full.silent.perLife": {
-        "value": 1.05,
+        "value": 1.02,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "次/局",
@@ -1610,7 +1867,7 @@
         "gate": true
       },
       "mech.full.silent.livesPct": {
-        "value": 42.7,
+        "value": 42.1,
         "warn": 3.3,
         "fail": 6.1,
         "unit": "%",
@@ -1618,7 +1875,7 @@
         "gate": true
       },
       "mech.case.livesPct": {
-        "value": 0,
+        "value": 0.6,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -1626,23 +1883,151 @@
         "gate": true
       },
       "law.p50": {
-        "value": 2,
-        "warn": 0,
-        "fail": 0,
+        "value": 4,
+        "warn": 4,
+        "fail": 10,
         "unit": "",
         "label": "律 · 终局 P50",
         "gate": false
       },
       "law.p90": {
-        "value": 9,
-        "warn": 0,
-        "fail": 0,
+        "value": 28,
+        "warn": 4,
+        "fail": 10,
         "unit": "",
         "label": "律 · 终局 P90",
         "gate": false
       },
+      "ink.gross.mean": {
+        "value": 11.4,
+        "warn": 3,
+        "fail": 8,
+        "unit": "",
+        "label": "墨供给 · 单局均值",
+        "gate": true
+      },
+      "ink.gross.p50": {
+        "value": 6,
+        "warn": 6,
+        "fail": 15,
+        "unit": "",
+        "label": "墨供给 · P50",
+        "gate": false
+      },
+      "ink.gross.p90": {
+        "value": 40,
+        "warn": 8,
+        "fail": 20,
+        "unit": "",
+        "label": "墨供给 · P90",
+        "gate": false
+      },
+      "ink.final.mean": {
+        "value": 11.3,
+        "warn": 3,
+        "fail": 8,
+        "unit": "",
+        "label": "墨 · 终局余额均值",
+        "gate": false
+      },
+      "mech.refund.livesPct": {
+        "value": 7.2,
+        "warn": 2,
+        "fail": 5,
+        "unit": "%",
+        "label": "退还 · 触发过的局占比",
+        "gate": true
+      },
+      "mech.refund.warn.pct": {
+        "value": 5.2,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 提点（有人拦你）",
+        "gate": false
+      },
+      "mech.refund.pay.pct": {
+        "value": 2.4,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 退赃（你去还）",
+        "gate": false
+      },
+      "mech.refund.stop.pct": {
+        "value": 0.4,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 收手（你自己回头）",
+        "gate": false
+      },
+      "mech.refund.noRoom.ratio": {
+        "value": 1.04,
+        "warn": 0.15,
+        "fail": 0.35,
+        "unit": "",
+        "label": "· 提点触发率比（室≤5 ÷ 室>5）",
+        "gate": false
+      },
+      "mech.dark.livesPct": {
+        "value": 12,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "深水 · 走过任一道门的局占比",
+        "gate": false
+      },
+      "mech.dark.door.pct": {
+        "value": 12,
+        "warn": 2.2,
+        "fail": 5,
+        "unit": "%",
+        "label": "· 门路（被找上门）",
+        "gate": true
+      },
+      "mech.dark.seal.pct": {
+        "value": 6.3,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 封口（同船的人被带走）",
+        "gate": false
+      },
+      "mech.dark.boat.pct": {
+        "value": 2,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 同船（最后一票）",
+        "gate": false
+      },
+      "mech.dark.net.pct": {
+        "value": 0.2,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 收网（案前来人）",
+        "gate": false
+      },
+      "mech.dark.case.rate": {
+        "value": 5,
+        "warn": 4.9,
+        "fail": 8.4,
+        "unit": "%",
+        "label": "深水 · 上过船者的立案率",
+        "gate": true
+      },
+      "mech.darkink40.case.rate": {
+        "value": 5.5,
+        "warn": 5.4,
+        "fail": 9.3,
+        "unit": "%",
+        "label": "深水 · 墨≥40 者的立案率",
+        "gate": true
+      },
       "coverage.seen": {
-        "value": 61,
+        "value": 65,
         "warn": 2,
         "fail": 6,
         "unit": "条",
@@ -1650,7 +2035,7 @@
         "gate": true
       },
       "coverage.pct": {
-        "value": 96.8,
+        "value": 98.5,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -1658,7 +2043,7 @@
         "gate": true
       },
       "coverage.missing": {
-        "value": 2,
+        "value": 1,
         "warn": 2,
         "fail": 6,
         "unit": "条",
@@ -1674,7 +2059,7 @@
         "gate": true
       },
       "choice.idx0.pct": {
-        "value": 80.8,
+        "value": 82.7,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -1682,7 +2067,7 @@
         "gate": true
       },
       "choice.idx1.pct": {
-        "value": 15,
+        "value": 13.4,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -1690,7 +2075,7 @@
         "gate": true
       },
       "choice.idx2.pct": {
-        "value": 4.2,
+        "value": 3.9,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -1706,15 +2091,15 @@
         "gate": true
       },
       "choice.mono.pct": {
-        "value": 98.5,
-        "warn": 5.2,
-        "fail": 9,
+        "value": 98.6,
+        "warn": 4.8,
+        "fail": 8.2,
         "unit": "%",
         "label": "抉择 · 高度集中事件占比",
         "gate": true
       },
       "heir.has.pct": {
-        "value": 97.3,
+        "value": 95.8,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -1722,7 +2107,7 @@
         "gate": true
       },
       "heir.job.仕": {
-        "value": 65.5,
+        "value": 66.8,
         "warn": 6.8,
         "fail": 11.7,
         "unit": "%",
@@ -1730,25 +2115,25 @@
         "gate": true
       },
       "heir.job.商": {
-        "value": 85.8,
-        "warn": 6.6,
-        "fail": 11.3,
+        "value": 85,
+        "warn": 6.8,
+        "fail": 11.6,
         "unit": "%",
         "label": "立业率 · 商",
         "gate": true
       },
       "heir.job.市": {
-        "value": 66.8,
-        "warn": 5.2,
-        "fail": 8.9,
+        "value": 63.4,
+        "warn": 5.3,
+        "fail": 9.2,
         "unit": "%",
         "label": "立业率 · 市",
         "gate": true
       },
       "model.drift": {
         "value": 1,
-        "warn": 0,
-        "fail": 0,
+        "warn": 1,
+        "fail": 2,
         "unit": "",
         "label": "效果模型漂移（自检）",
         "gate": false
@@ -1804,7 +2189,7 @@
         "gate": true
       },
       "avgAge": {
-        "value": 68.1,
+        "value": 67.9,
         "warn": 1.2,
         "fail": 3,
         "unit": "岁",
@@ -1812,7 +2197,7 @@
         "gate": true
       },
       "verdict.覆.pct": {
-        "value": 0.2,
+        "value": 0.4,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -1820,7 +2205,7 @@
         "gate": true
       },
       "verdict.六全.pct": {
-        "value": 0.4,
+        "value": 1.1,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -1828,7 +2213,7 @@
         "gate": true
       },
       "verdict.孤.pct": {
-        "value": 1.2,
+        "value": 1.6,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -1836,7 +2221,7 @@
         "gate": true
       },
       "verdict.绝.pct": {
-        "value": 0.4,
+        "value": 0.5,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -1844,31 +2229,31 @@
         "gate": true
       },
       "verdict.寻常.pct": {
-        "value": 33.7,
-        "warn": 3.2,
+        "value": 32.6,
+        "warn": 3.1,
         "fail": 5.8,
         "unit": "%",
         "label": "结局 · 寻常",
         "gate": true
       },
       "verdict.起伏.pct": {
-        "value": 29.2,
-        "warn": 3.1,
+        "value": 28.9,
+        "warn": 3,
         "fail": 5.6,
         "unit": "%",
         "label": "结局 · 起伏",
         "gate": true
       },
       "verdict.缺一.pct": {
-        "value": 27.3,
+        "value": 26.6,
         "warn": 3,
-        "fail": 5.5,
+        "fail": 5.4,
         "unit": "%",
         "label": "结局 · 缺一",
         "gate": true
       },
       "verdict.空.pct": {
-        "value": 7.8,
+        "value": 8.3,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -1876,7 +2261,7 @@
         "gate": true
       },
       "verdict.覆.count": {
-        "value": 3,
+        "value": 8,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -1884,7 +2269,7 @@
         "gate": false
       },
       "verdict.六全.count": {
-        "value": 8,
+        "value": 22,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -1892,7 +2277,7 @@
         "gate": false
       },
       "verdict.孤.count": {
-        "value": 23,
+        "value": 31,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -1900,7 +2285,7 @@
         "gate": false
       },
       "verdict.绝.count": {
-        "value": 7,
+        "value": 11,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -1908,7 +2293,7 @@
         "gate": false
       },
       "verdict.寻常.count": {
-        "value": 674,
+        "value": 652,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -1916,7 +2301,7 @@
         "gate": false
       },
       "verdict.起伏.count": {
-        "value": 583,
+        "value": 578,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -1924,7 +2309,7 @@
         "gate": false
       },
       "verdict.缺一.count": {
-        "value": 546,
+        "value": 532,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -1932,7 +2317,7 @@
         "gate": false
       },
       "verdict.空.count": {
-        "value": 156,
+        "value": 166,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -1940,7 +2325,7 @@
         "gate": false
       },
       "verdict.覆.cause.clause4.pct": {
-        "value": 100,
+        "value": 87.5,
         "warn": 0,
         "fail": 0,
         "unit": "%",
@@ -1948,7 +2333,7 @@
         "gate": false
       },
       "verdict.覆.cause.coffer.pct": {
-        "value": 0,
+        "value": 12.5,
         "warn": 0,
         "fail": 0,
         "unit": "%",
@@ -1980,7 +2365,7 @@
         "gate": true
       },
       "six.室.p50": {
-        "value": 38,
+        "value": 37,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -1988,7 +2373,7 @@
         "gate": true
       },
       "six.室.p90": {
-        "value": 81,
+        "value": 80,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -2004,7 +2389,7 @@
         "gate": true
       },
       "six.财.p50": {
-        "value": 67,
+        "value": 68,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -2092,7 +2477,7 @@
         "gate": true
       },
       "six.誉.p10": {
-        "value": 32,
+        "value": 33,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -2100,7 +2485,7 @@
         "gate": true
       },
       "six.誉.p50": {
-        "value": 64,
+        "value": 66,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -2108,7 +2493,7 @@
         "gate": true
       },
       "six.誉.p90": {
-        "value": 100,
+        "value": 101,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -2116,7 +2501,7 @@
         "gate": true
       },
       "reveal.pct": {
-        "value": 43.7,
+        "value": 45,
         "warn": 3.3,
         "fail": 6.1,
         "unit": "%",
@@ -2124,7 +2509,7 @@
         "gate": true
       },
       "mech.duizhi.pct": {
-        "value": 9.2,
+        "value": 8.9,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -2132,7 +2517,7 @@
         "gate": true
       },
       "mech.peers.perLife": {
-        "value": 2.54,
+        "value": 2.47,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "次/局",
@@ -2148,7 +2533,7 @@
         "gate": true
       },
       "mech.due_audit.perLife": {
-        "value": 0.1,
+        "value": 0.17,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "笔/局",
@@ -2156,7 +2541,7 @@
         "gate": true
       },
       "mech.due_grudge.perLife": {
-        "value": 0.41,
+        "value": 0.38,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "笔/局",
@@ -2164,7 +2549,7 @@
         "gate": true
       },
       "mech.due_favor.perLife": {
-        "value": 0.39,
+        "value": 0.35,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "笔/局",
@@ -2172,7 +2557,7 @@
         "gate": true
       },
       "mech.full.perLife": {
-        "value": 0.48,
+        "value": 0.45,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "次/局",
@@ -2180,7 +2565,7 @@
         "gate": true
       },
       "mech.full.livesPct": {
-        "value": 33.7,
+        "value": 33,
         "warn": 3.2,
         "fail": 5.8,
         "unit": "%",
@@ -2188,7 +2573,7 @@
         "gate": true
       },
       "mech.full.silent.perLife": {
-        "value": 0.84,
+        "value": 0.82,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "次/局",
@@ -2196,7 +2581,7 @@
         "gate": true
       },
       "mech.full.silent.livesPct": {
-        "value": 33.8,
+        "value": 34.1,
         "warn": 3.2,
         "fail": 5.8,
         "unit": "%",
@@ -2212,23 +2597,151 @@
         "gate": true
       },
       "law.p50": {
-        "value": 4,
-        "warn": 0,
-        "fail": 0,
+        "value": 5,
+        "warn": 4,
+        "fail": 10,
         "unit": "",
         "label": "律 · 终局 P50",
         "gate": false
       },
       "law.p90": {
-        "value": 17,
-        "warn": 0,
-        "fail": 0,
+        "value": 18,
+        "warn": 4,
+        "fail": 10,
         "unit": "",
         "label": "律 · 终局 P90",
         "gate": false
       },
+      "ink.gross.mean": {
+        "value": 10.7,
+        "warn": 3,
+        "fail": 8,
+        "unit": "",
+        "label": "墨供给 · 单局均值",
+        "gate": true
+      },
+      "ink.gross.p50": {
+        "value": 8,
+        "warn": 6,
+        "fail": 15,
+        "unit": "",
+        "label": "墨供给 · P50",
+        "gate": false
+      },
+      "ink.gross.p90": {
+        "value": 28,
+        "warn": 8,
+        "fail": 20,
+        "unit": "",
+        "label": "墨供给 · P90",
+        "gate": false
+      },
+      "ink.final.mean": {
+        "value": 9.2,
+        "warn": 3,
+        "fail": 8,
+        "unit": "",
+        "label": "墨 · 终局余额均值",
+        "gate": false
+      },
+      "mech.refund.livesPct": {
+        "value": 8,
+        "warn": 2,
+        "fail": 5,
+        "unit": "%",
+        "label": "退还 · 触发过的局占比",
+        "gate": true
+      },
+      "mech.refund.warn.pct": {
+        "value": 7.8,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 提点（有人拦你）",
+        "gate": false
+      },
+      "mech.refund.pay.pct": {
+        "value": 0.4,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 退赃（你去还）",
+        "gate": false
+      },
+      "mech.refund.stop.pct": {
+        "value": 0.2,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 收手（你自己回头）",
+        "gate": false
+      },
+      "mech.refund.noRoom.ratio": {
+        "value": 0.45,
+        "warn": 0.15,
+        "fail": 0.35,
+        "unit": "",
+        "label": "· 提点触发率比（室≤5 ÷ 室>5）",
+        "gate": false
+      },
+      "mech.dark.livesPct": {
+        "value": 23.3,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "深水 · 走过任一道门的局占比",
+        "gate": false
+      },
+      "mech.dark.door.pct": {
+        "value": 23.3,
+        "warn": 2.8,
+        "fail": 5.2,
+        "unit": "%",
+        "label": "· 门路（被找上门）",
+        "gate": true
+      },
+      "mech.dark.seal.pct": {
+        "value": 1,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 封口（同船的人被带走）",
+        "gate": false
+      },
+      "mech.dark.boat.pct": {
+        "value": 0.5,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 同船（最后一票）",
+        "gate": false
+      },
+      "mech.dark.net.pct": {
+        "value": 0,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 收网（案前来人）",
+        "gate": false
+      },
+      "mech.dark.case.rate": {
+        "value": 0,
+        "warn": 2,
+        "fail": 5,
+        "unit": "%",
+        "label": "深水 · 上过船者的立案率",
+        "gate": true
+      },
+      "mech.darkink40.case.rate": {
+        "value": 0,
+        "warn": 2,
+        "fail": 5,
+        "unit": "%",
+        "label": "深水 · 墨≥40 者的立案率",
+        "gate": true
+      },
       "coverage.seen": {
-        "value": 62,
+        "value": 65,
         "warn": 2,
         "fail": 6,
         "unit": "条",
@@ -2236,7 +2749,7 @@
         "gate": true
       },
       "coverage.pct": {
-        "value": 98.4,
+        "value": 98.5,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -2260,7 +2773,7 @@
         "gate": true
       },
       "choice.idx0.pct": {
-        "value": 49.2,
+        "value": 48.7,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -2268,7 +2781,7 @@
         "gate": true
       },
       "choice.idx1.pct": {
-        "value": 27.2,
+        "value": 27.5,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -2276,7 +2789,7 @@
         "gate": true
       },
       "choice.idx2.pct": {
-        "value": 23.6,
+        "value": 23.8,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -2292,15 +2805,15 @@
         "gate": true
       },
       "choice.mono.pct": {
-        "value": 38.2,
-        "warn": 20.6,
-        "fail": 35.4,
+        "value": 37,
+        "warn": 19.8,
+        "fail": 33.9,
         "unit": "%",
         "label": "抉择 · 高度集中事件占比",
         "gate": true
       },
       "heir.has.pct": {
-        "value": 95.9,
+        "value": 95.2,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -2308,23 +2821,23 @@
         "gate": true
       },
       "heir.job.仕": {
-        "value": 65.2,
-        "warn": 7,
-        "fail": 12,
+        "value": 65,
+        "warn": 7.1,
+        "fail": 12.2,
         "unit": "%",
         "label": "立业率 · 仕",
         "gate": true
       },
       "heir.job.商": {
-        "value": 46.9,
-        "warn": 9.3,
+        "value": 44.3,
+        "warn": 9.4,
         "fail": 16,
         "unit": "%",
         "label": "立业率 · 商",
         "gate": true
       },
       "heir.job.市": {
-        "value": 59.3,
+        "value": 60.2,
         "warn": 5.4,
         "fail": 9.3,
         "unit": "%",
@@ -2333,8 +2846,8 @@
       },
       "model.drift": {
         "value": 2,
-        "warn": 0,
-        "fail": 0,
+        "warn": 1,
+        "fail": 2,
         "unit": "",
         "label": "效果模型漂移（自检）",
         "gate": false
@@ -2382,7 +2895,7 @@
         "gate": false
       },
       "avgFolds": {
-        "value": 13.9,
+        "value": 14,
         "warn": 0.6,
         "fail": 1.8,
         "unit": "折",
@@ -2390,7 +2903,7 @@
         "gate": true
       },
       "avgAge": {
-        "value": 71.7,
+        "value": 72,
         "warn": 1.2,
         "fail": 3,
         "unit": "岁",
@@ -2398,7 +2911,7 @@
         "gate": true
       },
       "verdict.覆.pct": {
-        "value": 0,
+        "value": 0.2,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -2414,17 +2927,17 @@
         "gate": true
       },
       "verdict.孤.pct": {
-        "value": 61,
+        "value": 54.7,
         "warn": 3.3,
-        "fail": 6,
+        "fail": 6.1,
         "unit": "%",
         "label": "结局 · 孤",
         "gate": true
       },
       "verdict.绝.pct": {
-        "value": 36.1,
-        "warn": 3.2,
-        "fail": 5.9,
+        "value": 41.4,
+        "warn": 3.3,
+        "fail": 6.1,
         "unit": "%",
         "label": "结局 · 绝",
         "gate": true
@@ -2438,7 +2951,7 @@
         "gate": true
       },
       "verdict.起伏.pct": {
-        "value": 2.6,
+        "value": 3.1,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -2454,7 +2967,7 @@
         "gate": true
       },
       "verdict.空.pct": {
-        "value": 0.4,
+        "value": 0.6,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -2462,7 +2975,7 @@
         "gate": true
       },
       "verdict.覆.count": {
-        "value": 0,
+        "value": 3,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -2478,7 +2991,7 @@
         "gate": false
       },
       "verdict.孤.count": {
-        "value": 1220,
+        "value": 1094,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -2486,7 +2999,7 @@
         "gate": false
       },
       "verdict.绝.count": {
-        "value": 721,
+        "value": 829,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -2502,7 +3015,7 @@
         "gate": false
       },
       "verdict.起伏.count": {
-        "value": 52,
+        "value": 62,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -2518,7 +3031,7 @@
         "gate": false
       },
       "verdict.空.count": {
-        "value": 7,
+        "value": 12,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -2550,7 +3063,7 @@
         "gate": false
       },
       "verdict.覆.cause.ruined.pct": {
-        "value": 0,
+        "value": 100,
         "warn": 0,
         "fail": 0,
         "unit": "%",
@@ -2566,7 +3079,7 @@
         "gate": true
       },
       "six.室.p50": {
-        "value": 2,
+        "value": 4,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -2574,7 +3087,7 @@
         "gate": true
       },
       "six.室.p90": {
-        "value": 18,
+        "value": 21,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -2590,7 +3103,7 @@
         "gate": true
       },
       "six.财.p50": {
-        "value": 70,
+        "value": 69,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -2598,7 +3111,7 @@
         "gate": true
       },
       "six.财.p90": {
-        "value": 105,
+        "value": 104,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -2670,7 +3183,7 @@
         "gate": true
       },
       "six.寿.p90": {
-        "value": 1,
+        "value": 2,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -2678,7 +3191,7 @@
         "gate": true
       },
       "six.誉.p10": {
-        "value": 41,
+        "value": 37,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -2686,7 +3199,7 @@
         "gate": true
       },
       "six.誉.p50": {
-        "value": 80,
+        "value": 78,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -2702,7 +3215,7 @@
         "gate": true
       },
       "reveal.pct": {
-        "value": 38.1,
+        "value": 38.7,
         "warn": 3.3,
         "fail": 6,
         "unit": "%",
@@ -2718,7 +3231,7 @@
         "gate": true
       },
       "mech.peers.perLife": {
-        "value": 2.75,
+        "value": 2.7,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "次/局",
@@ -2726,7 +3239,7 @@
         "gate": true
       },
       "mech.due.perLife": {
-        "value": 0.96,
+        "value": 1.08,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "笔/局",
@@ -2734,7 +3247,7 @@
         "gate": true
       },
       "mech.due_audit.perLife": {
-        "value": 0.11,
+        "value": 0.28,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "笔/局",
@@ -2742,7 +3255,7 @@
         "gate": true
       },
       "mech.due_grudge.perLife": {
-        "value": 0.2,
+        "value": 0.16,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "笔/局",
@@ -2750,7 +3263,7 @@
         "gate": true
       },
       "mech.due_favor.perLife": {
-        "value": 0.65,
+        "value": 0.64,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "笔/局",
@@ -2766,15 +3279,15 @@
         "gate": true
       },
       "mech.full.livesPct": {
-        "value": 32.7,
-        "warn": 3.1,
+        "value": 33.5,
+        "warn": 3.2,
         "fail": 5.8,
         "unit": "%",
         "label": "满招损 · 撞上的局占比",
         "gate": true
       },
       "mech.full.silent.perLife": {
-        "value": 0.82,
+        "value": 0.83,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "次/局",
@@ -2782,7 +3295,7 @@
         "gate": true
       },
       "mech.full.silent.livesPct": {
-        "value": 34.2,
+        "value": 34.3,
         "warn": 3.2,
         "fail": 5.8,
         "unit": "%",
@@ -2790,7 +3303,7 @@
         "gate": true
       },
       "mech.case.livesPct": {
-        "value": 0,
+        "value": 0.3,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -2798,23 +3311,151 @@
         "gate": true
       },
       "law.p50": {
-        "value": 4,
-        "warn": 0,
-        "fail": 0,
+        "value": 5,
+        "warn": 4,
+        "fail": 10,
         "unit": "",
         "label": "律 · 终局 P50",
         "gate": false
       },
       "law.p90": {
-        "value": 12,
-        "warn": 0,
-        "fail": 0,
+        "value": 17.1,
+        "warn": 4,
+        "fail": 10,
         "unit": "",
         "label": "律 · 终局 P90",
         "gate": false
       },
+      "ink.gross.mean": {
+        "value": 12.1,
+        "warn": 3,
+        "fail": 8,
+        "unit": "",
+        "label": "墨供给 · 单局均值",
+        "gate": true
+      },
+      "ink.gross.p50": {
+        "value": 8,
+        "warn": 6,
+        "fail": 15,
+        "unit": "",
+        "label": "墨供给 · P50",
+        "gate": false
+      },
+      "ink.gross.p90": {
+        "value": 26,
+        "warn": 8,
+        "fail": 20,
+        "unit": "",
+        "label": "墨供给 · P90",
+        "gate": false
+      },
+      "ink.final.mean": {
+        "value": 10,
+        "warn": 3,
+        "fail": 8,
+        "unit": "",
+        "label": "墨 · 终局余额均值",
+        "gate": false
+      },
+      "mech.refund.livesPct": {
+        "value": 7.8,
+        "warn": 2,
+        "fail": 5,
+        "unit": "%",
+        "label": "退还 · 触发过的局占比",
+        "gate": true
+      },
+      "mech.refund.warn.pct": {
+        "value": 6.8,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 提点（有人拦你）",
+        "gate": false
+      },
+      "mech.refund.pay.pct": {
+        "value": 2.1,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 退赃（你去还）",
+        "gate": false
+      },
+      "mech.refund.stop.pct": {
+        "value": 0.5,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 收手（你自己回头）",
+        "gate": false
+      },
+      "mech.refund.noRoom.ratio": {
+        "value": 0.46,
+        "warn": 0.15,
+        "fail": 0.35,
+        "unit": "",
+        "label": "· 提点触发率比（室≤5 ÷ 室>5）",
+        "gate": false
+      },
+      "mech.dark.livesPct": {
+        "value": 17,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "深水 · 走过任一道门的局占比",
+        "gate": false
+      },
+      "mech.dark.door.pct": {
+        "value": 17,
+        "warn": 2.5,
+        "fail": 5,
+        "unit": "%",
+        "label": "· 门路（被找上门）",
+        "gate": true
+      },
+      "mech.dark.seal.pct": {
+        "value": 5.4,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 封口（同船的人被带走）",
+        "gate": false
+      },
+      "mech.dark.boat.pct": {
+        "value": 3.1,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 同船（最后一票）",
+        "gate": false
+      },
+      "mech.dark.net.pct": {
+        "value": 1.1,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 收网（案前来人）",
+        "gate": false
+      },
+      "mech.dark.case.rate": {
+        "value": 4,
+        "warn": 5.6,
+        "fail": 9.6,
+        "unit": "%",
+        "label": "深水 · 上过船者的立案率",
+        "gate": true
+      },
+      "mech.darkink40.case.rate": {
+        "value": 3.9,
+        "warn": 5.5,
+        "fail": 9.4,
+        "unit": "%",
+        "label": "深水 · 墨≥40 者的立案率",
+        "gate": true
+      },
       "coverage.seen": {
-        "value": 55,
+        "value": 59,
         "warn": 2,
         "fail": 6,
         "unit": "条",
@@ -2822,15 +3463,15 @@
         "gate": true
       },
       "coverage.pct": {
-        "value": 87.3,
-        "warn": 2.2,
+        "value": 89.4,
+        "warn": 2.1,
         "fail": 5,
         "unit": "%",
         "label": "事件覆盖 · 覆盖率",
         "gate": true
       },
       "coverage.missing": {
-        "value": 8,
+        "value": 7,
         "warn": 2,
         "fail": 6,
         "unit": "条",
@@ -2838,7 +3479,7 @@
         "gate": true
       },
       "coverage.repeat.pct": {
-        "value": 99.8,
+        "value": 99.7,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -2846,7 +3487,7 @@
         "gate": true
       },
       "choice.idx0.pct": {
-        "value": 26.6,
+        "value": 27.2,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -2854,7 +3495,7 @@
         "gate": true
       },
       "choice.idx1.pct": {
-        "value": 44.1,
+        "value": 42,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -2862,7 +3503,7 @@
         "gate": true
       },
       "choice.idx2.pct": {
-        "value": 29.2,
+        "value": 29.8,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -2870,7 +3511,7 @@
         "gate": true
       },
       "choice.idx3.pct": {
-        "value": 0.1,
+        "value": 1,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -2878,9 +3519,9 @@
         "gate": true
       },
       "choice.mono.pct": {
-        "value": 47.6,
-        "warn": 22,
-        "fail": 37.8,
+        "value": 42.6,
+        "warn": 21,
+        "fail": 36,
         "unit": "%",
         "label": "抉择 · 高度集中事件占比",
         "gate": true
@@ -2922,8 +3563,724 @@
       },
       "model.drift": {
         "value": 2,
+        "warn": 1,
+        "fail": 2,
+        "unit": "",
+        "label": "效果模型漂移（自检）",
+        "gate": false
+      },
+      "selfcheck.luPhantom.pct": {
+        "value": 0,
         "warn": 0,
         "fail": 0,
+        "unit": "%",
+        "label": "自检 · 无禄局长出幻顶",
+        "gate": false
+      },
+      "selfcheck.luInMin.pct": {
+        "value": 0,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "自检 · 无禄局把禄计进 min",
+        "gate": false
+      },
+      "selfcheck.yuClaw.pct": {
+        "value": 0,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "自检 · 誉顶 110 被压回",
+        "gate": false
+      },
+      "selfcheck.capClaw": {
+        "value": 0,
+        "warn": 0,
+        "fail": 0,
+        "unit": "次",
+        "label": "自检 · 顶被压回（次）",
+        "gate": false
+      }
+    },
+    "dark": {
+      "lives": {
+        "value": 2000,
+        "warn": 0,
+        "fail": 0,
+        "unit": "局",
+        "label": "局数",
+        "gate": false
+      },
+      "avgFolds": {
+        "value": 13.1,
+        "warn": 0.6,
+        "fail": 1.8,
+        "unit": "折",
+        "label": "平均折数",
+        "gate": true
+      },
+      "avgAge": {
+        "value": 68.5,
+        "warn": 1.2,
+        "fail": 3,
+        "unit": "岁",
+        "label": "平均卒年",
+        "gate": true
+      },
+      "verdict.覆.pct": {
+        "value": 8.8,
+        "warn": 2,
+        "fail": 5,
+        "unit": "%",
+        "label": "结局 · 覆",
+        "gate": true
+      },
+      "verdict.六全.pct": {
+        "value": 0,
+        "warn": 2,
+        "fail": 5,
+        "unit": "%",
+        "label": "结局 · 六全",
+        "gate": true
+      },
+      "verdict.孤.pct": {
+        "value": 20,
+        "warn": 2.7,
+        "fail": 5,
+        "unit": "%",
+        "label": "结局 · 孤",
+        "gate": true
+      },
+      "verdict.绝.pct": {
+        "value": 61.4,
+        "warn": 3.3,
+        "fail": 6,
+        "unit": "%",
+        "label": "结局 · 绝",
+        "gate": true
+      },
+      "verdict.寻常.pct": {
+        "value": 2.9,
+        "warn": 2,
+        "fail": 5,
+        "unit": "%",
+        "label": "结局 · 寻常",
+        "gate": true
+      },
+      "verdict.起伏.pct": {
+        "value": 4.4,
+        "warn": 2,
+        "fail": 5,
+        "unit": "%",
+        "label": "结局 · 起伏",
+        "gate": true
+      },
+      "verdict.缺一.pct": {
+        "value": 1.1,
+        "warn": 2,
+        "fail": 5,
+        "unit": "%",
+        "label": "结局 · 缺一",
+        "gate": true
+      },
+      "verdict.空.pct": {
+        "value": 1.5,
+        "warn": 2,
+        "fail": 5,
+        "unit": "%",
+        "label": "结局 · 空",
+        "gate": true
+      },
+      "verdict.覆.count": {
+        "value": 176,
+        "warn": 0,
+        "fail": 0,
+        "unit": "局",
+        "label": "结局 · 覆（计数）",
+        "gate": false
+      },
+      "verdict.六全.count": {
+        "value": 0,
+        "warn": 0,
+        "fail": 0,
+        "unit": "局",
+        "label": "结局 · 六全（计数）",
+        "gate": false
+      },
+      "verdict.孤.count": {
+        "value": 400,
+        "warn": 0,
+        "fail": 0,
+        "unit": "局",
+        "label": "结局 · 孤（计数）",
+        "gate": false
+      },
+      "verdict.绝.count": {
+        "value": 1227,
+        "warn": 0,
+        "fail": 0,
+        "unit": "局",
+        "label": "结局 · 绝（计数）",
+        "gate": false
+      },
+      "verdict.寻常.count": {
+        "value": 58,
+        "warn": 0,
+        "fail": 0,
+        "unit": "局",
+        "label": "结局 · 寻常（计数）",
+        "gate": false
+      },
+      "verdict.起伏.count": {
+        "value": 87,
+        "warn": 0,
+        "fail": 0,
+        "unit": "局",
+        "label": "结局 · 起伏（计数）",
+        "gate": false
+      },
+      "verdict.缺一.count": {
+        "value": 22,
+        "warn": 0,
+        "fail": 0,
+        "unit": "局",
+        "label": "结局 · 缺一（计数）",
+        "gate": false
+      },
+      "verdict.空.count": {
+        "value": 30,
+        "warn": 0,
+        "fail": 0,
+        "unit": "局",
+        "label": "结局 · 空（计数）",
+        "gate": false
+      },
+      "verdict.覆.cause.clause4.pct": {
+        "value": 0.6,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "覆 · 成因 clause-4（无室无后·家底空）",
+        "gate": false
+      },
+      "verdict.覆.cause.coffer.pct": {
+        "value": 0,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "覆 · 成因 财禄室同时见底",
+        "gate": false
+      },
+      "verdict.覆.cause.law.pct": {
+        "value": 0,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "覆 · 成因 律≥85",
+        "gate": false
+      },
+      "verdict.覆.cause.ruined.pct": {
+        "value": 99.4,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "覆 · 成因 倒台",
+        "gate": false
+      },
+      "six.室.p10": {
+        "value": 1,
+        "warn": 8,
+        "fail": 20,
+        "unit": "",
+        "label": "终局六事 · 室 P10",
+        "gate": true
+      },
+      "six.室.p50": {
+        "value": 15,
+        "warn": 8,
+        "fail": 20,
+        "unit": "",
+        "label": "终局六事 · 室 P50",
+        "gate": true
+      },
+      "six.室.p90": {
+        "value": 33,
+        "warn": 8,
+        "fail": 20,
+        "unit": "",
+        "label": "终局六事 · 室 P90",
+        "gate": true
+      },
+      "six.财.p10": {
+        "value": 38,
+        "warn": 8,
+        "fail": 20,
+        "unit": "",
+        "label": "终局六事 · 财 P10",
+        "gate": true
+      },
+      "six.财.p50": {
+        "value": 89,
+        "warn": 8,
+        "fail": 20,
+        "unit": "",
+        "label": "终局六事 · 财 P50",
+        "gate": true
+      },
+      "six.财.p90": {
+        "value": 110,
+        "warn": 8,
+        "fail": 20,
+        "unit": "",
+        "label": "终局六事 · 财 P90",
+        "gate": true
+      },
+      "six.子.p10": {
+        "value": 0,
+        "warn": 8,
+        "fail": 20,
+        "unit": "",
+        "label": "终局六事 · 子 P10",
+        "gate": true
+      },
+      "six.子.p50": {
+        "value": 0,
+        "warn": 8,
+        "fail": 20,
+        "unit": "",
+        "label": "终局六事 · 子 P50",
+        "gate": true
+      },
+      "six.子.p90": {
+        "value": 0,
+        "warn": 8,
+        "fail": 20,
+        "unit": "",
+        "label": "终局六事 · 子 P90",
+        "gate": true
+      },
+      "six.禄.p10": {
+        "value": 0,
+        "warn": 8,
+        "fail": 20,
+        "unit": "",
+        "label": "终局六事 · 禄 P10",
+        "gate": true
+      },
+      "six.禄.p50": {
+        "value": 0,
+        "warn": 8,
+        "fail": 20,
+        "unit": "",
+        "label": "终局六事 · 禄 P50",
+        "gate": true
+      },
+      "six.禄.p90": {
+        "value": 68,
+        "warn": 8,
+        "fail": 20,
+        "unit": "",
+        "label": "终局六事 · 禄 P90",
+        "gate": true
+      },
+      "six.寿.p10": {
+        "value": 0,
+        "warn": 8,
+        "fail": 20,
+        "unit": "",
+        "label": "终局六事 · 寿 P10",
+        "gate": true
+      },
+      "six.寿.p50": {
+        "value": 0,
+        "warn": 8,
+        "fail": 20,
+        "unit": "",
+        "label": "终局六事 · 寿 P50",
+        "gate": true
+      },
+      "six.寿.p90": {
+        "value": 1,
+        "warn": 8,
+        "fail": 20,
+        "unit": "",
+        "label": "终局六事 · 寿 P90",
+        "gate": true
+      },
+      "six.誉.p10": {
+        "value": 1,
+        "warn": 8,
+        "fail": 20,
+        "unit": "",
+        "label": "终局六事 · 誉 P10",
+        "gate": true
+      },
+      "six.誉.p50": {
+        "value": 46,
+        "warn": 8,
+        "fail": 20,
+        "unit": "",
+        "label": "终局六事 · 誉 P50",
+        "gate": true
+      },
+      "six.誉.p90": {
+        "value": 101,
+        "warn": 8,
+        "fail": 20,
+        "unit": "",
+        "label": "终局六事 · 誉 P90",
+        "gate": true
+      },
+      "reveal.pct": {
+        "value": 61.8,
+        "warn": 3.3,
+        "fail": 6,
+        "unit": "%",
+        "label": "「透」触发率",
+        "gate": true
+      },
+      "mech.duizhi.pct": {
+        "value": 0,
+        "warn": 2,
+        "fail": 5,
+        "unit": "%",
+        "label": "对质局占比",
+        "gate": true
+      },
+      "mech.peers.perLife": {
+        "value": 1.72,
+        "warn": 0.2,
+        "fail": 0.4,
+        "unit": "次/局",
+        "label": "同榜事件",
+        "gate": true
+      },
+      "mech.due.perLife": {
+        "value": 2.39,
+        "warn": 0.2,
+        "fail": 0.4,
+        "unit": "笔/局",
+        "label": "事后账簿合计",
+        "gate": true
+      },
+      "mech.due_audit.perLife": {
+        "value": 2.14,
+        "warn": 0.2,
+        "fail": 0.4,
+        "unit": "笔/局",
+        "label": "· 旧账（audit）",
+        "gate": true
+      },
+      "mech.due_grudge.perLife": {
+        "value": 0.24,
+        "warn": 0.2,
+        "fail": 0.4,
+        "unit": "笔/局",
+        "label": "· 旧怨（grudge）",
+        "gate": true
+      },
+      "mech.due_favor.perLife": {
+        "value": 0,
+        "warn": 0.2,
+        "fail": 0.4,
+        "unit": "笔/局",
+        "label": "· 旧恩（favor）",
+        "gate": true
+      },
+      "mech.full.perLife": {
+        "value": 0.15,
+        "warn": 0.2,
+        "fail": 0.4,
+        "unit": "次/局",
+        "label": "满招损（树大事件）",
+        "gate": true
+      },
+      "mech.full.livesPct": {
+        "value": 15.3,
+        "warn": 2.4,
+        "fail": 5,
+        "unit": "%",
+        "label": "满招损 · 撞上的局占比",
+        "gate": true
+      },
+      "mech.full.silent.perLife": {
+        "value": 0.75,
+        "warn": 0.2,
+        "fail": 0.4,
+        "unit": "次/局",
+        "label": "满招损·常态的漏",
+        "gate": true
+      },
+      "mech.full.silent.livesPct": {
+        "value": 36.4,
+        "warn": 3.2,
+        "fail": 5.9,
+        "unit": "%",
+        "label": "满招损·常态的漏 · 撞上的局占比",
+        "gate": true
+      },
+      "mech.case.livesPct": {
+        "value": 63.9,
+        "warn": 3.2,
+        "fail": 5.9,
+        "unit": "%",
+        "label": "立案（问拟）· 撞上的局占比",
+        "gate": true
+      },
+      "law.p50": {
+        "value": 24,
+        "warn": 4,
+        "fail": 10,
+        "unit": "",
+        "label": "律 · 终局 P50",
+        "gate": false
+      },
+      "law.p90": {
+        "value": 65,
+        "warn": 4,
+        "fail": 10,
+        "unit": "",
+        "label": "律 · 终局 P90",
+        "gate": false
+      },
+      "ink.gross.mean": {
+        "value": 102,
+        "warn": 3,
+        "fail": 8,
+        "unit": "",
+        "label": "墨供给 · 单局均值",
+        "gate": true
+      },
+      "ink.gross.p50": {
+        "value": 106,
+        "warn": 6,
+        "fail": 15,
+        "unit": "",
+        "label": "墨供给 · P50",
+        "gate": false
+      },
+      "ink.gross.p90": {
+        "value": 152,
+        "warn": 8,
+        "fail": 20,
+        "unit": "",
+        "label": "墨供给 · P90",
+        "gate": false
+      },
+      "ink.final.mean": {
+        "value": 86.1,
+        "warn": 3,
+        "fail": 8,
+        "unit": "",
+        "label": "墨 · 终局余额均值",
+        "gate": false
+      },
+      "mech.refund.livesPct": {
+        "value": 66,
+        "warn": 3.2,
+        "fail": 5.8,
+        "unit": "%",
+        "label": "退还 · 触发过的局占比",
+        "gate": true
+      },
+      "mech.refund.warn.pct": {
+        "value": 46.3,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 提点（有人拦你）",
+        "gate": false
+      },
+      "mech.refund.pay.pct": {
+        "value": 38.5,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 退赃（你去还）",
+        "gate": false
+      },
+      "mech.refund.stop.pct": {
+        "value": 23.1,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 收手（你自己回头）",
+        "gate": false
+      },
+      "mech.refund.noRoom.ratio": {
+        "value": 0.55,
+        "warn": 0.15,
+        "fail": 0.35,
+        "unit": "",
+        "label": "· 提点触发率比（室≤5 ÷ 室>5）",
+        "gate": false
+      },
+      "mech.dark.livesPct": {
+        "value": 93.6,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "深水 · 走过任一道门的局占比",
+        "gate": false
+      },
+      "mech.dark.door.pct": {
+        "value": 93.6,
+        "warn": 2,
+        "fail": 5,
+        "unit": "%",
+        "label": "· 门路（被找上门）",
+        "gate": true
+      },
+      "mech.dark.seal.pct": {
+        "value": 71.1,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 封口（同船的人被带走）",
+        "gate": false
+      },
+      "mech.dark.boat.pct": {
+        "value": 24.4,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 同船（最后一票）",
+        "gate": false
+      },
+      "mech.dark.net.pct": {
+        "value": 4.2,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 收网（案前来人）",
+        "gate": false
+      },
+      "mech.dark.case.rate": {
+        "value": 68.3,
+        "warn": 3.8,
+        "fail": 6.5,
+        "unit": "%",
+        "label": "深水 · 上过船者的立案率",
+        "gate": true
+      },
+      "mech.darkink40.case.rate": {
+        "value": 68.3,
+        "warn": 3.8,
+        "fail": 6.5,
+        "unit": "%",
+        "label": "深水 · 墨≥40 者的立案率",
+        "gate": true
+      },
+      "coverage.seen": {
+        "value": 63,
+        "warn": 2,
+        "fail": 6,
+        "unit": "条",
+        "label": "事件覆盖 · 抽到条数",
+        "gate": true
+      },
+      "coverage.pct": {
+        "value": 95.5,
+        "warn": 2,
+        "fail": 5,
+        "unit": "%",
+        "label": "事件覆盖 · 覆盖率",
+        "gate": true
+      },
+      "coverage.missing": {
+        "value": 3,
+        "warn": 2,
+        "fail": 6,
+        "unit": "条",
+        "label": "事件覆盖 · 未抽到条数",
+        "gate": true
+      },
+      "coverage.repeat.pct": {
+        "value": 99.7,
+        "warn": 2,
+        "fail": 5,
+        "unit": "%",
+        "label": "事件重复率",
+        "gate": true
+      },
+      "choice.idx0.pct": {
+        "value": 25,
+        "warn": 2,
+        "fail": 5,
+        "unit": "%",
+        "label": "抉择 · 选第 1 项",
+        "gate": true
+      },
+      "choice.idx1.pct": {
+        "value": 43.7,
+        "warn": 2,
+        "fail": 5,
+        "unit": "%",
+        "label": "抉择 · 选第 2 项",
+        "gate": true
+      },
+      "choice.idx2.pct": {
+        "value": 29.7,
+        "warn": 2,
+        "fail": 5,
+        "unit": "%",
+        "label": "抉择 · 选第 3 项",
+        "gate": true
+      },
+      "choice.idx3.pct": {
+        "value": 1.6,
+        "warn": 2,
+        "fail": 5,
+        "unit": "%",
+        "label": "抉择 · 选第 4 项",
+        "gate": true
+      },
+      "choice.mono.pct": {
+        "value": 83.6,
+        "warn": 16.6,
+        "fail": 28.4,
+        "unit": "%",
+        "label": "抉择 · 高度集中事件占比",
+        "gate": true
+      },
+      "heir.has.pct": {
+        "value": 8.5,
+        "warn": 2,
+        "fail": 5,
+        "unit": "%",
+        "label": "有后率",
+        "gate": true
+      },
+      "heir.job.仕": {
+        "value": 0,
+        "warn": 12,
+        "fail": 25,
+        "unit": "%",
+        "label": "立业率 · 仕",
+        "gate": true,
+        "note": "子样本仅 22 局，容差放宽"
+      },
+      "heir.job.商": {
+        "value": 0,
+        "warn": 12,
+        "fail": 25,
+        "unit": "%",
+        "label": "立业率 · 商",
+        "gate": true,
+        "note": "子样本仅 2 局，容差放宽"
+      },
+      "heir.job.市": {
+        "value": 49.7,
+        "warn": 14.5,
+        "fail": 24.9,
+        "unit": "%",
+        "label": "立业率 · 市",
+        "gate": true
+      },
+      "model.drift": {
+        "value": 2,
+        "warn": 1,
+        "fail": 2,
         "unit": "",
         "label": "效果模型漂移（自检）",
         "gate": false
@@ -2979,7 +4336,7 @@
         "gate": true
       },
       "avgAge": {
-        "value": 69.5,
+        "value": 69.6,
         "warn": 1.2,
         "fail": 3,
         "unit": "岁",
@@ -2987,7 +4344,7 @@
         "gate": true
       },
       "verdict.覆.pct": {
-        "value": 2.4,
+        "value": 2.3,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -2995,7 +4352,7 @@
         "gate": true
       },
       "verdict.六全.pct": {
-        "value": 0.4,
+        "value": 0.5,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -3003,39 +4360,39 @@
         "gate": true
       },
       "verdict.孤.pct": {
-        "value": 17.8,
-        "warn": 2.6,
+        "value": 16.6,
+        "warn": 2.5,
         "fail": 5,
         "unit": "%",
         "label": "结局 · 孤",
         "gate": true
       },
       "verdict.绝.pct": {
-        "value": 19.1,
-        "warn": 2.6,
-        "fail": 5,
+        "value": 22.4,
+        "warn": 2.8,
+        "fail": 5.1,
         "unit": "%",
         "label": "结局 · 绝",
         "gate": true
       },
       "verdict.寻常.pct": {
-        "value": 16.1,
-        "warn": 2.5,
+        "value": 15.4,
+        "warn": 2.4,
         "fail": 5,
         "unit": "%",
         "label": "结局 · 寻常",
         "gate": true
       },
       "verdict.起伏.pct": {
-        "value": 23.8,
-        "warn": 2.9,
+        "value": 23,
+        "warn": 2.8,
         "fail": 5.2,
         "unit": "%",
         "label": "结局 · 起伏",
         "gate": true
       },
       "verdict.缺一.pct": {
-        "value": 14.3,
+        "value": 13.8,
         "warn": 2.3,
         "fail": 5,
         "unit": "%",
@@ -3043,7 +4400,7 @@
         "gate": true
       },
       "verdict.空.pct": {
-        "value": 5.9,
+        "value": 6,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -3051,7 +4408,7 @@
         "gate": true
       },
       "verdict.覆.count": {
-        "value": 237,
+        "value": 226,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -3059,7 +4416,7 @@
         "gate": false
       },
       "verdict.六全.count": {
-        "value": 44,
+        "value": 52,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -3067,7 +4424,7 @@
         "gate": false
       },
       "verdict.孤.count": {
-        "value": 1784,
+        "value": 1663,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -3075,7 +4432,7 @@
         "gate": false
       },
       "verdict.绝.count": {
-        "value": 1910,
+        "value": 2241,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -3083,7 +4440,7 @@
         "gate": false
       },
       "verdict.寻常.count": {
-        "value": 1611,
+        "value": 1540,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -3091,7 +4448,7 @@
         "gate": false
       },
       "verdict.起伏.count": {
-        "value": 2385,
+        "value": 2298,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -3099,7 +4456,7 @@
         "gate": false
       },
       "verdict.缺一.count": {
-        "value": 1434,
+        "value": 1382,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -3107,7 +4464,7 @@
         "gate": false
       },
       "verdict.空.count": {
-        "value": 595,
+        "value": 598,
         "warn": 0,
         "fail": 0,
         "unit": "局",
@@ -3115,7 +4472,7 @@
         "gate": false
       },
       "verdict.覆.cause.clause4.pct": {
-        "value": 85.2,
+        "value": 77.9,
         "warn": 0,
         "fail": 0,
         "unit": "%",
@@ -3123,7 +4480,7 @@
         "gate": false
       },
       "verdict.覆.cause.coffer.pct": {
-        "value": 14.8,
+        "value": 11.9,
         "warn": 0,
         "fail": 0,
         "unit": "%",
@@ -3139,7 +4496,7 @@
         "gate": false
       },
       "verdict.覆.cause.ruined.pct": {
-        "value": 0,
+        "value": 10.2,
         "warn": 0,
         "fail": 0,
         "unit": "%",
@@ -3163,7 +4520,7 @@
         "gate": true
       },
       "six.室.p90": {
-        "value": 86,
+        "value": 84,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -3171,7 +4528,7 @@
         "gate": true
       },
       "six.财.p10": {
-        "value": 20,
+        "value": 22,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -3179,7 +4536,7 @@
         "gate": true
       },
       "six.财.p50": {
-        "value": 57,
+        "value": 58,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -3259,7 +4616,7 @@
         "gate": true
       },
       "six.寿.p90": {
-        "value": 2,
+        "value": 3,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -3267,7 +4624,7 @@
         "gate": true
       },
       "six.誉.p10": {
-        "value": 28,
+        "value": 21,
         "warn": 8,
         "fail": 20,
         "unit": "",
@@ -3291,7 +4648,7 @@
         "gate": true
       },
       "reveal.pct": {
-        "value": 43.5,
+        "value": 43.2,
         "warn": 3.3,
         "fail": 6.1,
         "unit": "%",
@@ -3299,15 +4656,15 @@
         "gate": true
       },
       "mech.duizhi.pct": {
-        "value": 11.8,
-        "warn": 2.2,
+        "value": 11.4,
+        "warn": 2.1,
         "fail": 5,
         "unit": "%",
         "label": "对质局占比",
         "gate": true
       },
       "mech.peers.perLife": {
-        "value": 2.6,
+        "value": 2.53,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "次/局",
@@ -3315,7 +4672,7 @@
         "gate": true
       },
       "mech.due.perLife": {
-        "value": 0.93,
+        "value": 1.09,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "笔/局",
@@ -3323,7 +4680,7 @@
         "gate": true
       },
       "mech.due_audit.perLife": {
-        "value": 0.16,
+        "value": 0.4,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "笔/局",
@@ -3331,7 +4688,7 @@
         "gate": true
       },
       "mech.due_grudge.perLife": {
-        "value": 0.25,
+        "value": 0.22,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "笔/局",
@@ -3339,7 +4696,7 @@
         "gate": true
       },
       "mech.due_favor.perLife": {
-        "value": 0.52,
+        "value": 0.47,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "笔/局",
@@ -3347,7 +4704,7 @@
         "gate": true
       },
       "mech.full.perLife": {
-        "value": 0.51,
+        "value": 0.49,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "次/局",
@@ -3355,15 +4712,15 @@
         "gate": true
       },
       "mech.full.livesPct": {
-        "value": 33.6,
-        "warn": 3.2,
+        "value": 32.5,
+        "warn": 3.1,
         "fail": 5.8,
         "unit": "%",
         "label": "满招损 · 撞上的局占比",
         "gate": true
       },
       "mech.full.silent.perLife": {
-        "value": 0.85,
+        "value": 0.84,
         "warn": 0.2,
         "fail": 0.4,
         "unit": "次/局",
@@ -3371,15 +4728,15 @@
         "gate": true
       },
       "mech.full.silent.livesPct": {
-        "value": 34.6,
+        "value": 34.4,
         "warn": 3.2,
-        "fail": 5.9,
+        "fail": 5.8,
         "unit": "%",
         "label": "满招损·常态的漏 · 撞上的局占比",
         "gate": true
       },
       "mech.case.livesPct": {
-        "value": 0,
+        "value": 1.4,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -3387,23 +4744,151 @@
         "gate": true
       },
       "law.p50": {
-        "value": 4,
-        "warn": 0,
-        "fail": 0,
+        "value": 5,
+        "warn": 4,
+        "fail": 10,
         "unit": "",
         "label": "律 · 终局 P50",
         "gate": false
       },
       "law.p90": {
-        "value": 14,
-        "warn": 0,
-        "fail": 0,
+        "value": 28,
+        "warn": 4,
+        "fail": 10,
         "unit": "",
         "label": "律 · 终局 P90",
         "gate": false
       },
+      "ink.gross.mean": {
+        "value": 15,
+        "warn": 3,
+        "fail": 8,
+        "unit": "",
+        "label": "墨供给 · 单局均值",
+        "gate": true
+      },
+      "ink.gross.p50": {
+        "value": 8,
+        "warn": 6,
+        "fail": 15,
+        "unit": "",
+        "label": "墨供给 · P50",
+        "gate": false
+      },
+      "ink.gross.p90": {
+        "value": 42,
+        "warn": 8,
+        "fail": 20,
+        "unit": "",
+        "label": "墨供给 · P90",
+        "gate": false
+      },
+      "ink.final.mean": {
+        "value": 13.2,
+        "warn": 3,
+        "fail": 8,
+        "unit": "",
+        "label": "墨 · 终局余额均值",
+        "gate": false
+      },
+      "mech.refund.livesPct": {
+        "value": 10.6,
+        "warn": 2.1,
+        "fail": 5,
+        "unit": "%",
+        "label": "退还 · 触发过的局占比",
+        "gate": true
+      },
+      "mech.refund.warn.pct": {
+        "value": 8.9,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 提点（有人拦你）",
+        "gate": false
+      },
+      "mech.refund.pay.pct": {
+        "value": 2.9,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 退赃（你去还）",
+        "gate": false
+      },
+      "mech.refund.stop.pct": {
+        "value": 1,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 收手（你自己回头）",
+        "gate": false
+      },
+      "mech.refund.noRoom.ratio": {
+        "value": 0.5,
+        "warn": 0.15,
+        "fail": 0.35,
+        "unit": "",
+        "label": "· 提点触发率比（室≤5 ÷ 室>5）",
+        "gate": false
+      },
+      "mech.dark.livesPct": {
+        "value": 21.9,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "深水 · 走过任一道门的局占比",
+        "gate": false
+      },
+      "mech.dark.door.pct": {
+        "value": 21.9,
+        "warn": 2.8,
+        "fail": 5.1,
+        "unit": "%",
+        "label": "· 门路（被找上门）",
+        "gate": true
+      },
+      "mech.dark.seal.pct": {
+        "value": 7.5,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 封口（同船的人被带走）",
+        "gate": false
+      },
+      "mech.dark.boat.pct": {
+        "value": 4.3,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 同船（最后一票）",
+        "gate": false
+      },
+      "mech.dark.net.pct": {
+        "value": 0.7,
+        "warn": 0,
+        "fail": 0,
+        "unit": "%",
+        "label": "· 收网（案前来人）",
+        "gate": false
+      },
+      "mech.dark.case.rate": {
+        "value": 10.9,
+        "warn": 3.1,
+        "fail": 5.2,
+        "unit": "%",
+        "label": "深水 · 上过船者的立案率",
+        "gate": true
+      },
+      "mech.darkink40.case.rate": {
+        "value": 11.6,
+        "warn": 3.2,
+        "fail": 5.6,
+        "unit": "%",
+        "label": "深水 · 墨≥40 者的立案率",
+        "gate": true
+      },
       "coverage.seen": {
-        "value": 62,
+        "value": 66,
         "warn": 2,
         "fail": 6,
         "unit": "条",
@@ -3411,7 +4896,7 @@
         "gate": true
       },
       "coverage.pct": {
-        "value": 98.4,
+        "value": 100,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -3419,7 +4904,7 @@
         "gate": true
       },
       "coverage.missing": {
-        "value": 1,
+        "value": 0,
         "warn": 2,
         "fail": 6,
         "unit": "条",
@@ -3443,7 +4928,7 @@
         "gate": true
       },
       "choice.idx1.pct": {
-        "value": 26.9,
+        "value": 26.1,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -3451,7 +4936,7 @@
         "gate": true
       },
       "choice.idx2.pct": {
-        "value": 20.3,
+        "value": 20.8,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -3459,7 +4944,7 @@
         "gate": true
       },
       "choice.idx3.pct": {
-        "value": 0,
+        "value": 0.3,
         "warn": 2,
         "fail": 5,
         "unit": "%",
@@ -3475,7 +4960,7 @@
         "gate": true
       },
       "heir.has.pct": {
-        "value": 56.1,
+        "value": 54.2,
         "warn": 3.3,
         "fail": 6.1,
         "unit": "%",
@@ -3483,23 +4968,23 @@
         "gate": true
       },
       "heir.job.仕": {
-        "value": 55.1,
-        "warn": 4.3,
-        "fail": 7.4,
+        "value": 58,
+        "warn": 4.4,
+        "fail": 7.5,
         "unit": "%",
         "label": "立业率 · 仕",
         "gate": true
       },
       "heir.job.商": {
-        "value": 58.1,
-        "warn": 5.5,
-        "fail": 9.5,
+        "value": 57.6,
+        "warn": 5.7,
+        "fail": 9.7,
         "unit": "%",
         "label": "立业率 · 商",
         "gate": true
       },
       "heir.job.市": {
-        "value": 52.7,
+        "value": 52.2,
         "warn": 3.2,
         "fail": 5.5,
         "unit": "%",
@@ -3508,8 +4993,8 @@
       },
       "model.drift": {
         "value": 2,
-        "warn": 0,
-        "fail": 0,
+        "warn": 1,
+        "fail": 2,
         "unit": "",
         "label": "效果模型漂移（自检）",
         "gate": false

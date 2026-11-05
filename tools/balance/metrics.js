@@ -75,6 +75,33 @@ add('mech.case.livesPct', '立案（问拟）· 撞上的局占比', '%', B_RATE
 add('law.p50', '律 · 终局 P50', '', B_SIX, false);
 add('law.p90', '律 · 终局 P90', '', B_SIX, false);
 
+/* ── 墨与黑线（卡 03-03）───────────────────────────────────────
+   律 = 累计墨 × 0.6，所以"立案（律 60）"等价于"单局累计墨 ≥100"。
+   墨的供给因此要看 gross（选项上写下多少墨），不看终局余额：
+   退还只减墨，终局余额会把"曾经很深、后来退了"的人生抹平。 */
+add('ink.gross.mean', '墨供给 · 单局均值', '', { warn: 3, fail: 8 });
+add('ink.gross.p50', '墨供给 · P50', '', { warn: 6, fail: 15 }, false);
+add('ink.gross.p90', '墨供给 · P90', '', { warn: 8, fail: 20 }, false);
+add('ink.final.mean', '墨 · 终局余额均值', '', { warn: 3, fail: 8 }, false);
+
+/* 退还：只清自己的账，不销衙门的账（三条，一世各一次） */
+add('mech.refund.livesPct', '退还 · 触发过的局占比', '%', B_RATE);
+add('mech.refund.warn.pct', '· 提点（有人拦你）', '%', null, false);
+add('mech.refund.pay.pct', '· 退赃（你去还）', '%', null, false);
+add('mech.refund.stop.pct', '· 收手（你自己回头）', '%', null, false);
+/* §1.1「无人劝你」只落在提点上：看的是"触发率之比"，不是"人数之比" */
+add('mech.refund.noRoom.ratio', '· 提点触发率比（室≤5 ÷ 室>5）', '', { warn: 0.15, fail: 0.35 }, false);
+
+/* 深水四道门：门路 → 封口 → 同船 → 收网（上船容易，下船贵） */
+add('mech.dark.livesPct', '深水 · 走过任一道门的局占比', '%', null, false);
+add('mech.dark.door.pct', '· 门路（被找上门）', '%', B_RATE);
+add('mech.dark.seal.pct', '· 封口（同船的人被带走）', '%', null, false);
+add('mech.dark.boat.pct', '· 同船（最后一票）', '%', null, false);
+add('mech.dark.net.pct', '· 收网（案前来人）', '%', null, false);
+/* 走到这条线上的人，最后有多少等到了立案 */
+add('mech.dark.case.rate', '深水 · 上过船者的立案率', '%', B_RATE);
+add('mech.darkink40.case.rate', '深水 · 墨≥40 者的立案率', '%', B_RATE);
+
 add('coverage.seen', '事件覆盖 · 抽到条数', '条', B_CNT);
 add('coverage.pct', '事件覆盖 · 覆盖率', '%', B_PCT);
 add('coverage.missing', '事件覆盖 · 未抽到条数', '条', B_CNT);
@@ -182,6 +209,56 @@ function compute(recs, meta) {
   const lawArr = recs.map(r => r.law || 0);
   M['law.p50'] = p1(pctile(lawArr, 0.50));
   M['law.p90'] = p1(pctile(lawArr, 0.90));
+
+  /* ── 墨的供给 / 退还 / 深水四道门（卡 03-03） ───────────────── */
+  const inkGrossArr = recs.map(r => r.inkGross || 0);
+  M['ink.gross.mean'] = n ? p1(sum(r => r.inkGross) / n) : 0;
+  M['ink.gross.p50'] = p1(pctile(inkGrossArr, 0.50));
+  M['ink.gross.p90'] = p1(pctile(inkGrossArr, 0.90));
+  M['ink.final.mean'] = n ? p1(sum(r => r.inkFinal) / n) : 0;
+
+  const hasEv = (r, id) => r.events.indexOf(id) >= 0;
+
+  const refAny = recs.filter(r => hasEv(r, 'ref_warn') || hasEv(r, 'ref_pay') || hasEv(r, 'ref_stop'));
+  M['mech.refund.livesPct'] = n ? p1(refAny.length / n * 100) : 0;
+  D.refund = {};
+  for (const pair of [['warn', 'ref_warn'], ['pay', 'ref_pay'], ['stop', 'ref_stop']]) {
+    const c = recs.filter(r => hasEv(r, pair[1])).length;
+    M[`mech.refund.${pair[0]}.pct`] = n ? p1(c / n * 100) : 0;
+    D.refund[pair[0]] = c;
+  }
+  // 「无人劝你」减半：按"机会"加权，不按"人数"加权
+  let eA = 0, fA = 0, eB = 0, fB = 0;
+  for (const r of recs) {
+    const e = r.refExp || [0, 0], f = r.refFire || [0, 0];
+    eA += e[0] || 0; fA += f[0] || 0;
+    eB += e[1] || 0; fB += f[1] || 0;
+  }
+  const rateA = eA ? fA / eA : 0;
+  const rateB = eB ? fB / eB : 0;
+  M['mech.refund.noRoom.ratio'] = rateA ? p2(rateB / rateA) : 0;
+  D.refundBucket = { exp: [eA, eB], fire: [fA, fB], rate: [p2(rateA), p2(rateB)] };
+
+  const darkGates = [['door', 'dark_door'], ['seal', 'dark_seal'], ['boat', 'dark_boat'], ['net', 'dark_net']];
+  D.dark = {};
+  for (const pair of darkGates) {
+    const c = recs.filter(r => hasEv(r, pair[1])).length;
+    M[`mech.dark.${pair[0]}.pct`] = n ? p1(c / n * 100) : 0;
+    D.dark[pair[0]] = c;
+  }
+  M['mech.dark.livesPct'] = n
+    ? p1(recs.filter(r => darkGates.some(p => hasEv(r, p[1]))).length / n * 100) : 0;
+
+  const darkN = recs.filter(r => r.darkIn).length;
+  const darkCase = recs.filter(r => r.darkIn && hasEv(r, 'case')).length;
+  M['mech.dark.case.rate'] = darkN ? p1(darkCase / darkN * 100) : 0;
+  const ink40N = recs.filter(r => (r.inkGross || 0) >= 40).length;
+  const ink40Case = recs.filter(r => (r.inkGross || 0) >= 40 && hasEv(r, 'case')).length;
+  M['mech.darkink40.case.rate'] = ink40N ? p1(ink40Case / ink40N * 100) : 0;
+  D.darkN = darkN;
+  D.darkCase = darkCase;
+  D.ink40N = ink40N;
+  D.ink40Case = ink40Case;
 
   /* 事件覆盖 */
   const allIds = Array.isArray(meta.eventIds) ? meta.eventIds : [];
