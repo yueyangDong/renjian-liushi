@@ -2521,6 +2521,7 @@ function startLife(origin){
     study: 0,
     // 情关：情／义／时三轴。情不出数，只给字数
     love: null, lockSix: {}, knots: [], concubine: false,
+    yi: 0,              // 义（卡 03-05）：你欠她的。不显示数，只给一句话；不随时间衰减
     capSix: null,
     // 子：不看水位，看台阶。五级各占一份，缺哪级就是缺哪级
     heir: { has: false, born: 0, judged: false, job: false, grand: false, great: false, lost: false },
@@ -2619,6 +2620,9 @@ function renderLife(){
   if (V && !V.done) hintLines.push('情 · ' + V.xing + '家 · 窗口还剩 ' + Math.max(0, V.shi) + ' 折');
   else if (V && V.result) hintLines.push('情 · ' + V.result + ' —— ' + LKIND[V.kind].an);
   if (L.knots && L.knots.length) hintLines.push('情 · ' + L.knots.join('、') + ' · 记着');
+  // 义：不给数，只给一句话。小账不值得说，压得住的账也不必天天想
+  if ((L.yi || 0) >= 16) hintLines.push('义 · ' + ((L.yi || 0) >= 40
+    ? '这笔账压了半辈子，快压不住了' : '欠着一笔，没算清'));
   // 气运不给数，只给一句"风往哪边吹"
   hintLines.push('运 · ' + (L.yun >= 76 ? '这几年风是顺着吹的，做什么都有人接'
     : L.yun >= 60 ? '还算顺'
@@ -3330,6 +3334,9 @@ function pickEvent(){
   }
   // 情关的窗口到了。这一折不谈别的，只谈这一件
   if (L.love && L.love.due && !L.love.done) return makeKnot(L);
+  // 义账跟着情关走：了了之后那笔账才浮起来。早判，防被后来的动态事件挤到人死
+  const yiEv = yiDebtEvent(L);
+  if (yiEv) return yiEv;
   // 三年前那一笔，会自己找上门。这一折不谈别的
   const dueEv = dueEvent(L);
   if (dueEv) return dueEv;
@@ -3561,12 +3568,17 @@ function choose(ev, o){
 
   // 情关：开、断、还是干脆不议亲
   if (o.knot) resolveKnot(L, o.knot);
+  // 义账（卡 03-05）：全还／半还／不还。义不动六事，动的是这辈子的说法
+  if (o.yiPay){
+    if (o.yiPay >= 99){ L.yi = 0; heirNote(L, L.age + ' 岁，那笔账还上了。'); }
+    else { L.yi = Math.max(0, (L.yi || 0) - o.yiPay); heirNote(L, L.age + ' 岁，还了一半，剩下的一半还在那儿。'); }
+  }
+  if (o.yiNo){ knotted(L, '欠'); heirNote(L, L.age + ' 岁，那笔账，到底没还。'); }
   if (o.love === 'none'){ L.lone = true; L.loneSoft = true; }
   else if (o.love){
     startLove(L);
     if (o.love === 'chase'){
       L.love.qing = clamp(L.love.qing + 12, 0, 100);
-      L.love.mine = clamp(L.love.mine + 12, 0, 100);
     } else {
       L.love.qing = clamp(L.love.qing + 4, 0, 100);
       bump(L, '室', 4);
@@ -3971,8 +3983,7 @@ function startLove(L){
   L.love = {
     kind, xing: pick(XING), look: pick(LOOK),
     qing: kind === 'A' ? lo() : hi(),
-    mine: kind === 'B' ? lo() : hi(),
-    yi: 0, shi: 1, done: false, due: false,
+    shi: 1, done: false, due: false,
     result: null, mods: null
   };
   heirNote(L, L.age + ' 岁，我见到了' + L.love.xing + '家的姑娘。' + L.love.look);
@@ -3983,6 +3994,8 @@ function stepLove(L){
   const V = L.love;
   if (!V || V.done) return;
   V.qing = clamp(V.qing - 8, 0, 100);
+  // 义（卡 03-05）：B 型开着的时候，她等你的每一年都是欠账。情会淡，义不会。
+  if (V.kind === 'B') L.yi = Math.min(60, (L.yi || 0) + 3);
   if (V.mods) for (const k in V.mods) bump(L, k, V.mods[k]);
   if (V.shi > 0){ V.shi--; if (V.shi <= 0) V.due = true; }
 }
@@ -4050,6 +4063,78 @@ function makeKnot(L){
 function knotted(L, tag){ L.knots = L.knots || []; if (!L.knots.includes(tag)) L.knots.push(tag); }
 function lockSix(L, k){ L.lockSix = L.lockSix || {}; L.lockSix[k] = Math.min(L.lockSix[k] === undefined ? 100 : L.lockSix[k], 70); }
 
+/* ── 义账（卡 03-05）：情关了了，账没消 ──────────────────────────
+   一世一次。按情关怎么收场分四种身子：
+   她病了（B·娶）／她托人带话（B·不娶·拖）／她娘家来求（A·半·C·挽回）／她家不认账（D·扛）。
+   三个选项都有真代价——全还最贵（钱、寿、位子），半还省钱账留着，不还拿誉去换。
+   游戏不告诉玩家哪个对，只告诉他要付什么。 */
+function yiDebtEvent(L){
+  if (L.monk || L.ruined) return null;
+  if ((L.yi || 0) < 16) return null;
+  if (!L.love || !L.love.done) return null;
+  if (L.age < 34 || L.used.includes('yidebt')) return null;
+  const V = L.love;
+  let key = 'word';
+  if (V.kind === 'B') key = V.act === 'marry' ? 'sick' : 'word';
+  else if (V.kind === 'A' || V.kind === 'C') key = 'family';
+  else if (V.kind === 'D') key = 'deny';
+  const BODY = {
+    sick: {
+      an: `她病了一场，躺了半个月。家里带信到任上，信里说不让人告诉你。信末添了一句：她一直问你哪天回。`,
+      mo: `${V.xing}做了手术，住院九天。你是在出院那天才知道的。她说：怕耽误你开会。`
+    },
+    word: {
+      an: `她托人带了一句话，什么也不要，只问：当年你说不娶，是不是因为她不够好。`,
+      mo: `她发来一条消息，删了又发，最后只有一句：我就想问一句，当年是不是我不够好。`
+    },
+    family: {
+      an: `她娘家来人，说想借一笔钱周转。数目不小，话说得很客气，客气里带着"你该的"。`,
+      mo: `她弟弟找上门，说生意上周转不开。他说：我姐当年为你……话没说完。`
+    },
+    deny: {
+      an: `当年替她家扛的那笔债，如今她家不认了。她哥哥在外头说：那是他自己愿意的。`,
+      mo: `当年替她家担的那笔钱，如今没人提了。她哥哥在饭桌上说：那是他自己愿意的。`
+    }
+  }[key];
+  const OPTS = {
+    sick: [
+      { t:'回 去', sub:'位子可以再等，人不能', eff:{财:-10, 寿:-5, 誉:6}, yiPay:99,
+        line:'我回去了。那半个月，我天天给她端水。' },
+      { t:'托 人', sub:'请最好的大夫，人不回去', eff:{财:-8, 誉:2}, yiPay:12,
+        line:'我托了人，请了最好的大夫。我没回去。' },
+      { t:'不 回', sub:'会开完了，病也好了', eff:{誉:-6}, yiNo:true,
+        line:'我没回去。会开完了，她的病也好了。' }
+    ],
+    word: [
+      { t:'说 实 话', sub:'欠她一个答案', eff:{寿:-5, 誉:4}, yiPay:99,
+        line:'我回了。我说不是。她隔了很久，回了一个"好"字。' },
+      { t:'拖 几 天', sub:'想了三天才回', eff:{寿:-1, 誉:2}, yiPay:12,
+        line:'我想了三天才回。她没再问。' },
+      { t:'不 回', sub:'看了很多遍，没回', eff:{誉:-6}, yiNo:true,
+        line:'我没回。那条消息我看了很多遍，一直没有回。' }
+    ],
+    family: [
+      { t:'借', sub:'把钱拿出来', eff:{财:-16, 誉:6}, yiPay:99,
+        line:'我把钱借了。她弟弟走的时候，腰弯得比来时低。' },
+      { t:'借 一 半', sub:'说手头也紧', eff:{财:-6, 誉:2}, yiPay:12,
+        line:'我借了一半，说手头也紧。他谢了我，谢得很客气。' },
+      { t:'不 借', sub:'这账不该我认', eff:{誉:-8}, yiNo:true,
+        line:'我没借。后来听说他们家把房子卖了。' }
+    ],
+    deny: [
+      { t:'认 了', sub:'就当从来没有过', eff:{寿:-5, 誉:6}, yiPay:99,
+        line:'我认了。那笔钱，就当从来没有过。' },
+      { t:'要 个 说 法', sub:'托人去问一句', eff:{财:-4, 誉:2}, yiPay:12,
+        line:'我托人去要个说法。说法没要到，来往也断了。' },
+      { t:'算 了', sub:'三个字，比钱重', eff:{誉:-6}, yiNo:true,
+        line:'我说算了。那三个字说出口，比那笔钱还重。' }
+    ]
+  }[key];
+  L.used.push('yidebt');          // 一世一次：不标这里，"不还"之后下一折还会再来
+  return { id:'yidebt', an:'义 账', mo:'一 笔 旧 账',
+    bodyAn: BODY.an, bodyMo: BODY.mo, opts: OPTS };
+}
+
 function resolveKnot(L, act){
   const V = L.love; if (!V || V.done) return;
   const K = V.kind, q = clamp(V.qing + (L.yun - 50) * 0.25, 0, 100);
@@ -4105,6 +4190,12 @@ function resolveKnot(L, act){
     }
   }
   V.result = res;
+  // 义（卡 03-05）：情关怎么收场，账就怎么长出来。每条收场都单独越过义账门槛 16，
+  // 否则 A/C/D 三种"身子"永远不触发（第一版按 B 单线写成 8~16，全是死代码）
+  const YIADD = { B:{marry:16, refuse:20, drag:30}, C:{save:18}, D:{carry:22} };
+  let addYi = (YIADD[K] || {})[act] || 0;
+  if (K === 'A' && res === '半') addYi = 20;      // 娶的是将就
+  if (addYi) L.yi = Math.min(60, (L.yi || 0) + addYi);
   if (line) heirNote(L, L.age + ' 岁：' + line);
   recalcCaps(L);
   // 那一下要你看见，不能只是数字
@@ -4327,6 +4418,9 @@ function endLife(reason){
   // 史评：五笔法。死后三年才定稿（见 histoBio）
   const hb = histoBio(L);
   const biog = hb.bio;
+
+  // 义账未还：不扣数，只落字。人走了，账还在（卡 03-05）
+  if ((L.yi || 0) >= 16) heirNote(L, '临走前想起一个人。有一笔账，到底没还上。');
 
   // 手记：取三句
   let lines = L.lines.slice(-3);

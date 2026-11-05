@@ -102,6 +102,14 @@ add('mech.dark.net.pct', '· 收网（案前来人）', '%', null, false);
 add('mech.dark.case.rate', '深水 · 上过船者的立案率', '%', B_RATE);
 add('mech.darkink40.case.rate', '深水 · 墨≥40 者的立案率', '%', B_RATE);
 
+/* ── 义轴（卡 03-05）：义不显示数，但回归台得数得清 ────────────── */
+add('mech.yi.mean', '义 · 终局均值', '', null, false);
+add('mech.yi.debt.livesPct', '义账 · 触发的局占比', '%', B_RATE);
+add('mech.yi.pay.full.pct', '· 全还', '%', null, false);
+add('mech.yi.pay.part.pct', '· 半还', '%', null, false);
+add('mech.yi.pay.none.pct', '· 不还', '%', null, false);
+add('mech.yi.unpaid.pct', '义 · 终局≥16 未清 的局占比', '%', null, false);
+
 add('coverage.seen', '事件覆盖 · 抽到条数', '条', B_CNT);
 add('coverage.pct', '事件覆盖 · 覆盖率', '%', B_PCT);
 add('coverage.missing', '事件覆盖 · 未抽到条数', '条', B_CNT);
@@ -255,6 +263,19 @@ function compute(recs, meta) {
   const ink40N = recs.filter(r => (r.inkGross || 0) >= 40).length;
   const ink40Case = recs.filter(r => (r.inkGross || 0) >= 40 && hasEv(r, 'case')).length;
   M['mech.darkink40.case.rate'] = ink40N ? p1(ink40Case / ink40N * 100) : 0;
+  /* ── 义轴（卡 03-05） ───────────────────────────────────────── */
+  const yiArr = recs.map(r => r.yi || 0);
+  M['mech.yi.mean'] = n ? p1(sum(r => r.yi) / n) : 0;
+  const yiDebtN = recs.filter(r => r.yiDebt).length;
+  M['mech.yi.debt.livesPct'] = n ? p1(yiDebtN / n * 100) : 0;
+  for (const pair of [['full', 'full'], ['part', 'part'], ['none', 'none']]) {
+    const c = recs.filter(r => r.yiPay === pair[1]).length;
+    M[`mech.yi.pay.${pair[0]}.pct`] = n ? p1(c / n * 100) : 0;
+    D['yi_' + pair[0]] = c;
+  }
+  M['mech.yi.unpaid.pct'] = n ? p1(recs.filter(r => (r.yi || 0) >= 16).length / n * 100) : 0;
+  D.yiDebtN = yiDebtN;
+
   D.darkN = darkN;
   D.darkCase = darkCase;
   D.ink40N = ink40N;

@@ -452,7 +452,9 @@ const SPECIAL_KEYS = [
   'noHeir', 'raised', 'knot', 'duizhi', 'peer', 'job', 'jobAxis', 'edit', 'law', 'ink',
   'study', 'yun', 'pupil', 'deed', 'cutParty', 'faction', 'lone',
   // 卡 03-03：退还只减墨（不动律），上船记号不进六事 —— 两者都不满足纯加法模型
-  'inkOff', 'darkIn'
+  'inkOff', 'darkIn',
+  // 卡 03-05：义账三选（清账数 / 赖账），义不进六事
+  'yiPay', 'yiNo'
 ];
 function isCleanOpt(o) {
   for (let i = 0; i < SPECIAL_KEYS.length; i++) if (o[SPECIAL_KEYS[i]] !== undefined) return false;
@@ -524,6 +526,9 @@ function playLife(h, strategy, ctx) {
     fullSilent: 0, wipedBy: null, law: 0,
     inkGross: 0,          // 本局"墨的供给"：选项里写下的 ink 之和（含后来被退还掉的那部分）
     inkFinal: 0,          // 终局实际留在身上的墨
+    yi: 0,                // 终局的义（卡 03-05）
+    yiDebt: false,        // 义账事件触发过
+    yiPay: null,          // 'full' / 'part' / 'none'
     darkIn: false,        // 上过船（深水链的二、三道门只认它）
     refExp: [0, 0], refFire: [0, 0],
     capLuBase: null, capLu: null, study: 0, luInMin: null,
@@ -565,6 +570,8 @@ function playLife(h, strategy, ctx) {
     api.choose(ev, o);           // 真代码
     rec.folds++;
     if (o.ink) rec.inkGross += o.ink;   // 墨的供给按"选项上写的数"记，不按终局余额
+    if (o.yiPay) rec.yiPay = o.yiPay >= 99 ? 'full' : 'part';
+    if (o.yiNo) rec.yiPay = 'none';
     rec.events.push(evId);
     rec.choices.push({ id: evId, idx: venue.i, n: ev.opts.length, nVis: vis.length, t: o.t || '', pick });
 
@@ -672,6 +679,8 @@ function playLife(h, strategy, ctx) {
     rec.full = rec.events.filter(e => e === 'full').length;
     rec.law = L2.law || 0;
     rec.inkFinal = L2.ink || 0;
+    rec.yi = L2.yi || 0;
+    rec.yiDebt = rec.events.indexOf('yidebt') >= 0;
     rec.darkIn = !!L2.darkIn;
 
     /* ── 自检：capOf / recalcCaps 的口径（⑤ 的验收靠这三个数） ──────
