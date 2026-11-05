@@ -1201,7 +1201,7 @@ const EV = [
       line:'我把她争下来了。代价是我父亲那年没添过一件衣裳。' },
     { t:'放', sub:'不耽误她', eff:{室:-6,寿:-4}, cai:{缘:1},
       line:'我放手了。后来每次升迁，我都会想起她一次。' },
-    { t:'不谈了', sub:'一个人也能过', eff:{誉:-2,寿:2}, cai:{忍:2}, lone:true,
+    { t:'不谈了', sub:'一个人也能过 · 此后无室，不回头（五项结算）', eff:{誉:-2,寿:2}, cai:{忍:2}, lone:true,
       line:'我说我不谈了。说完心里空了一块，也轻了一块。' }
    ]},
 
@@ -1690,7 +1690,7 @@ const EV = [
       line:'我开始跑了。那几年我跑的路，比前二十年加起来都多。' },
     { t:'应 下', sub:'两家都满意', eff:{室:4}, love:'accept',
       line:'我应下了。一切都办得很顺，顺得像没有我这个人。' },
-    { t:'不 议 亲', sub:'这一辈子一个人过', eff:{誉:3,寿:3}, love:'none',
+    { t:'不 议 亲', sub:'一个人过到底 · 无室档，六事按五项结算', eff:{誉:3,寿:3}, love:'none',
       line:'我说不议亲。我娘哭了一夜，第二天照常做饭。' }
    ]},
 
@@ -2541,6 +2541,12 @@ function startLife(origin){
   };
   const bias = JOB_BIAS[S.life.job] || {};
   for (const k in bias) S.life.trk[k] = (S.life.trk[k] || 0) + bias[k];
+  // 缘格「孤辰寡宿」落码（卡 03-04）：天机屏承诺过"第六局直接进无室档"，
+  // 此前六格全部只是文案。缘格是命，不给 loneSoft——"迟来"的回头路不走
+  if (S.index >= 6 && S.tianji === '孤辰寡宿'){
+    S.life.lone = true;
+    S.life.lines.push('生下来就是一个人。命书上写着：孤辰寡宿。');
+  }
   recalcCaps(S.life);
   renderLife();
   go('life');
@@ -2554,7 +2560,9 @@ function veilLine(L){
   if (!L.revealed) return '六 事 未 明 · 只有档位，没有数<br>'
     + '<span style="font-size:11px;opacity:.75">这一生看最薄的那一格：撑不住的那一样，把其余的都说成空的</span>';
   return L.lone
-    ? '无室 · 六事按五项结算<br>每年多两格 · 上限各 +5<br>没有人等你回去：病中无人守夜，六十以后每年要自己坐过一夜'
+    ? '无室 · 六事按五项结算<br>'
+      + (L.track === '孤臣' ? '每年多两格 · 上限各 +5<br>' : '')
+      + '没有人等你回去：病中无人守夜，六十以后每年要自己坐过一夜'
     : '月令十二格 · 花在哪，就在哪';
 }
 
@@ -2599,8 +2607,8 @@ function renderLife(){
     '职 · ' + (L.era === 'an' ? j.an : j.mo)
       + '（' + j.axis + (capLu === 0 ? ' · 无禄，财誉 +10' : ' · 禄顶 ' + capLu) + '）',
     '轨 · ' + (L.track ? trkName(L.track, L) + '（缺' + TRK(L.track).lack + '）'
-      : (j.axis === '市' ? '不入传 —— 史书不写你这样的人'
-                         : '未定 —— 你在事上还没选过边')),
+      : (j.axis === '市' ? '不入传 —— 史书不写你这样的人；这一行只有一种人入了传：谁也不靠的'
+                         : '未定 —— 你在事上还没选过边；也有人谁也不靠')),
     heirHint(L)
   ];
   // 同榜不在六事里，但他们是你这一辈子的另一半背景
@@ -3430,6 +3438,7 @@ function pickEvent(){
 function choose(ev, o){
   const L = S.life;
   const veilBefore = !L.revealed;
+  const wasLone = !!L.lone;        // 无室档迁移检测用（false→true 才闪规则）
   const deltas = [];
   for (const k in (o.eff || {})){
     const raw = o.eff[k];
@@ -3564,6 +3573,12 @@ function choose(ev, o){
     }
   }
   if (o.unlone){ L.lone = false; L.loneSoft = false; }
+  // 无室档在这一折确立：把规则说一次，手记落账。方外不闪——剃头那句就是它的开场
+  if (L.lone && !wasLone && !L.monk){
+    loneFlash();
+    heirNote(L, L.era === 'an' ? '打这以后，屋里只有一双筷子。六事按五项结算。'
+                               : '打这以后，一个人过。六事按五项结算。');
+  }
   if (o.concubine){
     L.concubine = true;
     // 有了第二个人，就迟早有一次要摆到桌上
@@ -3917,6 +3932,17 @@ function trackFlash(a, b, lack){
   document.body.appendChild(div);
   setTimeout(() => div.remove(), 2200);
   heirNote(L, a.replace(/ /g, '') + '：' + bn);
+}
+
+/* 无室档确立的这一折，把规则说一次。玩家不是来猜的。
+   只说档本身的代价——「多两格 / +5」是孤臣轨的待遇，不定轨就没有，
+   veilLine 曾把这两条混进来，等于奖励"一个人过"，与「轨分不是自报的」相抵触。 */
+function loneFlash(){
+  const div = document.createElement('div');
+  div.className = 'flash';
+  div.innerHTML = '<div class="deltas"><span style="color:var(--ink2);letter-spacing:.14em">无室档 · 六事按五项结算 · 病中无人守夜</span></div>';
+  document.body.appendChild(div);
+  setTimeout(() => div.remove(), 2400);
 }
 
 /* ══════════════ 情关（§7） ══════════════
